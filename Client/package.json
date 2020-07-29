@@ -1,0 +1,29 @@
+{
+  "name": "@thd/supply-chain-map",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "lint": "tsc --noEmit && eslint '*/**/*.{js,ts,tsx}' --quiet --fix",
+    "build": "webpack",
+    "start": "webpack-dev-server"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "mapbox-gl": "^1.10.0"
+  },
+  "devDependencies": {
+    "@types/mapbox-gl": "^1.9.1",
+    "@typescript-eslint/eslint-plugin": "^2.30.0",
+    "@typescript-eslint/parser": "^2.30.0",
+    "@webpack-cli/init": "^0.3.0",
+    "eslint": "^6.8.0",
+    "html-webpack-plugin": "^4.3.0",
+    "ts-loader": "^7.0.2",
+    "typescript": "^3.8.3",
+    "webpack": "^4.43.0",
+    "webpack-cli": "^3.3.11",
+    "webpack-dev-server": "^3.10.3"
+  }
+}
