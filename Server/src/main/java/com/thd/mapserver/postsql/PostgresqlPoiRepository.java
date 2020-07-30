@@ -2,11 +2,14 @@ package com.thd.mapserver.postsql;
 
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Locale;
 import java.util.UUID;
 
 import com.thd.mapserver.domain.SFAFeature;
 import com.thd.mapserver.domain.geom.Point;
+import com.thd.mapserver.domain.geom.Polygon;
 import com.thd.mapserver.interfaces.PoiRepository;
 
 public class PostgresqlPoiRepository implements PoiRepository {
@@ -17,24 +20,49 @@ public class PostgresqlPoiRepository implements PoiRepository {
     }
 
     @Override
-    public void add(SFAFeature poi) {
-        final var sqlUpdateStr = "INSERT INTO poi (srid, geometry, typ, description) VALUES (?, ST_GeomFromText(?, ?), ?, ?);";
+    public void add(List<SFAFeature> poi) {
+        final var sqlDescriptionString = "INSERT INTO descriptions (typ, description) VALUES (?, ?);";
+        final var sqlPoiString = "INSERT INTO pois (id, geometry, featureid, descriptiontype) VALUES (?, ST_GeomFromText(?), ?, ?);";
+        if(!poi.isEmpty()) {
+            try (final var connection = DriverManager.getConnection(connectionString);) {
+                UUID featureId = UUID.randomUUID();
+                for (SFAFeature feature : poi) {
 
-        try (final var connection = DriverManager.getConnection(connectionString);
-             var pstmt = connection.prepareStatement(sqlUpdateStr);) {
-            final var point = (Point) poi.getGeometry();
+                    try {
+                        var pstmtDesc = connection.prepareStatement(sqlDescriptionString);
 
-            pstmt.setObject(1, UUID.fromString(poi.getId()));
-            final var wkt = String.format(Locale.ROOT, "POINT(%f %f)", point.getCoordinate().getX(), point.getCoordinate().getY());
-            pstmt.setString(2, wkt);
-            pstmt.setInt(3, point.srid());
-            pstmt.setString(4, (String) poi.getProperties().get("typ"));
-            pstmt.setString(5, (String) poi.getProperties().get("description"));
+                        pstmtDesc.setObject(1, feature.getProperties().get("typ"));
+                        pstmtDesc.setObject(2, feature.getProperties().get("description"));
 
-            pstmt.executeUpdate();
-        } catch (final SQLException e) {
-            throw new PostgresqlException("Could not save the poi feature.", e);
+                        pstmtDesc.executeUpdate();
+                    } catch (final SQLException e) {
+                        e.printStackTrace();
+                        //TODO: Make this professional instead of crappy (ask first if "typ" exists)
+                        //currently every type is tried and when a type conflict occure it get ignored
+                        /*Fall through*/
+                    }
+
+                    var pstmtPoi = connection.prepareStatement(sqlPoiString);
+
+                    pstmtPoi.setObject(1, UUID.randomUUID());
+                    pstmtPoi.setObject(2, feature.getGeometry().asST_GeomText());
+                    pstmtPoi.setObject(3, featureId);
+                    pstmtPoi.setObject(4, feature.getProperties().get("typ"));
+
+                    pstmtPoi.executeUpdate();
+                }
+
+            } catch (final SQLException e) {
+                e.printStackTrace();
+                throw new PostgresqlException("Could not save the poi feature.", e);
+            }
         }
     }
 
+    @Override
+    public void add(SFAFeature poi) {
+        var list = new ArrayList<SFAFeature>();
+        list.add(poi);
+        add(list);
+    }
 }

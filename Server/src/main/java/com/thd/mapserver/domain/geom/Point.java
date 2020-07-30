@@ -55,6 +55,11 @@ public class Point extends Geometry {
 	}
 
 	@Override
+	public String asST_GeomText() {
+		return String.format("POINT(%s %s)", coordinate.getX(), coordinate.getY());
+	}
+
+	@Override
 	public String geometryType() {
 		return TYPENAME_POINT;
 	}
