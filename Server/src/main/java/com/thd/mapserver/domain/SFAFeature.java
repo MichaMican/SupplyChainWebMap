@@ -12,10 +12,10 @@ public class SFAFeature {
 
 	private final String id;
 	private final Geometry geometry;
-	private final Map<String, String> properties;
+	private final Map<String, Object> properties;
 	private final String featureType;
 
-	public SFAFeature(String id, Geometry geometry, Map<String, String> properties) {
+	public SFAFeature(String id, Geometry geometry, Map<String, Object> properties) {
 		this(id, geometry, properties, "");
 	}
 
@@ -23,7 +23,7 @@ public class SFAFeature {
 		this(id, geometry, Collections.emptyMap(), featureType);
 	}
 
-	public SFAFeature(String id, Geometry geometry, Map<String, String> properties, String featureType) {
+	public SFAFeature(String id, Geometry geometry, Map<String, Object> properties, String featureType) {
 		this.id = id;
 		this.geometry = geometry;
 		this.properties = properties;
@@ -38,7 +38,7 @@ public class SFAFeature {
 		return this.geometry;
 	}
 
-	public Map<String, String> getProperties() {
+	public Map<String, Object> getProperties() {
 		return this.properties;
 	}
 
