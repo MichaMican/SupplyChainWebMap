@@ -15,6 +15,8 @@ public abstract class Geometry {
 
 	public abstract String asText();
 
+	public abstract String asST_GeomText();
+
 	public abstract String geometryType();
 
 	@Override
