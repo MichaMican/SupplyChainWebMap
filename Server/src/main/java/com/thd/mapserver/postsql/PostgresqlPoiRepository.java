@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Locale;
 import java.util.UUID;
 
+import com.thd.mapserver.Settings;
 import com.thd.mapserver.domain.SFAFeature;
 import com.thd.mapserver.domain.geom.Point;
 import com.thd.mapserver.domain.geom.Polygon;
@@ -15,8 +16,9 @@ import com.thd.mapserver.interfaces.PoiRepository;
 public class PostgresqlPoiRepository implements PoiRepository {
     private final String connectionString;
 
-    public PostgresqlPoiRepository(String connectionString) {
-        this.connectionString = connectionString;
+    public PostgresqlPoiRepository(){
+        Settings settings = Settings.getInstance();
+        this.connectionString = settings.getDbConString();
     }
 
     @Override

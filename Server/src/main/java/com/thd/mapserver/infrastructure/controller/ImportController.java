@@ -20,10 +20,7 @@ import java.util.List;
 public class ImportController {
     @PostMapping(path = "")
     public ResponseEntity importFromGeoJson(@RequestBody GeoJsonObject geoJsonObject) {
-
-        Settings settings = Settings.getInstance();
-        System.out.println("Parsing");
-        PostgresqlPoiRepository dbConnect = new PostgresqlPoiRepository(settings.getDbConString());
+        PostgresqlPoiRepository dbConnect = new PostgresqlPoiRepository();
 
         if (geoJsonObject instanceof FeatureCollection) {
             List<Feature> features = ((FeatureCollection) geoJsonObject).getFeatures();
