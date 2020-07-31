@@ -2,6 +2,7 @@ package com.thd.mapserver.infrastructure.controller;
 
 import java.util.List;
 
+import com.thd.mapserver.models.PoiDescDbDto;
 import com.thd.mapserver.postsql.PostgresqlPoiRepository;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -22,13 +23,6 @@ public class LandingPageController {
 	@GetMapping("/conformance")
 	public String getLandingPage() {
 		return "conformance";
-	}
-
-	@GetMapping("/test")
-	public String test() {
-		var dbCon = new PostgresqlPoiRepository();
-		dbCon.getAll();
-		return "Finished";
 	}
 	
 	public static class FeatureCollection {

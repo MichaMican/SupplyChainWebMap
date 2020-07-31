@@ -11,21 +11,11 @@ import java.util.List;
 import java.util.UUID;
 
 public final class DbParseHelper {
-    public static FeatureCollection parsePoisDescJoin(ResultSet dbResponseToParse){
+    public static FeatureCollection parsePoisDescJoin(List<PoiDescDbDto> elementsToParse) {
         var featureCollection = new FeatureCollection();
 
-        List<PoiDescDbDto> rows = new ArrayList<>();
+        for (var element : elementsToParse) {
 
-        try {
-            while (dbResponseToParse.next()) {
-                rows.add(new PoiDescDbDto(UUID.fromString(dbResponseToParse.getString(1)),
-                        dbResponseToParse.getString(2),
-                        dbResponseToParse.getString(3),
-                        dbResponseToParse.getString(4))
-                );
-            }
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
         }
 
         return null;

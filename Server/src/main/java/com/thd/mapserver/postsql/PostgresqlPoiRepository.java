@@ -2,14 +2,13 @@ package com.thd.mapserver.postsql;
 
 import java.sql.DriverManager;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.UUID;
+import java.util.*;
 
 import com.thd.mapserver.Settings;
 import com.thd.mapserver.domain.SFAFeature;
 import com.thd.mapserver.helper.DbParseHelper;
 import com.thd.mapserver.interfaces.PoiRepository;
+import com.thd.mapserver.models.PoiDescDbDto;
 import org.apache.commons.lang3.NotImplementedException;
 import org.geojson.FeatureCollection;
 
@@ -61,14 +60,15 @@ public class PostgresqlPoiRepository implements PoiRepository {
         add(list);
     }
 
-    public FeatureCollection getAll(){
+    @Override
+    public List<PoiDescDbDto> getAll(){
         final var sqlQuery = "SELECT p.id, ST_AsText(p.geometry) as geometry_astext, d.typ, d.description " +
                 "FROM pois p LEFT JOIN descriptions d ON p.descriptiontype = d.typ;";
 
         try(final var connection = DriverManager.getConnection(connectionString)){
             var pstmt = connection.prepareStatement(sqlQuery);
             var res = pstmt.executeQuery();
-            return DbParseHelper.parsePoisDescJoin(res);
+            return PoiDescDbDto.parseDbResponse(res);
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
@@ -77,13 +77,55 @@ public class PostgresqlPoiRepository implements PoiRepository {
 
     }
 
-    public FeatureCollection getByType(String type){
+    @Override
+    public List<PoiDescDbDto> getByType(String type){
         var list = new ArrayList<String>();
         list.add(type);
         return getByType(list);
     }
 
-    public FeatureCollection getByType(List<String> types){
-        throw new NotImplementedException();
+    @Override
+    public List<PoiDescDbDto> getByType(List<String> types){
+        String sqlQuery;
+
+        if(types.isEmpty()){
+            return null;
+        } else {
+            StringBuilder sb = new StringBuilder("SELECT p.id, ST_AsText(p.geometry) as geometry_astext, d.typ, d.description " +
+                    "FROM pois p LEFT JOIN descriptions d ON p.descriptiontype = d.typ WHERE ");
+
+            Iterator<String> typIter = types.iterator();
+            while (typIter.hasNext()){
+                typIter.next();
+
+                sb.append("typ = ?");
+
+                if(typIter.hasNext()){
+                    sb.append(" OR ");
+                }
+            }
+
+            sqlQuery = sb.toString();
+        }
+
+        try(final var connection = DriverManager.getConnection(connectionString)){
+            var pstmt = connection.prepareStatement(sqlQuery);
+
+            for(int i = 0; i < types.size(); i++){
+                pstmt.setObject(i+1, types.get(i));
+            }
+
+            var res = pstmt.executeQuery();
+            return PoiDescDbDto.parseDbResponse(res);
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+
+        return null;
+    }
+
+    public List<PoiDescDbDto> getByType(String... types){
+        List<String> list = Arrays.asList(types);
+        return getByType(list);
     }
 }
