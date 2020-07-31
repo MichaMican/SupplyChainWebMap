@@ -7,7 +7,7 @@ import java.util.Iterator;
 import java.util.List;
 
 public class Polygon extends Surface {
-    private static final String TYPENAME_POINT = "Point";
+    private static final String TYPENAME_POLYGON = "Point";
 
     private final List<List<Coordinate>> coordinates;
 
@@ -21,12 +21,12 @@ public class Polygon extends Surface {
     }
 
     @Override
-    public String asText() {
+    public String toString() {
         StringBuilder sb = new StringBuilder("[\n");
         for (List<Coordinate> polCors : coordinates) {
             sb.append("[\n");
             for (Coordinate cor : polCors) {
-                sb.append(String.format("[%s(%s)],\n", TYPENAME_POINT.toUpperCase(), GeometryHelper.convertCoordinatesToWkt(cor)));
+                sb.append(String.format("[%s(%s)],\n", TYPENAME_POLYGON.toUpperCase(), GeometryHelper.convertCoordinatesToWkt(cor)));
             }
             sb.append("]\n");
         }
@@ -37,7 +37,7 @@ public class Polygon extends Surface {
     }
 
     @Override
-    public String asST_GeomText() {
+    public String asText() {
         StringBuilder sb;
 
         if (coordinates.size() > 1) {
@@ -72,7 +72,7 @@ public class Polygon extends Surface {
         Iterator<Coordinate> corIter = coordinates.iterator();
         while (corIter.hasNext()){
             Coordinate cor = corIter.next();
-            sb.append(String.format("%s %s", cor.getX(), cor.getY()));
+            sb.append(String.format("%s", GeometryHelper.convertCoordinatesToWkt(cor)));
             //this checks if there is another coordinate in the list
             if(corIter.hasNext()){
                 sb.append(",");
@@ -82,6 +82,6 @@ public class Polygon extends Surface {
 
     @Override
     public String geometryType() {
-        return TYPENAME_POINT;
+        return TYPENAME_POLYGON;
     }
 }

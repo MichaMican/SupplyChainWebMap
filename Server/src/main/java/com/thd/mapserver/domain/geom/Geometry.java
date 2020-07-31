@@ -13,9 +13,9 @@ public abstract class Geometry {
 		return this.srid;
 	}
 
-	public abstract String asText();
+	public abstract String toString();
 
-	public abstract String asST_GeomText();
+	public abstract String asText();
 
 	public abstract String geometryType();
 

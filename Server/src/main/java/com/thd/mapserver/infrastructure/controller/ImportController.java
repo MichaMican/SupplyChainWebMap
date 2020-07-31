@@ -1,6 +1,5 @@
 package com.thd.mapserver.infrastructure.controller;
 
-import com.thd.mapserver.Settings;
 import com.thd.mapserver.domain.SFAFeature;
 import com.thd.mapserver.models.Coordinate;
 import com.thd.mapserver.postsql.PostgresqlPoiRepository;
@@ -19,40 +18,34 @@ import java.util.List;
 @RequestMapping("/import")
 public class ImportController {
     @PostMapping(path = "")
-    public ResponseEntity importFromGeoJson(@RequestBody GeoJsonObject geoJsonObject) {
+    public ResponseEntity<String> importFromGeoJson(@RequestBody GeoJsonObject geoJsonObject) {
         PostgresqlPoiRepository dbConnect = new PostgresqlPoiRepository();
 
         if (geoJsonObject instanceof FeatureCollection) {
             List<Feature> features = ((FeatureCollection) geoJsonObject).getFeatures();
             for (var feature : features) {
-                if (feature.getGeometry() instanceof GeometryCollection) {
-                    GeometryCollection geometryCollection = (GeometryCollection) feature.getGeometry();
-                    List<SFAFeature> sfaFeatures = new ArrayList<>();
-                    for (var geometry : geometryCollection) {
-                        SFAFeature newSFAFeature = parseGeometry(geometry, feature);
-                        if (newSFAFeature != null) {
-                            sfaFeatures.add(newSFAFeature);
-                        } else {
-                            return new ResponseEntity("only Points and Polygons are currently supported", HttpStatus.BAD_REQUEST);
-                        }
-                    }
-                    dbConnect.add(sfaFeatures);
+
+                com.thd.mapserver.domain.geom.Geometry parsedGeom = parseGeometry(feature.getGeometry());
+
+                if (parsedGeom != null) {
+                    SFAFeature newSFAFeature = new SFAFeature(
+                            feature.getId(),
+                            parsedGeom,
+                            feature.getProperties(),
+                            parsedGeom.geometryType()
+                    );
+                    dbConnect.add(newSFAFeature);
                 } else {
-                    SFAFeature newSFAFeature = parseGeometry(feature.getGeometry(), feature);
-                    if (newSFAFeature != null) {
-                        dbConnect.add(newSFAFeature);
-                    } else {
-                        return new ResponseEntity("only Points and Polygons are currently supported", HttpStatus.BAD_REQUEST);
-                    }
+                    return new ResponseEntity<>("only Points and Polygons are currently supported", HttpStatus.BAD_REQUEST);
                 }
             }
         } else {
-            return new ResponseEntity("only Geojson featureCollections are supported", HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>("only Geojson featureCollections are supported", HttpStatus.BAD_REQUEST);
         }
-        return new ResponseEntity(HttpStatus.OK);
+        return new ResponseEntity<>("", HttpStatus.OK);
     }
 
-    private SFAFeature parseGeometry(GeoJsonObject geometry, Feature feature) {
+    private com.thd.mapserver.domain.geom.Geometry parseGeometry(GeoJsonObject geometry) {
 
         int srid = 0;
 
@@ -60,14 +53,7 @@ public class ImportController {
             LngLatAlt cor = ((Point) geometry).getCoordinates();
 
             return (
-                    new SFAFeature(
-                        feature.getId(),
-                        new com.thd.mapserver.domain.geom.Point(
-                                cor.getLongitude(), cor.getLatitude(), cor.getAltitude(), srid
-                        ),
-                        feature.getProperties(),
-                        "Point"
-                    )
+                new com.thd.mapserver.domain.geom.Point(cor.getLongitude(), cor.getLatitude(), cor.getAltitude(), srid)
             );
 
         } else if (geometry instanceof Polygon) {
@@ -84,16 +70,15 @@ public class ImportController {
                 coordinates.add(polygonPart);
             }
 
-            return (
-                    new SFAFeature(
-                        feature.getId(),
-                        new com.thd.mapserver.domain.geom.Polygon(
-                                coordinates, srid
-                        ),
-                        feature.getProperties(),
-                        "Polygon"
-                    )
-            );
+            return new com.thd.mapserver.domain.geom.Polygon(coordinates, srid);
+        } else if (geometry instanceof GeometryCollection) {
+
+            List<com.thd.mapserver.domain.geom.Geometry> geometries = new ArrayList<>();
+            for (var subGeometry : ((GeometryCollection) geometry).getGeometries()) {
+                geometries.add(parseGeometry(subGeometry));
+            }
+            return new com.thd.mapserver.domain.geom.GeometryCollection(geometries, srid);
+
         } else {
             return null;
         }

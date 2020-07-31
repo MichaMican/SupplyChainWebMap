@@ -50,13 +50,13 @@ public class Point extends Geometry {
 	}
 
 	@Override
-	public String asText() {
+	public String toString() {
 		return String.format("%s(%s)", TYPENAME_POINT.toUpperCase(), GeometryHelper.convertCoordinatesToWkt(this.coordinate));
 	}
 
 	@Override
-	public String asST_GeomText() {
-		return String.format("POINT(%s %s)", coordinate.getX(), coordinate.getY());
+	public String asText() {
+		return String.format("POINT(%s)", GeometryHelper.convertCoordinatesToWkt(coordinate));
 	}
 
 	@Override

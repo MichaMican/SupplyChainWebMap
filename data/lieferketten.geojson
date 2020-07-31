@@ -7,17 +7,45 @@
         "typ": "Indium",
         "description": "steckt in Touchscreens der Tablets und Smartphones. Zum Beispiel aus China, Peru oder Kanada"
       },
-      "geometry":  {
-         "type": "GeometryCollection",
-         "geometries": [{
-             "type": "Point",
-             "coordinates": [  -113.203125,
-          			58.99531118795094]
-         }, {
-             "type": "Polygon",
-             "coordinates": [[[-113.20466995239258,58.99581962326816],[-113.20466995239258,58.99458168068663],[-113.20158004760742,58.9946480001675],[-113.20153713226318,58.99590804603525],[-113.20466995239258,58.99581962326816]]]
-         }]
-		}
+      "geometry": {
+        "type": "GeometryCollection",
+        "geometries": [
+          {
+            "type": "Point",
+            "coordinates": [
+              -113.203125,
+              58.99531118795094
+            ]
+          },
+          {
+            "type": "Polygon",
+            "coordinates": [
+              [
+                [
+                  -113.20466995239258,
+                  58.99581962326816
+                ],
+                [
+                  -113.20466995239258,
+                  58.99458168068663
+                ],
+                [
+                  -113.20158004760742,
+                  58.9946480001675
+                ],
+                [
+                  -113.20153713226318,
+                  58.99590804603525
+                ],
+                [
+                  -113.20466995239258,
+                  58.99581962326816
+                ]
+              ]
+            ]
+          }
+        ]
+      }
     },
     {
       "type": "Feature",
@@ -51,7 +79,7 @@
       "type": "Feature",
       "properties": {
         "typ": "Lithium",
-        "description": "...für die Akkuproduktion. Zum Beispiel aus Bolivien, Chile oder Argentinien"
+        "description": "...fÃ¼r die Akkuproduktion. Zum Beispiel aus Bolivien, Chile oder Argentinien"
       },
       "geometry": {
         "type": "Point",
@@ -65,7 +93,7 @@
       "type": "Feature",
       "properties": {
         "typ": "Lithium",
-        "description": "...für die Akkuproduktion. Zum Beispiel aus Bolivien, Chile oder Argentinien"
+        "description": "...fÃ¼r die Akkuproduktion. Zum Beispiel aus Bolivien, Chile oder Argentinien"
       },
       "geometry": {
         "type": "Point",
@@ -79,7 +107,7 @@
       "type": "Feature",
       "properties": {
         "typ": "Lithium",
-        "description": "...für die Akkuproduktion. Zum Beispiel aus Bolivien, Chile oder Argentinien"
+        "description": "...fÃ¼r die Akkuproduktion. Zum Beispiel aus Bolivien, Chile oder Argentinien"
       },
       "geometry": {
         "type": "Point",
@@ -93,7 +121,7 @@
       "type": "Feature",
       "properties": {
         "typ": "Gold",
-        "description": "...wird für die Kontakte der SIM-Karte und auch den Akku verwendet. Vorkommen gibt es bspw in China, Südafrika, Australien oder den USA."
+        "description": "...wird fÃ¼r die Kontakte der SIM-Karte und auch den Akku verwendet. Vorkommen gibt es bspw in China, SÃ¼dafrika, Australien oder den USA."
       },
       "geometry": {
         "type": "Point",
@@ -107,7 +135,7 @@
       "type": "Feature",
       "properties": {
         "typ": "Gold",
-        "description": "...wird für die Kontakte der SIM-Karte und auch den Akku verwendet. Vorkommen gibt es bspw in China, Südafrika, Australien oder den USA."
+        "description": "...wird fÃ¼r die Kontakte der SIM-Karte und auch den Akku verwendet. Vorkommen gibt es bspw in China, SÃ¼dafrika, Australien oder den USA."
       },
       "geometry": {
         "type": "Point",
@@ -121,7 +149,7 @@
       "type": "Feature",
       "properties": {
         "typ": "Gold",
-        "description": "...wird für die Kontakte der SIM-Karte und auch den Akku verwendet. Vorkommen gibt es bspw in China, Südafrika, Australien oder den USA."
+        "description": "...wird fÃ¼r die Kontakte der SIM-Karte und auch den Akku verwendet. Vorkommen gibt es bspw in China, SÃ¼dafrika, Australien oder den USA."
       },
       "geometry": {
         "type": "Point",
@@ -135,7 +163,7 @@
       "type": "Feature",
       "properties": {
         "typ": "Gold",
-        "description": "...wird für die Kontakte der SIM-Karte und auch den Akku verwendet. Vorkommen gibt es bspw in China, Südafrika, Australien oder den USA."
+        "description": "...wird fÃ¼r die Kontakte der SIM-Karte und auch den Akku verwendet. Vorkommen gibt es bspw in China, SÃ¼dafrika, Australien oder den USA."
       },
       "geometry": {
         "type": "Point",
@@ -149,7 +177,7 @@
       "type": "Feature",
       "properties": {
         "typ": "Zinn",
-        "description": "... wird für die Lötstellen benötigt. Der Rohstoff kommt bspw aus dem Kongo, Indonesien, Australien, Brasilien, Russland"
+        "description": "... wird fÃ¼r die LÃ¶tstellen benÃ¶tigt. Der Rohstoff kommt bspw aus dem Kongo, Indonesien, Australien, Brasilien, Russland"
       },
       "geometry": {
         "type": "Point",
@@ -163,7 +191,7 @@
       "type": "Feature",
       "properties": {
         "typ": "Zinn",
-        "description": "... wird für die Lötstellen benötigt. Der Rohstoff kommt bspw aus dem Kongo, Indonesien, Australien, Brasilien, Russland"
+        "description": "... wird fÃ¼r die LÃ¶tstellen benÃ¶tigt. Der Rohstoff kommt bspw aus dem Kongo, Indonesien, Australien, Brasilien, Russland"
       },
       "geometry": {
         "type": "Point",
@@ -177,7 +205,7 @@
       "type": "Feature",
       "properties": {
         "typ": "Zinn",
-        "description": "... wird für die Lötstellen benötigt. Der Rohstoff kommt bspw aus dem Kongo, Indonesien, Australien, Brasilien, Russland"
+        "description": "... wird fÃ¼r die LÃ¶tstellen benÃ¶tigt. Der Rohstoff kommt bspw aus dem Kongo, Indonesien, Australien, Brasilien, Russland"
       },
       "geometry": {
         "type": "Point",
@@ -191,7 +219,7 @@
       "type": "Feature",
       "properties": {
         "typ": "Zinn",
-        "description": "... wird für die Lötstellen benötigt. Der Rohstoff kommt bspw aus dem Kongo, Indonesien, Australien, Brasilien, Russland"
+        "description": "... wird fÃ¼r die LÃ¶tstellen benÃ¶tigt. Der Rohstoff kommt bspw aus dem Kongo, Indonesien, Australien, Brasilien, Russland"
       },
       "geometry": {
         "type": "Point",
@@ -205,7 +233,7 @@
       "type": "Feature",
       "properties": {
         "typ": "Zinn",
-        "description": "... wird für die Lötstellen benötigt. Der Rohstoff kommt bspw aus dem Kongo, Indonesien, Australien, Brasilien, Russland"
+        "description": "... wird fÃ¼r die LÃ¶tstellen benÃ¶tigt. Der Rohstoff kommt bspw aus dem Kongo, Indonesien, Australien, Brasilien, Russland"
       },
       "geometry": {
         "type": "Point",

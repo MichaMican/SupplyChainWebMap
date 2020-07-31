@@ -13,8 +13,9 @@ public class Coordinate {
         this.z = z;
     }
 
+
     public Coordinate(double x, double y){
-        this(x,y,0);
+        this(x,y,Double.NaN);
     }
 
     public double getX() {
