@@ -48,15 +48,7 @@ public class Polygon extends Surface {
                 var polCors = polCorsIter.next();
                 sb.append("((");
 
-                //TODO: remove redundand code
-                Iterator<Coordinate> corIter = polCors.iterator();
-                while (corIter.hasNext()) {
-                    Coordinate cor = corIter.next();
-                    sb.append(String.format("%s %s", cor.getX(), cor.getY()));
-                    if(corIter.hasNext()){
-                        sb.append(",");
-                    }
-                }
+                appendCoors(sb, polCors);
 
                 sb.append("))");
                 if(polCorsIter.hasNext()){
@@ -68,20 +60,24 @@ public class Polygon extends Surface {
             sb = new StringBuilder("POLYGON((");
             List<Coordinate> polCors = coordinates.get(0);
 
-            Iterator<Coordinate> corIter = polCors.iterator();
-            while (corIter.hasNext()){
-                Coordinate cor = corIter.next();
-                sb.append(String.format("%s %s", cor.getX(), cor.getY()));
-                //this checks if there is another coordinate in the list
-                if(corIter.hasNext()){
-                    sb.append(",");
-                }
-            }
+            appendCoors(sb, polCors);
 
             sb.append("))");
         }
 
         return sb.toString();
+    }
+
+    private void appendCoors(StringBuilder sb, List<Coordinate> coordinates){
+        Iterator<Coordinate> corIter = coordinates.iterator();
+        while (corIter.hasNext()){
+            Coordinate cor = corIter.next();
+            sb.append(String.format("%s %s", cor.getX(), cor.getY()));
+            //this checks if there is another coordinate in the list
+            if(corIter.hasNext()){
+                sb.append(",");
+            }
+        }
     }
 
     @Override

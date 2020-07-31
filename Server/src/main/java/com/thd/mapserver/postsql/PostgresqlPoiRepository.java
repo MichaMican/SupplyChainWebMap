@@ -21,26 +21,20 @@ public class PostgresqlPoiRepository implements PoiRepository {
 
     @Override
     public void add(List<SFAFeature> poi) {
-        final var sqlDescriptionString = "INSERT INTO descriptions (typ, description) VALUES (?, ?);";
+        final var sqlDescriptionString = "INSERT INTO descriptions (typ, description) VALUES (?, ?) ON DUPLICATE KEY UPDATE typ = ?;";
         final var sqlPoiString = "INSERT INTO pois (id, geometry, featureid, descriptiontype) VALUES (?, ST_GeomFromText(?), ?, ?);";
         if(!poi.isEmpty()) {
             try (final var connection = DriverManager.getConnection(connectionString);) {
                 UUID featureId = UUID.randomUUID();
                 for (SFAFeature feature : poi) {
 
-                    try {
-                        var pstmtDesc = connection.prepareStatement(sqlDescriptionString);
+                    var pstmtDesc = connection.prepareStatement(sqlDescriptionString);
 
-                        pstmtDesc.setObject(1, feature.getProperties().get("typ"));
-                        pstmtDesc.setObject(2, feature.getProperties().get("description"));
+                    pstmtDesc.setObject(1, feature.getProperties().get("typ"));
+                    pstmtDesc.setObject(2, feature.getProperties().get("description"));
+                    pstmtDesc.setObject(3, feature.getProperties().get("typ"));
 
-                        pstmtDesc.executeUpdate();
-                    } catch (final SQLException e) {
-                        e.printStackTrace();
-                        //TODO: Make this professional instead of crappy (ask first if "typ" exists)
-                        //currently every type is tried and when a type conflict occure it get ignored
-                        /*Fall through*/
-                    }
+                    pstmtDesc.executeUpdate();
 
                     var pstmtPoi = connection.prepareStatement(sqlPoiString);
 
