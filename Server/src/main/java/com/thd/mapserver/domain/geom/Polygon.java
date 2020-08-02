@@ -39,42 +39,32 @@ public class Polygon extends Surface {
     @Override
     public String asText() {
         StringBuilder sb;
+        sb = new StringBuilder("POLYGON(");
 
-        if (coordinates.size() > 1) {
-            sb = new StringBuilder("MULTIPOLYGON(");
-
-            Iterator<List<Coordinate>> polCorsIter = coordinates.iterator();
-            while (polCorsIter.hasNext()) {
-                var polCors = polCorsIter.next();
-                sb.append("((");
-
-                appendCoors(sb, polCors);
-
-                sb.append("))");
-                if(polCorsIter.hasNext()){
-                    sb.append(",");
-                }
-            }
-            sb.append(")");
-        } else {
-            sb = new StringBuilder("POLYGON((");
-            List<Coordinate> polCors = coordinates.get(0);
+        Iterator<List<Coordinate>> polCorsIter = coordinates.iterator();
+        while (polCorsIter.hasNext()) {
+            var polCors = polCorsIter.next();
+            sb.append("(");
 
             appendCoors(sb, polCors);
 
-            sb.append("))");
+            sb.append(")");
+            if (polCorsIter.hasNext()) {
+                sb.append(",");
+            }
         }
+        sb.append(")");
 
         return sb.toString();
     }
 
-    private void appendCoors(StringBuilder sb, List<Coordinate> coordinates){
+    private void appendCoors(StringBuilder sb, List<Coordinate> coordinates) {
         Iterator<Coordinate> corIter = coordinates.iterator();
-        while (corIter.hasNext()){
+        while (corIter.hasNext()) {
             Coordinate cor = corIter.next();
             sb.append(String.format("%s", GeometryHelper.convertCoordinatesToWkt(cor)));
             //this checks if there is another coordinate in the list
-            if(corIter.hasNext()){
+            if (corIter.hasNext()) {
                 sb.append(",");
             }
         }

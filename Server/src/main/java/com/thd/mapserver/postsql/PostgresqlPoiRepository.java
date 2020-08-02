@@ -23,25 +23,23 @@ public class PostgresqlPoiRepository implements PoiRepository {
     @Override
     public void add(List<SFAFeature> poi) {
         final var sqlDescriptionString = "INSERT INTO descriptions (typ, description) VALUES (?, ?) ON CONFLICT (typ) DO UPDATE SET description=?;";
-        final var sqlPoiString = "INSERT INTO pois (id, geometry, descriptiontype) VALUES (?, ST_GeomFromText(?), ?) ON CONFLICT (id) DO NOTHING;";
+        final var sqlPoiString = "INSERT INTO pois (geometry, descriptiontype) VALUES (ST_GeomFromText(?), ?) ON CONFLICT (geometry, descriptiontype) DO NOTHING;";
         if(!poi.isEmpty()) {
             try (final var connection = DriverManager.getConnection(connectionString)) {
-                UUID featureId = UUID.randomUUID();
                 for (SFAFeature feature : poi) {
 
                     var pstmtDesc = connection.prepareStatement(sqlDescriptionString);
 
-                    pstmtDesc.setObject(1, feature.getProperties().get("typ"));
-                    pstmtDesc.setObject(2, feature.getProperties().get("description"));
-                    pstmtDesc.setObject(3, feature.getProperties().get("description"));
+                    pstmtDesc.setObject(1, feature.getProperties().get("typ").toString());
+                    pstmtDesc.setObject(2, feature.getProperties().get("description").toString());
+                    pstmtDesc.setObject(3, feature.getProperties().get("description").toString());
 
                     pstmtDesc.executeUpdate();
 
                     var pstmtPoi = connection.prepareStatement(sqlPoiString);
 
-                    pstmtPoi.setObject(1, UUID.randomUUID());
-                    pstmtPoi.setObject(2, feature.getGeometry().asText());
-                    pstmtPoi.setObject(3, feature.getProperties().get("typ"));
+                    pstmtPoi.setObject(1, feature.getGeometry().asText());
+                    pstmtPoi.setObject(2, feature.getProperties().get("typ").toString());
 
                     pstmtPoi.executeUpdate();
                 }
@@ -62,7 +60,7 @@ public class PostgresqlPoiRepository implements PoiRepository {
 
     @Override
     public List<PoiDescDbDto> getAll(){
-        final var sqlQuery = "SELECT p.id, ST_AsText(p.geometry) as geometry_astext, d.typ, d.description " +
+        final var sqlQuery = "SELECT p.id, ST_AsGeoJSON(p.geometry) as geometry_asgeojson, d.typ, d.description " +
                 "FROM pois p LEFT JOIN descriptions d ON p.descriptiontype = d.typ;";
 
         try(final var connection = DriverManager.getConnection(connectionString)){
