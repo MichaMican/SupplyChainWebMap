@@ -6,12 +6,14 @@ import java.util.*;
 
 import com.thd.mapserver.Settings;
 import com.thd.mapserver.domain.SFAFeature;
-import com.thd.mapserver.helper.DbParseHelper;
+import com.thd.mapserver.domain.geom.Polygon;
 import com.thd.mapserver.interfaces.PoiRepository;
+import com.thd.mapserver.models.Coordinate;
 import com.thd.mapserver.models.PoiDescDbDto;
-import org.apache.commons.lang3.NotImplementedException;
-import org.geojson.FeatureCollection;
+import com.thd.mapserver.models.featureTypeDto.CollectionDefinitionDto;
+import com.thd.mapserver.models.featureTypeDto.FeatureTypeDto;
 
+@SuppressWarnings("SqlNoDataSourceInspection")
 public class PostgresqlPoiRepository implements PoiRepository {
     private final String connectionString;
 
@@ -22,24 +24,26 @@ public class PostgresqlPoiRepository implements PoiRepository {
 
     @Override
     public void add(List<SFAFeature> poi) {
-        final var sqlDescriptionString = "INSERT INTO descriptions (typ, description) VALUES (?, ?) ON CONFLICT (typ) DO UPDATE SET description=?;";
-        final var sqlPoiString = "INSERT INTO pois (geometry, descriptiontype) VALUES (ST_GeomFromText(?), ?) ON CONFLICT (geometry, descriptiontype) DO NOTHING;";
+        final var sqlDescriptionString = "INSERT INTO feature_types (typ, description, title) VALUES (?, ?, ?) " +
+                "ON CONFLICT (typ) DO NOTHING;";
+        final var sqlPoiString = "INSERT INTO pois (geometry, descriptiontype) VALUES (ST_GeomFromText(?), ?) " +
+                "ON CONFLICT (geometry, descriptiontype) DO NOTHING;";
         if(!poi.isEmpty()) {
             try (final var connection = DriverManager.getConnection(connectionString)) {
                 for (SFAFeature feature : poi) {
 
                     var pstmtDesc = connection.prepareStatement(sqlDescriptionString);
 
-                    pstmtDesc.setObject(1, feature.getProperties().get("typ").toString());
+                    pstmtDesc.setObject(1, feature.getProperties().get("typ").toString().toLowerCase());
                     pstmtDesc.setObject(2, feature.getProperties().get("description").toString());
-                    pstmtDesc.setObject(3, feature.getProperties().get("description").toString());
+                    pstmtDesc.setObject(3, feature.getProperties().get("typ").toString());
 
                     pstmtDesc.executeUpdate();
 
                     var pstmtPoi = connection.prepareStatement(sqlPoiString);
 
                     pstmtPoi.setObject(1, feature.getGeometry().asText());
-                    pstmtPoi.setObject(2, feature.getProperties().get("typ").toString());
+                    pstmtPoi.setObject(2, feature.getProperties().get("typ").toString().toLowerCase());
 
                     pstmtPoi.executeUpdate();
                 }
@@ -56,6 +60,36 @@ public class PostgresqlPoiRepository implements PoiRepository {
         var list = new ArrayList<SFAFeature>();
         list.add(poi);
         add(list);
+    }
+
+    @Override
+    public void addFeatureType(FeatureTypeDto featureTypes) {
+        addCollections(featureTypes.collections);
+    }
+
+    @Override
+    public void addCollections(List<CollectionDefinitionDto> collections) {
+        final var sqlQuery = "INSERT INTO feature_types (typ, description, title) VALUES (?, ?, ?) " +
+                "ON CONFLICT (typ) DO UPDATE SET description = ?, title = ?;";
+        if(!collections.isEmpty()) {
+            try (final var connection = DriverManager.getConnection(connectionString)) {
+                for (CollectionDefinitionDto collection : collections) {
+                    var pstmt = connection.prepareStatement(sqlQuery);
+
+                    pstmt.setObject(1, collection.id);
+                    pstmt.setObject(2, collection.description);
+                    pstmt.setObject(3, collection.title);
+                    pstmt.setObject(4, collection.description);
+                    pstmt.setObject(5, collection.title);
+
+                    pstmt.executeUpdate();
+                }
+
+            } catch (SQLException e) {
+                e.printStackTrace();
+                throw new PostgresqlException("Could not save the poi feature.", e);
+            }
+        }
     }
 
     @Override
@@ -125,5 +159,27 @@ public class PostgresqlPoiRepository implements PoiRepository {
     public List<PoiDescDbDto> getByType(String... types){
         List<String> list = Arrays.asList(types);
         return getByType(list);
+    }
+
+    @Override
+    public List<PoiDescDbDto> getByBboxAndType(List<Coordinate> bbox, String type) {
+        String sqlQuery = "SELECT p.id, ST_AsText(p.geometry) as geometry_astext, d.typ, d.description " +
+                    "FROM pois p LEFT JOIN descriptions d ON p.descriptiontype = d.typ WHERE " +
+                "d.typ = ? AND ST_Overlaps(p.geometry, ST_GeomFromText(?))";
+
+        try(final var connection = DriverManager.getConnection(connectionString)){
+            var pstmt = connection.prepareStatement(sqlQuery);
+
+            pstmt.setObject(1, type);
+            pstmt.setObject(2, new Polygon(bbox, null, 0).asText());
+
+            var res = pstmt.executeQuery();
+            return PoiDescDbDto.parseDbResponse(res);
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+
+        return null;
+
     }
 }

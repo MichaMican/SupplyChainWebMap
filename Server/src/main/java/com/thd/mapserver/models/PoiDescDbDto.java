@@ -11,12 +11,14 @@ public class PoiDescDbDto {
     public String geometry_asGeoJson;
     public String typ;
     public String description;
+    public String title;
 
-    public PoiDescDbDto(UUID id, String geometry_asGeoJson, String typ, String description) {
+    public PoiDescDbDto(UUID id, String geometry_asGeoJson, String typ, String description, String title) {
         this.id = id;
         this.geometry_asGeoJson = geometry_asGeoJson;
         this.typ = typ;
         this.description = description;
+        this.title = title;
     }
 
     public static List<PoiDescDbDto> parseDbResponse(ResultSet dbResponseToParse){
@@ -27,7 +29,8 @@ public class PoiDescDbDto {
                 rows.add(new PoiDescDbDto(UUID.fromString(dbResponseToParse.getString(1)),
                         dbResponseToParse.getString(2),
                         dbResponseToParse.getString(3),
-                        dbResponseToParse.getString(4))
+                        dbResponseToParse.getString(4),
+                        dbResponseToParse.getString(5))
                 );
             }
         } catch (SQLException throwables) {

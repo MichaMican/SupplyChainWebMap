@@ -2,6 +2,7 @@ package com.thd.mapserver.infrastructure.controller;
 
 import com.thd.mapserver.domain.SFAFeature;
 import com.thd.mapserver.models.Coordinate;
+import com.thd.mapserver.models.featureTypeDto.FeatureTypeDto;
 import com.thd.mapserver.postsql.PostgresqlPoiRepository;
 import org.geojson.*;
 import org.springframework.http.HttpStatus;
@@ -17,7 +18,17 @@ import java.util.List;
 @RestController
 @RequestMapping("/import")
 public class ImportController {
-    @PostMapping(path = "")
+
+    @PostMapping(path = "/featureTypes")
+    public ResponseEntity<String> importFeatureTypes(@RequestBody FeatureTypeDto featureType){
+
+        PostgresqlPoiRepository dbConnect = new PostgresqlPoiRepository();
+        dbConnect.addFeatureType(featureType);
+
+        return new ResponseEntity<>("", HttpStatus.OK);
+    }
+
+    @PostMapping(path = "/geojson")
     public ResponseEntity<String> importFromGeoJson(@RequestBody GeoJsonObject geoJsonObject) {
         PostgresqlPoiRepository dbConnect = new PostgresqlPoiRepository();
 
@@ -44,7 +55,6 @@ public class ImportController {
         }
         return new ResponseEntity<>("", HttpStatus.OK);
     }
-
     private com.thd.mapserver.domain.geom.Geometry parseGeometry(GeoJsonObject geometry) {
 
         int srid = 0;

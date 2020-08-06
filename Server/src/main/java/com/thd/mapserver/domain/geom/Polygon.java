@@ -3,6 +3,7 @@ package com.thd.mapserver.domain.geom;
 import com.thd.mapserver.helper.GeometryHelper;
 import com.thd.mapserver.models.Coordinate;
 
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
@@ -14,6 +15,20 @@ public class Polygon extends Surface {
     public Polygon(List<List<Coordinate>> coordinates, int srid) {
         super(srid);
         this.coordinates = coordinates;
+    }
+
+    public Polygon(List<Coordinate> outerCoordinates, List<Coordinate> innerCoordinates, int srid) {
+        super(srid);
+        var list = new ArrayList<List<Coordinate>>();
+        //TODO Throw exception when outer coordinates are empty
+        if(outerCoordinates != null && !outerCoordinates.isEmpty()){
+            list.add(outerCoordinates);
+        }
+        if(innerCoordinates != null && !innerCoordinates.isEmpty()){
+            list.add(innerCoordinates);
+        }
+
+        this.coordinates = list;
     }
 
     public List<List<Coordinate>> getCoordinates() {

@@ -18,6 +18,7 @@ public class Settings {
     private static final String SETTINGS_FILE_PATH = "settings.json";
 
     private String dbConString;
+    private String baseLink;
 
     private Settings() {
 
@@ -42,5 +43,9 @@ public class Settings {
 
     public String getDbConString() {
         return dbConString;
+    }
+
+    public String getBaseLink() {
+        return baseLink;
     }
 }
