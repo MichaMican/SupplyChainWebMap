@@ -89,7 +89,12 @@ public class FeatureCollectionsController {
 
     @GetMapping("/collections/{collectionId}/items.json")
     public HttpEntity<FeatureCollection> getItems(@PathVariable("collectionId") String collectionId) {
-        return new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
+        if(dbConnect.getCollection(collectionId) == null){
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        var dbRes = dbConnect.getByType(collectionId);
+        var response= DbParseHelper.parsePoisDescJoin(dbRes);
+        return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
     @GetMapping("/collections/{collectionId}/items/{featureId}")

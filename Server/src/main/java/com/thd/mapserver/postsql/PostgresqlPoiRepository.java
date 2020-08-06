@@ -95,8 +95,8 @@ public class PostgresqlPoiRepository implements PoiRepository {
 
     @Override
     public List<PoiTypeDbDto> getAll(){
-        final var sqlQuery = "SELECT p.id, ST_AsGeoJSON(p.geometry) as geometry_asgeojson, d.typ, d.description " +
-                "FROM pois p LEFT JOIN descriptions d ON p.descriptiontype = d.typ;";
+        final var sqlQuery = "SELECT p.id, ST_AsGeoJSON(p.geometry) as geometry_asgeojson, d.typ, d.description, d.title " +
+                "FROM pois p LEFT JOIN collections d ON p.descriptiontype = d.typ;";
 
         try(final var connection = DriverManager.getConnection(connectionString)){
             var pstmt = connection.prepareStatement(sqlQuery);
@@ -124,8 +124,8 @@ public class PostgresqlPoiRepository implements PoiRepository {
         if(types.isEmpty()){
             return null;
         } else {
-            StringBuilder sb = new StringBuilder("SELECT p.id, ST_AsText(p.geometry) as geometry_astext, d.typ, d.description " +
-                    "FROM pois p LEFT JOIN descriptions d ON p.descriptiontype = d.typ WHERE ");
+            StringBuilder sb = new StringBuilder("SELECT p.id, ST_AsGeoJSON(p.geometry) as geometry_asgeojson, d.typ, d.description, d.title " +
+                    "FROM pois p LEFT JOIN collections d ON p.descriptiontype = d.typ WHERE ");
 
             Iterator<String> typIter = types.iterator();
             while (typIter.hasNext()){
@@ -164,8 +164,8 @@ public class PostgresqlPoiRepository implements PoiRepository {
 
     @Override
     public List<PoiTypeDbDto> getByBboxAndType(List<Coordinate> bbox, String type) {
-        String sqlQuery = "SELECT p.id, ST_AsText(p.geometry) as geometry_astext, d.typ, d.description " +
-                    "FROM pois p LEFT JOIN descriptions d ON p.descriptiontype = d.typ WHERE " +
+        String sqlQuery = "SELECT p.id, ST_AsGeoJSON(p.geometry) as geometry_asgeojson, d.typ, d.description, d.title " +
+                    "FROM pois p LEFT JOIN collections d ON p.descriptiontype = d.typ WHERE " +
                 "d.typ = ? AND ST_Overlaps(p.geometry, ST_GeomFromText(?))";
 
         try(final var connection = DriverManager.getConnection(connectionString)){
