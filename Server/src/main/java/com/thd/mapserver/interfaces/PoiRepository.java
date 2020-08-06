@@ -20,4 +20,5 @@ public interface PoiRepository {
     List<PoiTypeDbDto> getByType(String... types);
     List<PoiTypeDbDto> getByBboxAndType(List<Coordinate> bbox, String type);
     List<FeatureTypeDbDto> getAllCollections();
+    FeatureTypeDbDto getCollection(String collectionId);
 }

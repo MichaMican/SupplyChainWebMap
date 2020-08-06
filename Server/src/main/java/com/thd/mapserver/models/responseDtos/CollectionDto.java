@@ -12,7 +12,7 @@ public class CollectionDto {
     @NotNull
     public String id;
     @NotNull
-    public List<LinkDto> links;
+    public List<LinkDto> links = new ArrayList<>();
 
     /* Optional */
     @JsonInclude(JsonInclude.Include.NON_NULL)
@@ -23,8 +23,4 @@ public class CollectionDto {
     public String itemType;
     @JsonInclude(JsonInclude.Include.NON_NULL)
     public List<String> crs;
-
-    public CollectionDto(){
-        links = new ArrayList<>();
-    }
 }

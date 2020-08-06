@@ -5,10 +5,8 @@ import com.thd.mapserver.helper.DbParseHelper;
 import com.thd.mapserver.helper.ResponseHelper;
 import com.thd.mapserver.models.responseDtos.CollectionDto;
 import com.thd.mapserver.models.responseDtos.LinkDto;
-import com.thd.mapserver.models.responseDtos.ResponseCollectionDto;
 import com.thd.mapserver.models.responseDtos.ResponseCollectionsDto;
 import com.thd.mapserver.postsql.PostgresqlPoiRepository;
-import io.swagger.v3.oas.models.links.Link;
 import org.geojson.FeatureCollection;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpStatus;
@@ -60,8 +58,25 @@ public class FeatureCollectionsController {
     }
 
     @GetMapping("/collections/{collectionId}")
-    public HttpEntity<ResponseCollectionDto> getCollection(@PathVariable("collectionId") String collectionId) {
-        return new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
+    public HttpEntity<CollectionDto> getCollection(@PathVariable("collectionId") String collectionId) {
+
+        var res = dbConnect.getCollection(collectionId);
+        if(res == null){
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+
+        var returnResponse = new CollectionDto();
+        returnResponse.title = res.title;
+        returnResponse.id = res.typ;
+        returnResponse.description = res.description;
+
+        var link = new LinkDto();
+        link.href = settings.getBaseLink()+"/collections/"+collectionId;
+        link.rel = "self";
+
+        returnResponse.links.add(link);
+
+        return new ResponseEntity<>(returnResponse, HttpStatus.OK);
     }
 
     @GetMapping("/collections/{collectionId}/items")

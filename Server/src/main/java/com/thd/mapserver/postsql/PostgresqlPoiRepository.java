@@ -197,4 +197,24 @@ public class PostgresqlPoiRepository implements PoiRepository {
 
         return null;
     }
+
+    @Override
+    public FeatureTypeDbDto getCollection(String collectionId) {
+        final var sqlQuery = "SELECT * FROM collections WHERE typ = ?;";
+
+        try(final var connection = DriverManager.getConnection(connectionString)){
+            var pstmt = connection.prepareStatement(sqlQuery);
+            pstmt.setObject(1, collectionId);
+            var resRaw = pstmt.executeQuery();
+            var res = FeatureTypeDbDto.parseDbResponse(resRaw);
+            if(!res.isEmpty()){
+                return res.get(0);
+            }
+
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+
+        return null;
+    }
 }
