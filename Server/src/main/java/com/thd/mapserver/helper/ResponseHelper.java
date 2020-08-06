@@ -2,7 +2,7 @@ package com.thd.mapserver.helper;
 
 import com.thd.mapserver.Settings;
 
-public class ResponseTextBuilder {
+public class ResponseHelper {
 
     private Settings settings = Settings.getInstance();
 

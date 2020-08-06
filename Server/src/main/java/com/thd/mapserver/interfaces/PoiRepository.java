@@ -2,7 +2,8 @@ package com.thd.mapserver.interfaces;
 
 import com.thd.mapserver.domain.SFAFeature;
 import com.thd.mapserver.models.Coordinate;
-import com.thd.mapserver.models.PoiDescDbDto;
+import com.thd.mapserver.models.DbModels.FeatureTypeDbDto;
+import com.thd.mapserver.models.DbModels.PoiTypeDbDto;
 import com.thd.mapserver.models.featureTypeDto.CollectionDefinitionDto;
 import com.thd.mapserver.models.featureTypeDto.FeatureTypeDto;
 
@@ -13,9 +14,10 @@ public interface PoiRepository {
     void add(SFAFeature poi);
     void addFeatureType(FeatureTypeDto featureType);
     void addCollections(List<CollectionDefinitionDto> collections);
-    List<PoiDescDbDto> getAll();
-    List<PoiDescDbDto> getByType(String type);
-    List<PoiDescDbDto> getByType(List<String> types);
-    List<PoiDescDbDto> getByType(String... types);
-    List<PoiDescDbDto> getByBboxAndType(List<Coordinate> bbox, String type);
+    List<PoiTypeDbDto> getAll();
+    List<PoiTypeDbDto> getByType(String type);
+    List<PoiTypeDbDto> getByType(List<String> types);
+    List<PoiTypeDbDto> getByType(String... types);
+    List<PoiTypeDbDto> getByBboxAndType(List<Coordinate> bbox, String type);
+    List<FeatureTypeDbDto> getAllCollections();
 }

@@ -2,8 +2,6 @@ package com.thd.mapserver.infrastructure.controller;
 
 import java.util.List;
 
-import com.thd.mapserver.models.PoiDescDbDto;
-import com.thd.mapserver.postsql.PostgresqlPoiRepository;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;

@@ -9,7 +9,8 @@ import com.thd.mapserver.domain.SFAFeature;
 import com.thd.mapserver.domain.geom.Polygon;
 import com.thd.mapserver.interfaces.PoiRepository;
 import com.thd.mapserver.models.Coordinate;
-import com.thd.mapserver.models.PoiDescDbDto;
+import com.thd.mapserver.models.DbModels.FeatureTypeDbDto;
+import com.thd.mapserver.models.DbModels.PoiTypeDbDto;
 import com.thd.mapserver.models.featureTypeDto.CollectionDefinitionDto;
 import com.thd.mapserver.models.featureTypeDto.FeatureTypeDto;
 
@@ -24,7 +25,7 @@ public class PostgresqlPoiRepository implements PoiRepository {
 
     @Override
     public void add(List<SFAFeature> poi) {
-        final var sqlDescriptionString = "INSERT INTO feature_types (typ, description, title) VALUES (?, ?, ?) " +
+        final var sqlDescriptionString = "INSERT INTO collections (typ, description, title) VALUES (?, ?, ?) " +
                 "ON CONFLICT (typ) DO NOTHING;";
         final var sqlPoiString = "INSERT INTO pois (geometry, descriptiontype) VALUES (ST_GeomFromText(?), ?) " +
                 "ON CONFLICT (geometry, descriptiontype) DO NOTHING;";
@@ -69,7 +70,7 @@ public class PostgresqlPoiRepository implements PoiRepository {
 
     @Override
     public void addCollections(List<CollectionDefinitionDto> collections) {
-        final var sqlQuery = "INSERT INTO feature_types (typ, description, title) VALUES (?, ?, ?) " +
+        final var sqlQuery = "INSERT INTO collections (typ, description, title) VALUES (?, ?, ?) " +
                 "ON CONFLICT (typ) DO UPDATE SET description = ?, title = ?;";
         if(!collections.isEmpty()) {
             try (final var connection = DriverManager.getConnection(connectionString)) {
@@ -93,14 +94,14 @@ public class PostgresqlPoiRepository implements PoiRepository {
     }
 
     @Override
-    public List<PoiDescDbDto> getAll(){
+    public List<PoiTypeDbDto> getAll(){
         final var sqlQuery = "SELECT p.id, ST_AsGeoJSON(p.geometry) as geometry_asgeojson, d.typ, d.description " +
                 "FROM pois p LEFT JOIN descriptions d ON p.descriptiontype = d.typ;";
 
         try(final var connection = DriverManager.getConnection(connectionString)){
             var pstmt = connection.prepareStatement(sqlQuery);
             var res = pstmt.executeQuery();
-            return PoiDescDbDto.parseDbResponse(res);
+            return PoiTypeDbDto.parseDbResponse(res);
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
@@ -110,14 +111,14 @@ public class PostgresqlPoiRepository implements PoiRepository {
     }
 
     @Override
-    public List<PoiDescDbDto> getByType(String type){
+    public List<PoiTypeDbDto> getByType(String type){
         var list = new ArrayList<String>();
         list.add(type);
         return getByType(list);
     }
 
     @Override
-    public List<PoiDescDbDto> getByType(List<String> types){
+    public List<PoiTypeDbDto> getByType(List<String> types){
         String sqlQuery;
 
         if(types.isEmpty()){
@@ -148,7 +149,7 @@ public class PostgresqlPoiRepository implements PoiRepository {
             }
 
             var res = pstmt.executeQuery();
-            return PoiDescDbDto.parseDbResponse(res);
+            return PoiTypeDbDto.parseDbResponse(res);
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
@@ -156,13 +157,13 @@ public class PostgresqlPoiRepository implements PoiRepository {
         return null;
     }
 
-    public List<PoiDescDbDto> getByType(String... types){
+    public List<PoiTypeDbDto> getByType(String... types){
         List<String> list = Arrays.asList(types);
         return getByType(list);
     }
 
     @Override
-    public List<PoiDescDbDto> getByBboxAndType(List<Coordinate> bbox, String type) {
+    public List<PoiTypeDbDto> getByBboxAndType(List<Coordinate> bbox, String type) {
         String sqlQuery = "SELECT p.id, ST_AsText(p.geometry) as geometry_astext, d.typ, d.description " +
                     "FROM pois p LEFT JOIN descriptions d ON p.descriptiontype = d.typ WHERE " +
                 "d.typ = ? AND ST_Overlaps(p.geometry, ST_GeomFromText(?))";
@@ -174,12 +175,26 @@ public class PostgresqlPoiRepository implements PoiRepository {
             pstmt.setObject(2, new Polygon(bbox, null, 0).asText());
 
             var res = pstmt.executeQuery();
-            return PoiDescDbDto.parseDbResponse(res);
+            return PoiTypeDbDto.parseDbResponse(res);
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
 
         return null;
+    }
 
+    @Override
+    public List<FeatureTypeDbDto> getAllCollections() {
+        final var sqlQuery = "SELECT * FROM collections;";
+
+        try(final var connection = DriverManager.getConnection(connectionString)){
+            var pstmt = connection.prepareStatement(sqlQuery);
+            var res = pstmt.executeQuery();
+            return FeatureTypeDbDto.parseDbResponse(res);
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+
+        return null;
     }
 }

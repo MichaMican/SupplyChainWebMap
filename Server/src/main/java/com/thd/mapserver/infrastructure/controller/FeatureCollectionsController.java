@@ -1,13 +1,15 @@
 package com.thd.mapserver.infrastructure.controller;
 
+import com.thd.mapserver.Settings;
 import com.thd.mapserver.helper.DbParseHelper;
-import com.thd.mapserver.helper.ResponseTextBuilder;
+import com.thd.mapserver.helper.ResponseHelper;
 import com.thd.mapserver.models.responseDtos.CollectionDto;
+import com.thd.mapserver.models.responseDtos.LinkDto;
 import com.thd.mapserver.models.responseDtos.ResponseCollectionDto;
 import com.thd.mapserver.models.responseDtos.ResponseCollectionsDto;
 import com.thd.mapserver.postsql.PostgresqlPoiRepository;
+import io.swagger.v3.oas.models.links.Link;
 import org.geojson.FeatureCollection;
-import org.geojson.GeoJsonObject;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -15,13 +17,12 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.ArrayList;
-import java.util.List;
-
 @RestController
 public class FeatureCollectionsController {
 
-    private ResponseTextBuilder rtb = new ResponseTextBuilder();
+    private ResponseHelper rtb = new ResponseHelper();
+    private PostgresqlPoiRepository dbConnect = new PostgresqlPoiRepository();
+    private Settings settings = Settings.getInstance();
 
     @GetMapping("/test")
     public FeatureCollection test() {
@@ -31,7 +32,31 @@ public class FeatureCollectionsController {
 
     @GetMapping("/collections")
     public HttpEntity<ResponseCollectionsDto> getCollections() {
-        return new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
+
+        var res = dbConnect.getAllCollections();
+
+        var returnResponse = new ResponseCollectionsDto();
+        for (var collection : res) {
+            var collectionInfo = new CollectionDto();
+
+            collectionInfo.id = collection.typ;
+            collectionInfo.description = collection.description;
+            collectionInfo.title = collection.title;
+            var featureLink = new LinkDto();
+            featureLink.href = settings.getBaseLink() + "/collections/" + collection.typ;
+            featureLink.rel = "self";
+            featureLink.type = "application/geo+json";
+            collectionInfo.links.add(featureLink);
+
+            returnResponse.collections.add(collectionInfo);
+        }
+
+        var collectionLink = new LinkDto();
+        collectionLink.href = settings.getBaseLink() + "/collections";
+        collectionLink.rel = "self";
+        returnResponse.links.add(collectionLink);
+
+        return new ResponseEntity<>(returnResponse, HttpStatus.OK);
     }
 
     @GetMapping("/collections/{collectionId}")

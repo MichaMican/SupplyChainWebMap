@@ -1,8 +1,12 @@
 package com.thd.mapserver.models.responseDtos;
 
+import javax.validation.constraints.NotNull;
+import java.util.ArrayList;
 import java.util.List;
 
 public class ResponseCollectionsDto {
-    public List<LinkDto> links;
-    public List<CollectionDto> collections;
+    @NotNull
+    public List<LinkDto> links = new ArrayList<>();
+    @NotNull
+    public List<CollectionDto> collections = new ArrayList<>();
 }

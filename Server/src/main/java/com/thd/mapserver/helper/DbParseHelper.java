@@ -2,16 +2,13 @@ package com.thd.mapserver.helper;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.thd.mapserver.models.PoiDescDbDto;
-import org.apache.commons.lang3.NotImplementedException;
+import com.thd.mapserver.models.DbModels.PoiTypeDbDto;
 import org.geojson.*;
 
-import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.*;
 
 public final class DbParseHelper {
-    public static FeatureCollection parsePoisDescJoin(List<PoiDescDbDto> elementsToParse) {
+    public static FeatureCollection parsePoisDescJoin(List<PoiTypeDbDto> elementsToParse) {
         var featureCollection = new FeatureCollection();
 
         for (var element : elementsToParse) {
@@ -24,7 +21,7 @@ public final class DbParseHelper {
                 properties.put("description", element.description);
 
                 //prepare geometry for parsing
-                GeoJsonObject rawObject = new ObjectMapper().readValue(element.geometry_asGeoJson, GeoJsonObject.class);
+                GeoJsonObject rawObject = new ObjectMapper().readValue(element.geometry_asgeojson, GeoJsonObject.class);
 
                 Feature feature = new Feature();
                 if(rawObject instanceof GeometryCollection || rawObject instanceof Point ||
