@@ -217,4 +217,29 @@ public class PostgresqlPoiRepository implements PoiRepository {
 
         return null;
     }
+
+    @Override
+    public PoiTypeDbDto getFeatureById(String featurenId) {
+
+        final var sqlQuery = "SELECT p.id, ST_AsGeoJSON(p.geometry) as geometry_asgeojson, d.typ, d.description, d.title " +
+                "FROM pois p LEFT JOIN collections d ON p.descriptiontype = d.typ WHERE p.id = ?;";
+
+        try(final var connection = DriverManager.getConnection(connectionString)){
+            var pstmt = connection.prepareStatement(sqlQuery);
+
+            pstmt.setObject(1, featurenId);
+
+            var resRaw = pstmt.executeQuery();
+            var res = PoiTypeDbDto.parseDbResponse(resRaw);
+            if(!res.isEmpty()){
+                return res.get(0);
+            }
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+
+        return null;
+    }
+
+
 }

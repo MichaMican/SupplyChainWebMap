@@ -103,13 +103,26 @@ public class FeatureCollectionsController {
         if(dbConnect.getCollection(collectionId) == null){
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
+        var resRaw = dbConnect.getFeatureById(featureId);
+        if(resRaw == null || !resRaw.typ.equals(collectionId)){
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
         return new ResponseEntity<>(rtb.getFeatureLinkResponse(collectionId, featureId), HttpStatus.OK);
     }
 
     @GetMapping("/collections/{collectionId}/items/{featureId}.json")
     public HttpEntity<FeatureCollection> getFeatures(@PathVariable("collectionId") String collectionId,
                                          @PathVariable("featureId") String featureId) {
-        return new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
+        if(dbConnect.getCollection(collectionId) == null){
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+
+        var resRaw = dbConnect.getFeatureById(featureId);
+        if(resRaw == null || !resRaw.typ.equals(collectionId)){
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+
+        return new ResponseEntity<>(DbParseHelper.parsePoisDescJoin(resRaw), HttpStatus.OK);
     }
 
 }

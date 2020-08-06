@@ -5,6 +5,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.thd.mapserver.models.DbModels.PoiTypeDbDto;
 import org.geojson.*;
 
+import java.lang.reflect.Array;
 import java.util.*;
 
 public final class DbParseHelper {
@@ -32,6 +33,7 @@ public final class DbParseHelper {
                 }
 
                 feature.setProperties(properties);
+                feature.setId(element.id);
 
                 featureCollection.add(feature);
             } catch (JsonProcessingException e) {
@@ -40,6 +42,13 @@ public final class DbParseHelper {
         }
 
         return featureCollection;
+
+    }
+
+    public static FeatureCollection parsePoisDescJoin(PoiTypeDbDto elementsToParse){
+        var list = new ArrayList<PoiTypeDbDto>();
+        list.add(elementsToParse);
+        return parsePoisDescJoin(list);
 
     }
 }

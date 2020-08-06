@@ -7,13 +7,13 @@ import java.util.List;
 import java.util.UUID;
 
 public class PoiTypeDbDto {
-    public UUID id;
+    public String id;
     public String geometry_asgeojson;
     public String typ;
     public String description;
     public String title;
 
-    public PoiTypeDbDto(UUID id, String geometry_asGeoJson, String typ, String description, String title) {
+    public PoiTypeDbDto(String id, String geometry_asGeoJson, String typ, String description, String title) {
         this.id = id;
         this.geometry_asgeojson = geometry_asGeoJson;
         this.typ = typ;
@@ -26,7 +26,7 @@ public class PoiTypeDbDto {
 
         try {
             while (dbResponseToParse.next()) {
-                rows.add(new PoiTypeDbDto(UUID.fromString(dbResponseToParse.getString("id")),
+                rows.add(new PoiTypeDbDto(dbResponseToParse.getString("id"),
                         dbResponseToParse.getString("geometry_asgeojson"),
                         dbResponseToParse.getString("typ"),
                         dbResponseToParse.getString("description"),
