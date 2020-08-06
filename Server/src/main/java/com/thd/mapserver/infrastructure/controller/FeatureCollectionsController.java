@@ -81,7 +81,9 @@ public class FeatureCollectionsController {
 
     @GetMapping("/collections/{collectionId}/items")
     public HttpEntity<String> getItemsLink(@PathVariable("collectionId") String collectionId) {
-        //TODO Test if collection exists
+        if(dbConnect.getCollection(collectionId) == null){
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
         return new ResponseEntity<>(rtb.getItemLinkResponse(collectionId), HttpStatus.OK);
     }
 
@@ -93,7 +95,9 @@ public class FeatureCollectionsController {
     @GetMapping("/collections/{collectionId}/items/{featureId}")
     public HttpEntity<String> getFeatureLinks(@PathVariable("collectionId") String collectionId,
                                   @PathVariable("featureId") String featureId) {
-        //TODO Test if collection exists
+        if(dbConnect.getCollection(collectionId) == null){
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
         return new ResponseEntity<>(rtb.getFeatureLinkResponse(collectionId, featureId), HttpStatus.OK);
     }
 
