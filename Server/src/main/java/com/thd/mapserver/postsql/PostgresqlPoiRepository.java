@@ -166,13 +166,13 @@ public class PostgresqlPoiRepository implements PoiRepository {
     public List<PoiTypeDbDto> getByBboxAndType(List<Coordinate> bbox, String type) {
         String sqlQuery = "SELECT p.id, ST_AsGeoJSON(p.geometry) as geometry_asgeojson, d.typ, d.description, d.title " +
                     "FROM pois p LEFT JOIN collections d ON p.descriptiontype = d.typ WHERE " +
-                "d.typ = ? AND ST_Overlaps(p.geometry, ST_GeomFromText(?))";
+                "d.typ = ? AND ST_Intersects(p.geometry, ST_GeomFromText(?))";
 
         try(final var connection = DriverManager.getConnection(connectionString)){
             var pstmt = connection.prepareStatement(sqlQuery);
 
             pstmt.setObject(1, type);
-            pstmt.setObject(2, new Polygon(bbox, null, 0).asText());
+            pstmt.setObject(2, new Polygon(bbox, null).asText());
 
             var res = pstmt.executeQuery();
             return PoiTypeDbDto.parseDbResponse(res);

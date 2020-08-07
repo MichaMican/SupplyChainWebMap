@@ -3,17 +3,24 @@ package com.thd.mapserver.infrastructure.controller;
 import com.thd.mapserver.Settings;
 import com.thd.mapserver.helper.DbParseHelper;
 import com.thd.mapserver.helper.ResponseHelper;
+import com.thd.mapserver.models.Coordinate;
+import com.thd.mapserver.models.DbModels.PoiTypeDbDto;
 import com.thd.mapserver.models.responseDtos.CollectionDto;
 import com.thd.mapserver.models.responseDtos.LinkDto;
 import com.thd.mapserver.models.responseDtos.ResponseCollectionsDto;
 import com.thd.mapserver.postsql.PostgresqlPoiRepository;
 import org.geojson.FeatureCollection;
+import org.geojson.Polygon;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @RestController
 public class FeatureCollectionsController {
@@ -41,8 +48,8 @@ public class FeatureCollectionsController {
             collectionInfo.description = collection.description;
             collectionInfo.title = collection.title;
             var featureLink = new LinkDto();
-            featureLink.href = settings.getBaseLink() + "/collections/" + collection.typ;
-            featureLink.rel = "self";
+            featureLink.href = settings.getBaseLink() + "/collections/" + collection.typ + "/items";
+            featureLink.rel = "items";
             featureLink.type = "application/geo+json";
             collectionInfo.links.add(featureLink);
 
@@ -88,11 +95,82 @@ public class FeatureCollectionsController {
     }
 
     @GetMapping("/collections/{collectionId}/items.json")
-    public HttpEntity<FeatureCollection> getItems(@PathVariable("collectionId") String collectionId) {
+    public HttpEntity<FeatureCollection> getItems(@PathVariable("collectionId") String collectionId,
+                                                  @RequestParam(required = false) Integer limit,
+                                                  @RequestParam(required = false) String bbox) {
         if(dbConnect.getCollection(collectionId) == null){
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
-        var dbRes = dbConnect.getByType(collectionId);
+
+        String[] bboxCornersRaw = null;
+        if(bbox != null) {
+            bboxCornersRaw = bbox.split(",");
+        }
+
+        if(limit == null){
+            limit = 10;
+        }
+
+        //variable validation
+        if(limit < 1 || limit > 10000 || ( bboxCornersRaw != null && (bboxCornersRaw.length < 4 || bboxCornersRaw.length > 6))){
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+
+        List<PoiTypeDbDto> dbResRaw;
+
+        if(bboxCornersRaw != null){
+            List<Integer> bboxCorners = new ArrayList<>();
+            for (String corner : bboxCornersRaw) {
+                try{
+                    bboxCorners.add(Integer.parseInt(corner));
+                } catch (NumberFormatException e) {
+                    return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+                }
+            }
+            List<Coordinate> bboxCors = new ArrayList<>();
+            Integer x1, y1, x2, y2;
+            switch (bboxCorners.size()){
+                case 4:
+                    x1 = bboxCorners.get(0);
+                    y1 = bboxCorners.get(1);
+                    x2 = bboxCorners.get(2);
+                    y2 = bboxCorners.get(3);
+                    break;
+                case 5:
+                    /* Fall through */
+                case 6:
+                    x1 = bboxCorners.get(0);
+                    y1 = bboxCorners.get(1);
+                    x2 = bboxCorners.get(3);
+                    y2 = bboxCorners.get(4);
+                    break;
+                default:
+                    //Will never get hit (because variable already was validated (line 115))
+                    return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+            }
+
+            //Left lower
+            bboxCors.add(new Coordinate(x1, y1));
+            //Left upper
+            bboxCors.add(new Coordinate(x1, y2));
+            //Right upper
+            bboxCors.add(new Coordinate(x2, y2));
+            //Right lower
+            bboxCors.add(new Coordinate(x2, y1));
+            //Left lower - Yes this is really necessary because of definition the endpoint has to be specificly spacified as the firs
+            bboxCors.add(new Coordinate(x1, y1));
+
+            dbResRaw = dbConnect.getByBboxAndType(bboxCors, collectionId);
+
+        } else {
+            dbResRaw = dbConnect.getByType(collectionId);
+        }
+
+        var dbRes = dbResRaw;
+        if(dbRes.size() > limit){
+            dbRes = dbResRaw.subList(0, limit);
+        }
+
         var response= DbParseHelper.parsePoisDescJoin(dbRes);
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
@@ -100,7 +178,7 @@ public class FeatureCollectionsController {
     @GetMapping("/collections/{collectionId}/items/{featureId}")
     public HttpEntity<String> getFeatureLinks(@PathVariable("collectionId") String collectionId,
                                   @PathVariable("featureId") String featureId) {
-        if(dbConnect.getCollection(collectionId) == null){
+        if(!isCollectionValid(collectionId)){
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
         var resRaw = dbConnect.getFeatureById(featureId);
@@ -113,7 +191,7 @@ public class FeatureCollectionsController {
     @GetMapping("/collections/{collectionId}/items/{featureId}.json")
     public HttpEntity<FeatureCollection> getFeatures(@PathVariable("collectionId") String collectionId,
                                          @PathVariable("featureId") String featureId) {
-        if(dbConnect.getCollection(collectionId) == null){
+        if(!isCollectionValid(collectionId)){
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
 
@@ -123,6 +201,10 @@ public class FeatureCollectionsController {
         }
 
         return new ResponseEntity<>(DbParseHelper.parsePoisDescJoin(resRaw), HttpStatus.OK);
+    }
+
+    private boolean isCollectionValid(String collectionId){
+        return dbConnect.getCollection(collectionId) != null;
     }
 
 }

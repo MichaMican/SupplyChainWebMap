@@ -5,6 +5,7 @@ import com.thd.mapserver.models.Coordinate;
 import com.thd.mapserver.models.featureTypeDto.FeatureTypeDto;
 import com.thd.mapserver.postsql.PostgresqlPoiRepository;
 import org.geojson.*;
+import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -20,7 +21,7 @@ import java.util.List;
 public class ImportController {
 
     @PostMapping(path = "/featureTypes")
-    public ResponseEntity<String> importFeatureTypes(@RequestBody FeatureTypeDto featureType){
+    public HttpEntity<String> importFeatureTypes(@RequestBody FeatureTypeDto featureType){
 
         PostgresqlPoiRepository dbConnect = new PostgresqlPoiRepository();
         dbConnect.addFeatureType(featureType);
@@ -29,7 +30,7 @@ public class ImportController {
     }
 
     @PostMapping(path = "/geojson")
-    public ResponseEntity<String> importFromGeoJson(@RequestBody GeoJsonObject geoJsonObject) {
+    public HttpEntity<String> importFromGeoJson(@RequestBody GeoJsonObject geoJsonObject) {
         PostgresqlPoiRepository dbConnect = new PostgresqlPoiRepository();
 
         if (geoJsonObject instanceof FeatureCollection) {
@@ -57,13 +58,11 @@ public class ImportController {
     }
     private com.thd.mapserver.domain.geom.Geometry parseGeometry(GeoJsonObject geometry) {
 
-        int srid = 0;
-
         if (geometry instanceof Point) {
             LngLatAlt cor = ((Point) geometry).getCoordinates();
 
             return (
-                new com.thd.mapserver.domain.geom.Point(cor.getLongitude(), cor.getLatitude(), cor.getAltitude(), srid)
+                new com.thd.mapserver.domain.geom.Point(cor.getLongitude(), cor.getLatitude(), cor.getAltitude())
             );
 
         } else if (geometry instanceof Polygon) {
@@ -80,14 +79,14 @@ public class ImportController {
                 coordinates.add(polygonPart);
             }
 
-            return new com.thd.mapserver.domain.geom.Polygon(coordinates, srid);
+            return new com.thd.mapserver.domain.geom.Polygon(coordinates);
         } else if (geometry instanceof GeometryCollection) {
 
             List<com.thd.mapserver.domain.geom.Geometry> geometries = new ArrayList<>();
             for (var subGeometry : ((GeometryCollection) geometry).getGeometries()) {
                 geometries.add(parseGeometry(subGeometry));
             }
-            return new com.thd.mapserver.domain.geom.GeometryCollection(geometries, srid);
+            return new com.thd.mapserver.domain.geom.GeometryCollection(geometries);
 
         } else {
             return null;

@@ -7,8 +7,8 @@ public class GeometryCollection extends Geometry {
     private static final String TYPENAME_GEOMETRY_COLLECTION = "GeometryCollection";
     List<Geometry> geometries;
 
-    public GeometryCollection(List<Geometry> geometries, int srid) {
-        super(srid);
+    public GeometryCollection(List<Geometry> geometries) {
+        super(4326);
         this.geometries = geometries;
     }
 

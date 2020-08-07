@@ -11,12 +11,12 @@ public class Point extends Geometry {
 
 	private final Coordinate coordinate;
 
-	public Point(double x, double y, int srid) {
-		this(x, y, NULL_ORDINATE, srid);
+	public Point(double x, double y) {
+		this(x, y, NULL_ORDINATE);
 	}
 
-	public Point(double x, double y, double z, int srid) {
-		super(srid);
+	public Point(double x, double y, double z) {
+		super(4326);
 		this.coordinate = new Coordinate(x,y,z);
 	}
 

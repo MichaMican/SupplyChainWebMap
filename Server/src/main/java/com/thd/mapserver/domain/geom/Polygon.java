@@ -12,13 +12,13 @@ public class Polygon extends Surface {
 
     private final List<List<Coordinate>> coordinates;
 
-    public Polygon(List<List<Coordinate>> coordinates, int srid) {
-        super(srid);
+    public Polygon(List<List<Coordinate>> coordinates) {
+        super(4326);
         this.coordinates = coordinates;
     }
 
-    public Polygon(List<Coordinate> outerCoordinates, List<Coordinate> innerCoordinates, int srid) {
-        super(srid);
+    public Polygon(List<Coordinate> outerCoordinates, List<Coordinate> innerCoordinates) {
+        super(4326);
         var list = new ArrayList<List<Coordinate>>();
         //TODO Throw exception when outer coordinates are empty
         if(outerCoordinates != null && !outerCoordinates.isEmpty()){
