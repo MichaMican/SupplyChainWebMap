@@ -48,7 +48,7 @@ public class FeatureCollectionsController {
             collectionInfo.description = collection.description;
             collectionInfo.title = collection.title;
             var featureLink = new LinkDto();
-            featureLink.href = settings.getBaseLink() + "/collections/" + collection.typ + "/items";
+            featureLink.href = settings.getBaseLink() + "/collections/" + collection.typ + "/items.json";
             featureLink.rel = "items";
             featureLink.type = "application/geo+json";
             collectionInfo.links.add(featureLink);
@@ -78,8 +78,9 @@ public class FeatureCollectionsController {
         returnResponse.description = res.description;
 
         var link = new LinkDto();
-        link.href = settings.getBaseLink()+"/collections/"+collectionId;
-        link.rel = "self";
+        link.href = settings.getBaseLink()+"/collections/"+collectionId+"/items.json";
+        link.rel = "item";
+        link.type = "application/geo+json";
 
         returnResponse.links.add(link);
 
@@ -97,7 +98,8 @@ public class FeatureCollectionsController {
     @GetMapping("/collections/{collectionId}/items.json")
     public HttpEntity<FeatureCollection> getItems(@PathVariable("collectionId") String collectionId,
                                                   @RequestParam(required = false) Integer limit,
-                                                  @RequestParam(required = false) String bbox) {
+                                                  @RequestParam(required = false) String bbox,
+                                                  @RequestParam(required = false) String datetime) {
         if(dbConnect.getCollection(collectionId) == null){
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }

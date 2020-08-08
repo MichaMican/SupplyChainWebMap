@@ -7,7 +7,9 @@
 <body>
     <h4>Collections in this service</h4>
    	<ul th:each="collection : ${collections}">
-		<li th:text="'name: ' + ${collection.description}"></li>
+		<li>
+            <a th:text="'name: ' + ${collection.name}" th:href="${collection.href}"></a>
+        </li>
  	</ul>
 </body>
 </html>
