@@ -1,0 +1,12 @@
+#map {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 100%;
+  z-index: -999;
+}
+
+.overlay{
+  z-index: 999;
+  width: 30%;
+}
