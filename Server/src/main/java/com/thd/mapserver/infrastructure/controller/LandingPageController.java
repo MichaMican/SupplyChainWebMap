@@ -1,7 +1,9 @@
 package com.thd.mapserver.infrastructure.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
+import com.thd.mapserver.postsql.PostgresqlPoiRepository;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -9,13 +11,19 @@ import org.springframework.web.bind.annotation.GetMapping;
 @Controller
 public class LandingPageController {
 
+	PostgresqlPoiRepository dbConnect = new PostgresqlPoiRepository();
+
 	@GetMapping("/")
 	public String test(Model model) {
-		final var collections = List.of(new FeatureCollection("test1", "collection 1"),
-				new FeatureCollection("test2", "collection 2"));
-		model.addAttribute("collections", collections); // A Attribute can be accessed via the ${attributeName} syntax
-														// in the html template
-		return "index"; // name of the template page located under resources/templates
+		var collections = new ArrayList<FeatureCollection>();
+
+		var collectionsRaw = dbConnect.getAllCollections();
+		for (var collection:collectionsRaw) {
+			collections.add(new FeatureCollection(collection.title, collection.description, "/collections/"+collection.typ));
+		}
+
+		model.addAttribute("collections", collections);
+		return "index";
 	}
 
 	@GetMapping("/conformance")
@@ -26,10 +34,12 @@ public class LandingPageController {
 	public static class FeatureCollection {
 		private String name;
 		private String description;
+		private String href;
 
-		public FeatureCollection(String name, String description) {
+		public FeatureCollection(String name, String description, String href) {
 			this.name = name;
 			this.description = description;
+			this.href = href;
 		}
 		
 		public String getName() {
@@ -38,6 +48,10 @@ public class LandingPageController {
 		
 		public String getDescription() {
 			return this.description;
+		}
+
+		public String getHref() {
+			return href;
 		}
 	}
 

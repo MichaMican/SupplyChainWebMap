@@ -11,12 +11,12 @@ public class Point extends Geometry {
 
 	private final Coordinate coordinate;
 
-	public Point(double x, double y, int srid) {
-		this(x, y, NULL_ORDINATE, srid);
+	public Point(double x, double y) {
+		this(x, y, NULL_ORDINATE);
 	}
 
-	public Point(double x, double y, double z, int srid) {
-		super(srid);
+	public Point(double x, double y, double z) {
+		super(4326);
 		this.coordinate = new Coordinate(x,y,z);
 	}
 
@@ -50,13 +50,13 @@ public class Point extends Geometry {
 	}
 
 	@Override
-	public String asText() {
+	public String toString() {
 		return String.format("%s(%s)", TYPENAME_POINT.toUpperCase(), GeometryHelper.convertCoordinatesToWkt(this.coordinate));
 	}
 
 	@Override
-	public String asST_GeomText() {
-		return String.format("POINT(%s %s)", coordinate.getX(), coordinate.getY());
+	public String asText() {
+		return String.format("POINT(%s)", GeometryHelper.convertCoordinatesToWkt(coordinate));
 	}
 
 	@Override

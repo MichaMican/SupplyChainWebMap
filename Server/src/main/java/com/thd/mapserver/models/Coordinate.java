@@ -14,7 +14,7 @@ public class Coordinate {
     }
 
     public Coordinate(double x, double y){
-        this(x,y,0);
+        this(x,y,Double.NaN);
     }
 
     public double getX() {

@@ -3,17 +3,32 @@ package com.thd.mapserver.domain.geom;
 import com.thd.mapserver.helper.GeometryHelper;
 import com.thd.mapserver.models.Coordinate;
 
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
 public class Polygon extends Surface {
-    private static final String TYPENAME_POINT = "Point";
+    private static final String TYPENAME_POLYGON = "Point";
 
     private final List<List<Coordinate>> coordinates;
 
-    public Polygon(List<List<Coordinate>> coordinates, int srid) {
-        super(srid);
+    public Polygon(List<List<Coordinate>> coordinates) {
+        super(4326);
         this.coordinates = coordinates;
+    }
+
+    public Polygon(List<Coordinate> outerCoordinates, List<Coordinate> innerCoordinates) {
+        super(4326);
+        var list = new ArrayList<List<Coordinate>>();
+        //TODO Throw exception when outer coordinates are empty
+        if(outerCoordinates != null && !outerCoordinates.isEmpty()){
+            list.add(outerCoordinates);
+        }
+        if(innerCoordinates != null && !innerCoordinates.isEmpty()){
+            list.add(innerCoordinates);
+        }
+
+        this.coordinates = list;
     }
 
     public List<List<Coordinate>> getCoordinates() {
@@ -21,12 +36,12 @@ public class Polygon extends Surface {
     }
 
     @Override
-    public String asText() {
+    public String toString() {
         StringBuilder sb = new StringBuilder("[\n");
         for (List<Coordinate> polCors : coordinates) {
             sb.append("[\n");
             for (Coordinate cor : polCors) {
-                sb.append(String.format("[%s(%s)],\n", TYPENAME_POINT.toUpperCase(), GeometryHelper.convertCoordinatesToWkt(cor)));
+                sb.append(String.format("[%s(%s)],\n", TYPENAME_POLYGON.toUpperCase(), GeometryHelper.convertCoordinatesToWkt(cor)));
             }
             sb.append("]\n");
         }
@@ -37,44 +52,34 @@ public class Polygon extends Surface {
     }
 
     @Override
-    public String asST_GeomText() {
+    public String asText() {
         StringBuilder sb;
+        sb = new StringBuilder("POLYGON(");
 
-        if (coordinates.size() > 1) {
-            sb = new StringBuilder("MULTIPOLYGON(");
-
-            Iterator<List<Coordinate>> polCorsIter = coordinates.iterator();
-            while (polCorsIter.hasNext()) {
-                var polCors = polCorsIter.next();
-                sb.append("((");
-
-                appendCoors(sb, polCors);
-
-                sb.append("))");
-                if(polCorsIter.hasNext()){
-                    sb.append(",");
-                }
-            }
-            sb.append(")");
-        } else {
-            sb = new StringBuilder("POLYGON((");
-            List<Coordinate> polCors = coordinates.get(0);
+        Iterator<List<Coordinate>> polCorsIter = coordinates.iterator();
+        while (polCorsIter.hasNext()) {
+            var polCors = polCorsIter.next();
+            sb.append("(");
 
             appendCoors(sb, polCors);
 
-            sb.append("))");
+            sb.append(")");
+            if (polCorsIter.hasNext()) {
+                sb.append(",");
+            }
         }
+        sb.append(")");
 
         return sb.toString();
     }
 
-    private void appendCoors(StringBuilder sb, List<Coordinate> coordinates){
+    private void appendCoors(StringBuilder sb, List<Coordinate> coordinates) {
         Iterator<Coordinate> corIter = coordinates.iterator();
-        while (corIter.hasNext()){
+        while (corIter.hasNext()) {
             Coordinate cor = corIter.next();
-            sb.append(String.format("%s %s", cor.getX(), cor.getY()));
+            sb.append(String.format("%s", GeometryHelper.convertCoordinatesToWkt(cor)));
             //this checks if there is another coordinate in the list
-            if(corIter.hasNext()){
+            if (corIter.hasNext()) {
                 sb.append(",");
             }
         }
@@ -82,6 +87,6 @@ public class Polygon extends Surface {
 
     @Override
     public String geometryType() {
-        return TYPENAME_POINT;
+        return TYPENAME_POLYGON;
     }
 }
