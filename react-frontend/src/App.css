@@ -6,7 +6,13 @@
   z-index: -999;
 }
 
-.overlay{
+.overlay {
   z-index: 999;
   width: 30%;
+}
+
+.mapboxgl-popup {
+  max-width: 400px;
+  font: 12px/20px "Helvetica Neue", Arial, Helvetica, sans-serif;
+  z-index: 999;
 }
