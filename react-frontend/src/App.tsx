@@ -4,7 +4,10 @@ import mapboxgl, { GeoJSONSourceRaw } from 'mapbox-gl'
 import Settings from './settings'
 import Select, { ValueType } from 'react-select'
 import axios from "axios";
-import { getColorCode } from "./colors"
+import { getColorCode, colourStyles } from "./colors"
+import { isNullOrUndefined } from 'util';
+
+
 
 type OptionType = {
   value: string;
@@ -12,27 +15,28 @@ type OptionType = {
 };
 
 interface AppState {
-  selectOptions: OptionType[],
+  optionsToSelect: OptionType[],
   map: mapboxgl.Map | undefined,
-  lng: number | undefined
-  lat: number | undefined
-  zoom: number | undefined
-
+  lng: number | undefined,
+  lat: number | undefined,
+  zoom: number | undefined,
+  lastSelection: OptionType[]
 }
 
+
+
 class App extends React.Component<any, AppState> {
-
-
 
   constructor(props: any) {
     super(props);
 
     this.state = {
-      selectOptions: [],
+      optionsToSelect: [],
       map: undefined,
       lng: undefined,
       lat: undefined,
       zoom: undefined,
+      lastSelection: []
     }
 
   }
@@ -68,7 +72,7 @@ class App extends React.Component<any, AppState> {
           })
 
           this.setState({
-            selectOptions: newSelectOptions
+            optionsToSelect: newSelectOptions
           })
         } else {
           console.error({ status: response.status, statusText: response.statusText });
@@ -86,19 +90,18 @@ class App extends React.Component<any, AppState> {
       let options = selectedOptions as OptionType[];
 
       options.forEach((option: OptionType) => {
-        axios.get(`http://localhost:8080/collections/${option.value}/items.json`).then((response) => {
-          if (response.status >= 200 && response.status < 300) {
-            console.log(response.data)
+        if (this.state.map) {
+          if (!this.state.map.getSource(option.value)) {
+            axios.get(`http://localhost:8080/collections/${option.value}/items.json`).then((response) => {
+              if (response.status >= 200 && response.status < 300) {
 
-            if (this.state.map) {
-              if (!this.state.map.getSource(option.value)) {
                 const geoJsonSource: GeoJSONSourceRaw = {
                   "type": "geojson",
                   "data": response.data
                 };
-                this.state.map.addSource(option.value, geoJsonSource)
+                this.state.map?.addSource(option.value, geoJsonSource)
 
-                this.state.map.addLayer({
+                this.state.map?.addLayer({
                   'id': `${option.value}-Polygons`,
                   'type': 'fill',
                   'source': option.value,
@@ -108,7 +111,7 @@ class App extends React.Component<any, AppState> {
                   },
                 });
 
-                this.state.map.addLayer({
+                this.state.map?.addLayer({
                   'id': `${option.value}-Points`,
                   'type': 'circle',
                   'source': option.value,
@@ -118,19 +121,58 @@ class App extends React.Component<any, AppState> {
                   },
                 });
 
-                console.log("Added everything")
               } else {
-                //Make invisible Srces visible
+                console.error({ status: response.status, statusText: response.statusText });
               }
-            } else {
-              console.error("Map is not initialized yet")
-            }
+            })
           } else {
-            console.error({ status: response.status, statusText: response.statusText });
+            this.showCollection(option.value);
           }
-        })
+        } else {
+          console.error("Map is not initialized yet")
+        }
+      })
+
+      this.state.lastSelection.forEach((e: OptionType) => {
+        if (!options.includes(e)) {
+          this.hideCollection(e.value)
+        }
+      })
+
+      this.setState({
+        lastSelection: options
+      })
+    } else {
+      this.state.lastSelection.forEach((e: OptionType) => {
+        this.hideCollection(e.value)
       })
     }
+  }
+
+  private hideCollection(collectionId: string) {
+    if (this.state.map) {
+      if (this.doesLayerExist(`${collectionId}-Polygons`)) {
+        this.state.map.setLayoutProperty(`${collectionId}-Polygons`, 'visibility', 'none');
+      }
+      if (this.doesLayerExist(`${collectionId}-Points`)) {
+        this.state.map.setLayoutProperty(`${collectionId}-Points`, 'visibility', 'none');
+      }
+    }
+  }
+
+  private showCollection(collectionId: string) {
+    if (this.state.map) {
+      if (this.doesLayerExist(`${collectionId}-Polygons`)) {
+        this.state.map.setLayoutProperty(`${collectionId}-Polygons`, 'visibility', 'visible');
+      }
+      if (this.doesLayerExist(`${collectionId}-Points`)) {
+        this.state.map.setLayoutProperty(`${collectionId}-Points`, 'visibility', 'visible');
+      }
+    }
+  }
+
+  private doesLayerExist = (layerId: string): boolean => {
+    return !isNullOrUndefined(this.state.map?.getLayer(layerId))
   }
 
   render() {
@@ -138,10 +180,11 @@ class App extends React.Component<any, AppState> {
       <div>
         <div className="overlay">
           <Select
-            options={this.state.selectOptions}
+            options={this.state.optionsToSelect}
             isMulti
             onChange={option => this.handleChange(option)}
             placeholder="Select Collections"
+            styles={colourStyles}
           />
         </div>
         <div id="map" />
