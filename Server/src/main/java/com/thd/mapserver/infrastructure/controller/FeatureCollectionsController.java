@@ -115,7 +115,7 @@ public class FeatureCollectionsController {
 
         if(bbox != null){
             List<Coordinate> bboxCors = new ArrayList<>();
-            Integer x1, y1, x2, y2;
+            int x1, y1, x2, y2;
             switch (bbox.length){
                 case 4:
                     x1 = bbox[0];
