@@ -8,12 +8,13 @@ public abstract class Geometry {
 	public Geometry(int srid) {
 		this.srid = srid;
 	}
+	public Geometry() {
+		this.srid = 4326;
+	}
 
 	public int srid() {
 		return this.srid;
 	}
-
-	public abstract String toString();
 
 	public abstract String asText();
 

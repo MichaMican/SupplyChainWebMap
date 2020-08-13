@@ -4,4 +4,7 @@ public abstract class Surface extends Geometry {
     public Surface(int srid) {
         super(srid);
     }
+    public Surface() {
+        super();
+    }
 }

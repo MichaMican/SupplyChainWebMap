@@ -6,7 +6,9 @@ import java.util.*;
 
 import com.thd.mapserver.Settings;
 import com.thd.mapserver.domain.SFAFeature;
+import com.thd.mapserver.domain.geom.LinearRing;
 import com.thd.mapserver.domain.geom.Polygon;
+import com.thd.mapserver.helper.GeometryHelper;
 import com.thd.mapserver.interfaces.PoiRepository;
 import com.thd.mapserver.models.Coordinate;
 import com.thd.mapserver.models.DbModels.FeatureTypeDbDto;
@@ -27,7 +29,7 @@ public class PostgresqlPoiRepository implements PoiRepository {
     public void add(List<SFAFeature> poi) {
         final var sqlDescriptionString = "INSERT INTO collections (typ, description, title) VALUES (?, ?, ?) " +
                 "ON CONFLICT (typ) DO NOTHING;";
-        final var sqlPoiString = "INSERT INTO pois (geometry, descriptiontype) VALUES (ST_GeomFromText(?), ?) " +
+        final var sqlPoiString = "INSERT INTO pois (geometry, descriptiontype) VALUES (ST_GeomFromText(?/*, Coordinatensys (srid)*/), ?) " +
                 "ON CONFLICT (geometry, descriptiontype) DO NOTHING;";
         if(!poi.isEmpty()) {
             try (final var connection = DriverManager.getConnection(connectionString)) {
@@ -172,7 +174,7 @@ public class PostgresqlPoiRepository implements PoiRepository {
             var pstmt = connection.prepareStatement(sqlQuery);
 
             pstmt.setObject(1, type);
-            pstmt.setObject(2, new Polygon(bbox, null).asText());
+            pstmt.setObject(2, new Polygon(new LinearRing(GeometryHelper.convertCoordinateListToPointList(bbox))).asText());
 
             var res = pstmt.executeQuery();
             return PoiTypeDbDto.parseDbResponse(res);

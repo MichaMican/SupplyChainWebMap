@@ -10,51 +10,52 @@ import java.util.List;
 public class Polygon extends Surface {
     private static final String TYPENAME_POLYGON = "Point";
 
-    private final List<List<Coordinate>> coordinates;
+    private final LinearRing outerRing;
+    private final List<LinearRing> innerRings;
 
-    public Polygon(List<List<Coordinate>> coordinates) {
-        super(4326);
-        this.coordinates = coordinates;
+    //nur outer
+    public Polygon(LinearRing outerRing) {
+        this.outerRing = outerRing;
+        this.innerRings = new ArrayList<>();
     }
 
-    public Polygon(List<Coordinate> outerCoordinates, List<Coordinate> innerCoordinates) {
-        super(4326);
-        var list = new ArrayList<List<Coordinate>>();
-        //TODO Throw exception when outer coordinates are empty
-        if(outerCoordinates != null && !outerCoordinates.isEmpty()){
-            list.add(outerCoordinates);
-        }
-        if(innerCoordinates != null && !innerCoordinates.isEmpty()){
-            list.add(innerCoordinates);
+    //ein outer linear ring => mehrere inner linear ring
+    public Polygon(LinearRing outerRing, List<LinearRing> innerRings) {
+        if(innerRings == null || innerRings.isEmpty()){
+            this.outerRing = outerRing;
+            this.innerRings = new ArrayList<>();
+        }else{
+            this.outerRing = outerRing;
+            this.innerRings = innerRings;
         }
 
-        this.coordinates = list;
     }
 
-    public List<List<Coordinate>> getCoordinates() {
-        return coordinates;
+    //This typo is part of the SFA Model
+    public LineString exterorRing() {
+        return outerRing;
     }
 
-    @Override
-    public String toString() {
-        StringBuilder sb = new StringBuilder("[\n");
-        for (List<Coordinate> polCors : coordinates) {
-            sb.append("[\n");
-            for (Coordinate cor : polCors) {
-                sb.append(String.format("[%s(%s)],\n", TYPENAME_POLYGON.toUpperCase(), GeometryHelper.convertCoordinatesToWkt(cor)));
-            }
-            sb.append("]\n");
-        }
-        sb.append("]");
+    public LineString interiorRingN(int n) {
+        return innerRings.get(n);
+    }
 
-
-        return sb.toString();
+    public int numInteriorRing() {
+        return innerRings.size();
     }
 
     @Override
     public String asText() {
         StringBuilder sb;
         sb = new StringBuilder("POLYGON(");
+
+        List<List<Coordinate>> coordinates = new ArrayList<>();
+        coordinates.add(outerRing.getAllPointsAsCoordinates());
+        if (numInteriorRing() <= 0) {
+            for (LinearRing innerRing : innerRings) {
+                coordinates.add(innerRing.getAllPointsAsCoordinates());
+            }
+        }
 
         Iterator<List<Coordinate>> polCorsIter = coordinates.iterator();
         while (polCorsIter.hasNext()) {

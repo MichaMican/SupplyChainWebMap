@@ -27,6 +27,7 @@ public class FeatureCollectionsController {
     private PostgresqlPoiRepository dbConnect = new PostgresqlPoiRepository();
     private Settings settings = Settings.getInstance();
 
+    //TODO: Remove before release
     @GetMapping("/test")
     public FeatureCollection test() {
         var dbCon = new PostgresqlPoiRepository();
@@ -96,7 +97,7 @@ public class FeatureCollectionsController {
     @GetMapping("/collections/{collectionId}/items.json")
     public HttpEntity<FeatureCollection> getItems(@PathVariable("collectionId") String collectionId,
                                                   @RequestParam(required = false) Integer limit,
-                                                  @RequestParam(required = false) int[] bbox,
+                                                  @RequestParam(required = false) double[] bbox,
                                                   @RequestParam(required = false) String datetime) {
         if(dbConnect.getCollection(collectionId) == null){
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
@@ -115,7 +116,7 @@ public class FeatureCollectionsController {
 
         if(bbox != null){
             List<Coordinate> bboxCors = new ArrayList<>();
-            int x1, y1, x2, y2;
+            double x1, y1, x2, y2;
             switch (bbox.length){
                 case 4:
                     x1 = bbox[0];

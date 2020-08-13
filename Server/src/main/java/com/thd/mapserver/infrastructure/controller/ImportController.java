@@ -1,6 +1,8 @@
 package com.thd.mapserver.infrastructure.controller;
 
 import com.thd.mapserver.domain.SFAFeature;
+import com.thd.mapserver.domain.geom.LinearRing;
+import com.thd.mapserver.helper.GeometryHelper;
 import com.thd.mapserver.models.Coordinate;
 import com.thd.mapserver.models.featureTypeDto.FeatureTypeDto;
 import com.thd.mapserver.postsql.PostgresqlPoiRepository;
@@ -29,7 +31,7 @@ public class ImportController {
         return new ResponseEntity<>("", HttpStatus.OK);
     }
 
-    @PostMapping(path = "/geojson")
+    @PostMapping(path = "/features")
     public HttpEntity<String> importFromGeoJson(@RequestBody GeoJsonObject geoJsonObject) {
         PostgresqlPoiRepository dbConnect = new PostgresqlPoiRepository();
 
@@ -79,7 +81,16 @@ public class ImportController {
                 coordinates.add(polygonPart);
             }
 
-            return new com.thd.mapserver.domain.geom.Polygon(coordinates);
+            LinearRing innerRing = new LinearRing(GeometryHelper.convertCoordinateListToPointList(coordinates.get(0)));
+            List<LinearRing> outerRing = new ArrayList<>();
+
+            if(coordinates.size() > 1){
+                for(int i = 1; i < coordinates.size(); i++){
+                    outerRing.add(new LinearRing(GeometryHelper.convertCoordinateListToPointList(coordinates.get(i))));
+                }
+            }
+
+            return new com.thd.mapserver.domain.geom.Polygon(innerRing, outerRing);
         } else if (geometry instanceof GeometryCollection) {
 
             List<com.thd.mapserver.domain.geom.Geometry> geometries = new ArrayList<>();

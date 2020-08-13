@@ -25,6 +25,11 @@ public class Point extends Geometry {
 		this.coordinate = coordinate;
 	}
 
+	public Point(Coordinate coordinate){
+		super();
+		this.coordinate = coordinate;
+	}
+
 	public Coordinate getCoordinate(){
 		return this.coordinate;
 	}
@@ -47,11 +52,6 @@ public class Point extends Geometry {
 	@Override
 	public int hashCode() {
 		return new HashCodeBuilder(17, 31).append(coordinate.getX()).append(coordinate.getY()).append(coordinate.getZ()).toHashCode();
-	}
-
-	@Override
-	public String toString() {
-		return String.format("%s(%s)", TYPENAME_POINT.toUpperCase(), GeometryHelper.convertCoordinatesToWkt(this.coordinate));
 	}
 
 	@Override
