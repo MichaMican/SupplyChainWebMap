@@ -96,15 +96,10 @@ public class FeatureCollectionsController {
     @GetMapping("/collections/{collectionId}/items.json")
     public HttpEntity<FeatureCollection> getItems(@PathVariable("collectionId") String collectionId,
                                                   @RequestParam(required = false) Integer limit,
-                                                  @RequestParam(required = false) String bbox,
+                                                  @RequestParam(required = false) int[] bbox,
                                                   @RequestParam(required = false) String datetime) {
         if(dbConnect.getCollection(collectionId) == null){
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
-
-        String[] bboxCornersRaw = null;
-        if(bbox != null) {
-            bboxCornersRaw = bbox.split(",");
         }
 
         if(limit == null){
@@ -112,40 +107,32 @@ public class FeatureCollectionsController {
         }
 
         //variable validation
-        if(limit < 1 || limit > 10000 || ( bboxCornersRaw != null && (bboxCornersRaw.length < 4 || bboxCornersRaw.length > 6))){
+        if(limit < 1 || limit > 10000 || ( bbox != null && (bbox.length < 4 || bbox.length > 6))){
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
 
         List<PoiTypeDbDto> dbResRaw;
 
-        if(bboxCornersRaw != null){
-            List<Integer> bboxCorners = new ArrayList<>();
-            for (String corner : bboxCornersRaw) {
-                try{
-                    bboxCorners.add(Integer.parseInt(corner));
-                } catch (NumberFormatException e) {
-                    return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-                }
-            }
+        if(bbox != null){
             List<Coordinate> bboxCors = new ArrayList<>();
             Integer x1, y1, x2, y2;
-            switch (bboxCorners.size()){
+            switch (bbox.length){
                 case 4:
-                    x1 = bboxCorners.get(0);
-                    y1 = bboxCorners.get(1);
-                    x2 = bboxCorners.get(2);
-                    y2 = bboxCorners.get(3);
+                    x1 = bbox[0];
+                    y1 = bbox[1];
+                    x2 = bbox[2];
+                    y2 = bbox[3];
                     break;
                 case 5:
                     /* Fall through */
                 case 6:
-                    x1 = bboxCorners.get(0);
-                    y1 = bboxCorners.get(1);
-                    x2 = bboxCorners.get(3);
-                    y2 = bboxCorners.get(4);
+                    x1 = bbox[0];
+                    y1 = bbox[1];
+                    x2 = bbox[3];
+                    y2 = bbox[4];
                     break;
                 default:
-                    //Will never get hit (because variable already was validated (line 115))
+                    //Will never get hit (because variable already was validated (line 110))
                     return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
             }
 
