@@ -1,10 +1,11 @@
 import React from 'react';
 import './App.css';
-import mapboxgl, { GeoJSONSourceRaw } from 'mapbox-gl'
-import Settings from './settings'
-import Select, { ValueType } from 'react-select'
+import './mapbox.css';
+import mapboxgl, { GeoJSONSourceRaw } from 'mapbox-gl';
+import Settings from './settings';
+import Select, { ValueType } from 'react-select';
 import axios from "axios";
-import { getColorCode, colourStyles } from "./colors"
+import { getColorCode, colourStyles } from "./colors";
 import { isNullOrUndefined } from 'util';
 
 
@@ -22,8 +23,6 @@ interface AppState {
   zoom: number | undefined,
   lastSelection: OptionType[]
 }
-
-
 
 class App extends React.Component<any, AppState> {
 
@@ -94,7 +93,7 @@ class App extends React.Component<any, AppState> {
           if (!this.state.map.getSource(option.value)) {
             axios.get(`http://localhost:8080/collections/${option.value}/items.json`).then((response) => {
               if (response.status >= 200 && response.status < 300) {
-
+                //Unfortunately because this is a callback function to axios i have to make this check again
                 const geoJsonSource: GeoJSONSourceRaw = {
                   "type": "geojson",
                   "data": response.data
@@ -120,6 +119,42 @@ class App extends React.Component<any, AppState> {
                     'circle-color': getColorCode(option.value)
                   },
                 });
+
+                this.state.map?.on('click', `${option.value}-Points`, (e: any) => {
+                  var coordinates = e.features[0].geometry.coordinates.slice();
+                  var description = e.features[0].properties.description;
+                  console.log(description)
+                  console.log(coordinates)
+
+
+                  // Ensure that if the map is zoomed out such that multiple
+                  // copies of the feature are visible, the popup appears
+                  // over the copy being pointed to.
+                  while (Math.abs(e.lngLat.lng - coordinates[0]) > 180) {
+                    coordinates[0] += e.lngLat.lng > coordinates[0] ? 360 : -360;
+                  }
+
+                  if(this.state.map){
+                  new mapboxgl.Popup()
+                    .setLngLat(coordinates)
+                    .setHTML(`<div>${description}</div>`)
+                    .addTo(this.state.map);
+                  } else {
+                    console.error("Popup couldn't be shown because the map dissapeared")
+                  }
+                });
+
+                // Change the cursor to a pointer when the mouse is over the places layer.
+                this.state.map?.on('mouseenter', `${option.value}-Points`, () => {
+                  (this.state.map as mapboxgl.Map).getCanvas().style.cursor = 'pointer';
+                });
+
+                // Change it back to a pointer when it leaves.
+                this.state.map?.on('mouseleave', `${option.value}-Points`, () => {
+                  (this.state.map as mapboxgl.Map).getCanvas().style.cursor = '';
+                });
+
+
 
               } else {
                 console.error({ status: response.status, statusText: response.statusText });
