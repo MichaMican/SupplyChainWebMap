@@ -16,21 +16,4 @@ public class FeatureTypeDbDto {
         this.description = description;
         this.title = title;
     }
-
-    public static List<FeatureTypeDbDto> parseDbResponse(ResultSet dbResponseToParse){
-        List<FeatureTypeDbDto> rows = new ArrayList<>();
-
-        try {
-            while (dbResponseToParse.next()) {
-                rows.add(new FeatureTypeDbDto(dbResponseToParse.getString("typ"),
-                        dbResponseToParse.getString("description"),
-                        dbResponseToParse.getString("title"))
-                );
-            }
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
-        }
-
-        return rows;
-    }
 }

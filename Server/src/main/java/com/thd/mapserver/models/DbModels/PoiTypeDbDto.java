@@ -21,22 +21,5 @@ public class PoiTypeDbDto {
         this.title = title;
     }
 
-    public static List<PoiTypeDbDto> parseDbResponse(ResultSet dbResponseToParse){
-        List<PoiTypeDbDto> rows = new ArrayList<>();
 
-        try {
-            while (dbResponseToParse.next()) {
-                rows.add(new PoiTypeDbDto(dbResponseToParse.getString("id"),
-                        dbResponseToParse.getString("geometry_asgeojson"),
-                        dbResponseToParse.getString("typ"),
-                        dbResponseToParse.getString("description"),
-                        dbResponseToParse.getString("title"))
-                );
-            }
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
-        }
-
-        return rows;
-    }
 }

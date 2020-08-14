@@ -1,16 +1,16 @@
 package com.thd.mapserver.infrastructure.controller;
 
 import com.thd.mapserver.Settings;
-import com.thd.mapserver.helper.DbParseHelper;
+import com.thd.mapserver.domain.Parser;
 import com.thd.mapserver.helper.ResponseHelper;
 import com.thd.mapserver.models.Coordinate;
-import com.thd.mapserver.models.DbModels.PoiTypeDbDto;
+import com.thd.mapserver.models.DbModels.DbLimitResponse;
 import com.thd.mapserver.models.responseDtos.CollectionDto;
+import com.thd.mapserver.models.responseDtos.FeatureCollectionWithLimitDto;
 import com.thd.mapserver.models.responseDtos.LinkDto;
 import com.thd.mapserver.models.responseDtos.ResponseCollectionsDto;
 import com.thd.mapserver.postsql.PostgresqlPoiRepository;
 import org.geojson.FeatureCollection;
-import org.geojson.Polygon;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -26,13 +26,6 @@ public class FeatureCollectionsController {
     private ResponseHelper rtb = new ResponseHelper();
     private PostgresqlPoiRepository dbConnect = new PostgresqlPoiRepository();
     private Settings settings = Settings.getInstance();
-
-    //TODO: Remove before release
-    @GetMapping("/test")
-    public FeatureCollection test() {
-        var dbCon = new PostgresqlPoiRepository();
-        return DbParseHelper.parsePoisDescJoin(dbCon.getAll());
-    }
 
     @GetMapping("/collections")
     public HttpEntity<ResponseCollectionsDto> getCollections() {
@@ -95,10 +88,11 @@ public class FeatureCollectionsController {
     }
 
     @GetMapping("/collections/{collectionId}/items.json")
-    public HttpEntity<FeatureCollection> getItems(@PathVariable("collectionId") String collectionId,
-                                                  @RequestParam(required = false) Integer limit,
-                                                  @RequestParam(required = false) double[] bbox,
-                                                  @RequestParam(required = false) String datetime) {
+    public HttpEntity<FeatureCollectionWithLimitDto> getItems(@PathVariable("collectionId") String collectionId,
+                                                              @RequestParam(required = false) Integer limit,
+                                                              @RequestParam(required = false) Integer offset,
+                                                              @RequestParam(required = false) double[] bbox,
+                                                              @RequestParam(required = false) String datetime) {
         if(dbConnect.getCollection(collectionId) == null){
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
@@ -106,13 +100,15 @@ public class FeatureCollectionsController {
         if(limit == null){
             limit = 10;
         }
-
+        if(offset == null){
+            offset = 0;
+        }
         //variable validation
         if(limit < 1 || limit > 10000 || ( bbox != null && (bbox.length < 4 || bbox.length > 6))){
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
 
-        List<PoiTypeDbDto> dbResRaw;
+        DbLimitResponse dbResRaw;
 
         if(bbox != null){
             List<Coordinate> bboxCors = new ArrayList<>();
@@ -148,18 +144,14 @@ public class FeatureCollectionsController {
             //Left lower - Yes this is really necessary because of definition the endpoint has to be specificly spacified as the firs
             bboxCors.add(new Coordinate(x1, y1));
 
-            dbResRaw = dbConnect.getByBboxAndType(bboxCors, collectionId);
+            dbResRaw = dbConnect.getByBboxAndType(bboxCors, collectionId, limit, offset);
 
         } else {
-            dbResRaw = dbConnect.getByType(collectionId);
+
+            dbResRaw = dbConnect.getByType(collectionId, limit, offset);
         }
 
-        var dbRes = dbResRaw;
-        if(dbRes.size() > limit){
-            dbRes = dbResRaw.subList(0, limit);
-        }
-
-        var response= DbParseHelper.parsePoisDescJoin(dbRes);
+        var response= new Parser().parsePoisDescJoin(dbResRaw);
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
@@ -188,7 +180,7 @@ public class FeatureCollectionsController {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
 
-        return new ResponseEntity<>(DbParseHelper.parsePoisDescJoin(resRaw), HttpStatus.OK);
+        return new ResponseEntity<>(new Parser().parsePoisDescJoin(resRaw), HttpStatus.OK);
     }
 
     private boolean isCollectionValid(String collectionId){
