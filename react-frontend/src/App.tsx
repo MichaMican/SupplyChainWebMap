@@ -7,7 +7,6 @@ import Select, { ValueType } from 'react-select';
 import axios from "axios";
 import { getColorCode, colourStyles } from "./colors";
 import { isNullOrUndefined } from 'util';
-import { type } from 'os';
 
 
 
@@ -156,7 +155,7 @@ class App extends React.Component<any, AppState> {
                 this.state.map?.on('click', `${option.value}-Points`, (e: any) => {
                   var coordinates = e.features[0].geometry.coordinates.slice();
                   var description = e.features[0].properties.description;
-                  var typ = e.features[0].properties.typ;
+                  var title = e.features[0].properties.title;
                   // Ensure that if the map is zoomed out such that multiple
                   // copies of the feature are visible, the popup appears
                   // over the copy being pointed to.
@@ -172,7 +171,7 @@ class App extends React.Component<any, AppState> {
                     if (this.state.map) {
                       new mapboxgl.Popup()
                         .setLngLat(coordinates)
-                        .setHTML(`<div><b>${typ}</b><br>${description}</div>`)
+                        .setHTML(`<div><b>${title}</b><br>${description}</div>`)
                         .addTo(this.state.map);
                     } else {
                       console.error("Popup couldn't be shown because the map dissapeared")

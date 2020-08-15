@@ -1,7 +1,7 @@
 package com.thd.mapserver.infrastructure.controller;
 
 import com.thd.mapserver.Settings;
-import com.thd.mapserver.domain.Parser;
+import com.thd.mapserver.Parser;
 import com.thd.mapserver.helper.ResponseHelper;
 import com.thd.mapserver.models.Coordinate;
 import com.thd.mapserver.models.DbModels.DbLimitResponse;
@@ -45,7 +45,8 @@ public class FeatureCollectionsController {
             featureLink.type = "application/geo+json";
             collectionInfo.links.add(featureLink);
             featureLink = new LinkDto();
-            featureLink.href = settings.getBaseLink() + "/collections/" + collection.typ;
+            featureLink.href = settings.getBaseLink() + "/collections/" + collection.typ
+            ;
             featureLink.rel = "self";
             featureLink.type = "application/json";
             collectionInfo.links.add(featureLink);

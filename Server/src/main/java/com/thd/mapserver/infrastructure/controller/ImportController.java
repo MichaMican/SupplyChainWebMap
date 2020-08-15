@@ -1,6 +1,6 @@
 package com.thd.mapserver.infrastructure.controller;
 
-import com.thd.mapserver.domain.Parser;
+import com.thd.mapserver.Parser;
 import com.thd.mapserver.domain.SFAFeature;
 import com.thd.mapserver.models.featureTypeDto.FeatureTypeDto;
 import com.thd.mapserver.postsql.PostgresqlPoiRepository;

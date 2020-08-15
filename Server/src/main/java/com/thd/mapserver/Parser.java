@@ -1,4 +1,4 @@
-package com.thd.mapserver.domain;
+package com.thd.mapserver;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -69,7 +69,8 @@ public class Parser {
         //prepare properties for parsing
         Map<String, Object> properties = new HashMap<>();
 
-        properties.put("typ", rowToParse.typ);
+        properties.put("type", rowToParse.typ);
+        properties.put("title", rowToParse.title);
         properties.put("description", rowToParse.description);
 
         //prepare geometry for parsing

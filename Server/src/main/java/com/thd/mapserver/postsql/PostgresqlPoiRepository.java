@@ -5,7 +5,7 @@ import java.sql.SQLException;
 import java.util.*;
 
 import com.thd.mapserver.Settings;
-import com.thd.mapserver.domain.Parser;
+import com.thd.mapserver.Parser;
 import com.thd.mapserver.domain.SFAFeature;
 import com.thd.mapserver.domain.geom.LinearRing;
 import com.thd.mapserver.domain.geom.Polygon;
