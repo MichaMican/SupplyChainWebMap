@@ -44,6 +44,11 @@ public class FeatureCollectionsController {
             featureLink.rel = "items";
             featureLink.type = "application/geo+json";
             collectionInfo.links.add(featureLink);
+            featureLink = new LinkDto();
+            featureLink.href = settings.getBaseLink() + "/collections/" + collection.typ;
+            featureLink.rel = "self";
+            featureLink.type = "application/json";
+            collectionInfo.links.add(featureLink);
 
             returnResponse.collections.add(collectionInfo);
         }
@@ -73,7 +78,12 @@ public class FeatureCollectionsController {
         link.href = settings.getBaseLink()+"/collections/"+collectionId+"/items.json";
         link.rel = "item";
         link.type = "application/geo+json";
+        returnResponse.links.add(link);
 
+        link = new LinkDto();
+        link.href = settings.getBaseLink()+"/collections/"+collectionId;
+        link.rel = "self";
+        link.type = "application/json";
         returnResponse.links.add(link);
 
         return new ResponseEntity<>(returnResponse, HttpStatus.OK);

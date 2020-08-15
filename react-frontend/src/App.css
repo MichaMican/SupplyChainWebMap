@@ -16,3 +16,8 @@
   font: 12px/20px "Helvetica Neue", Arial, Helvetica, sans-serif;
   z-index: 999;
 }
+
+.bboxInfo{
+  position: absolute;
+  bottom: 0;
+}

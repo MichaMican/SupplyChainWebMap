@@ -17,7 +17,11 @@ public class Point extends Geometry {
 
 	public Point(double x, double y, double z) {
 		super(4326);
-		this.coordinate = new Coordinate(x,y,z);
+		if(z == 0){
+			this.coordinate = new Coordinate(x,y);
+		} else {
+			this.coordinate = new Coordinate(x,y,z);
+		}
 	}
 
 	public Point(Coordinate coordinate, int srid){

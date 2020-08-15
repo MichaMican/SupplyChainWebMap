@@ -31,7 +31,7 @@ public class PostgresqlPoiRepository implements PoiRepository {
     public void add(List<SFAFeature> poi) {
         final var sqlDescriptionString = "INSERT INTO collections (typ, description, title) VALUES (?, ?, ?) " +
                 "ON CONFLICT (typ) DO NOTHING;";
-        final var sqlPoiString = "INSERT INTO pois (id, geometry, descriptiontype) VALUES (?, ST_GeomFromText(?, 4326), ?) " +
+        final var sqlPoiString = "INSERT INTO pois (id, geometry, descriptiontype, description) VALUES (?, ST_GeomFromText(?, 4326), ?, ?) " +
                 "ON CONFLICT (geometry, descriptiontype) DO NOTHING;";
         if (!poi.isEmpty()) {
             try (final var connection = DriverManager.getConnection(connectionString)) {
@@ -39,9 +39,9 @@ public class PostgresqlPoiRepository implements PoiRepository {
 
                     var pstmtDesc = connection.prepareStatement(sqlDescriptionString);
 
-                    pstmtDesc.setObject(1, feature.getProperties().get("typ").toString().toLowerCase());
+                    pstmtDesc.setObject(1, feature.getProperties().get("type").toString());
                     pstmtDesc.setObject(2, feature.getProperties().get("description").toString());
-                    pstmtDesc.setObject(3, feature.getProperties().get("typ").toString());
+                    pstmtDesc.setObject(3, feature.getProperties().get("type").toString());
 
                     pstmtDesc.executeUpdate();
 
@@ -55,7 +55,8 @@ public class PostgresqlPoiRepository implements PoiRepository {
 
                     pstmtPoi.setObject(1, poiId);
                     pstmtPoi.setObject(2, feature.getGeometry().asText());
-                    pstmtPoi.setObject(3, feature.getProperties().get("typ").toString().toLowerCase());
+                    pstmtPoi.setObject(3, feature.getProperties().get("type").toString());
+                    pstmtPoi.setObject(4, feature.getProperties().get("description").toString());
 
                     pstmtPoi.executeUpdate();
                 }
@@ -106,7 +107,7 @@ public class PostgresqlPoiRepository implements PoiRepository {
 
     @Override
     public List<PoiTypeDbDto> getAll() {
-        final var sqlQuery = "SELECT p.id, ST_AsGeoJSON(p.geometry) as geometry_asgeojson, d.typ, d.description, d.title " +
+        final var sqlQuery = "SELECT p.id, ST_AsGeoJSON(p.geometry) as geometry_asgeojson, d.typ, p.description, d.title " +
                 "FROM pois p LEFT JOIN collections d ON p.descriptiontype = d.typ;";
 
         try (final var connection = DriverManager.getConnection(connectionString)) {
@@ -156,7 +157,7 @@ public class PostgresqlPoiRepository implements PoiRepository {
         if (types.isEmpty()) {
             return null;
         } else {
-            StringBuilder sb = new StringBuilder("SELECT p.id, ST_AsGeoJSON(p.geometry) as geometry_asgeojson, d.typ, d.description, d.title " +
+            StringBuilder sb = new StringBuilder("SELECT p.id, ST_AsGeoJSON(p.geometry) as geometry_asgeojson, d.typ, p.description, d.title " +
                     "FROM pois p LEFT JOIN collections d ON p.descriptiontype = d.typ WHERE ");
 
             StringBuilder sbC = new StringBuilder("SELECT COUNT(*) FROM pois p LEFT JOIN collections d ON p.descriptiontype = d.typ WHERE ");
@@ -213,7 +214,7 @@ public class PostgresqlPoiRepository implements PoiRepository {
 
     @Override
     public DbLimitResponse getByBboxAndType(List<Coordinate> bbox, String type, Integer limit, int offset) {
-        String sqlQuery = "SELECT p.id, ST_AsGeoJSON(p.geometry) as geometry_asgeojson, d.typ, d.description, d.title " +
+        String sqlQuery = "SELECT p.id, ST_AsGeoJSON(p.geometry) as geometry_asgeojson, d.typ, p.description, d.title " +
                 "FROM pois p LEFT JOIN collections d ON p.descriptiontype = d.typ WHERE " +
                 "d.typ = ? AND ST_Intersects(p.geometry, ST_GeomFromText(?, 4326)) LIMIT ? OFFSET ?";
 
@@ -295,7 +296,7 @@ public class PostgresqlPoiRepository implements PoiRepository {
     @Override
     public PoiTypeDbDto getFeatureById(String featurenId) {
 
-        final var sqlQuery = "SELECT p.id, ST_AsGeoJSON(p.geometry) as geometry_asgeojson, d.typ, d.description, d.title " +
+        final var sqlQuery = "SELECT p.id, ST_AsGeoJSON(p.geometry) as geometry_asgeojson, d.typ, p.description, d.title " +
                 "FROM pois p LEFT JOIN collections d ON p.descriptiontype = d.typ WHERE p.id = ?;";
 
         try (final var connection = DriverManager.getConnection(connectionString)) {
