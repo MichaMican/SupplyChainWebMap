@@ -2,9 +2,7 @@ package com.thd.mapserver;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.thd.mapserver.domain.geom.LinearRing;
-import com.thd.mapserver.helper.GeometryHelper;
-import com.thd.mapserver.models.Coordinate;
+import com.thd.mapserver.domain.geom.*;
 import com.thd.mapserver.models.DbModels.DbLimitResponse;
 import com.thd.mapserver.models.DbModels.FeatureTypeDbDto;
 import com.thd.mapserver.models.DbModels.PoiTypeDbDto;
@@ -19,46 +17,47 @@ import java.util.List;
 import java.util.Map;
 
 public class Parser {
-    public com.thd.mapserver.domain.geom.Geometry parseGeometry(GeoJsonObject geometry) {
+    public SFAGeometry parseGeometry(GeoJsonObject geometry) {
 
         if (geometry instanceof Point) {
             LngLatAlt cor = ((Point) geometry).getCoordinates();
 
             return (
-                    new com.thd.mapserver.domain.geom.Point(cor.getLongitude(), cor.getLatitude(), cor.getAltitude())
+                    new SFAPoint(cor.getLongitude(), cor.getLatitude(), cor.getAltitude())
             );
 
         } else if (geometry instanceof Polygon) {
-            List<List<LngLatAlt>> coordinatesRaw = ((Polygon) geometry).getCoordinates();
-            List<List<Coordinate>> coordinates = new ArrayList<>();
 
-            for (var polygonPartRaw : coordinatesRaw) {
-                List<Coordinate> polygonPart = new ArrayList<>();
-                for (var polygonPartCor : polygonPartRaw) {
-                    polygonPart.add(new Coordinate(
-                            polygonPartCor.getLongitude(), polygonPartCor.getLatitude(), polygonPartCor.getAltitude()
-                    ));
+            Polygon polygon = (Polygon) geometry;
+            SFALinearRing outerRing;
+            List<SFALinearRing> innerRings = new ArrayList<>();
+
+            List<SFAPoint> SFAPoints = new ArrayList<>();
+            for (var coordinates : polygon.getExteriorRing()) {
+                SFAPoints.add(new SFAPoint(coordinates.getLongitude(), coordinates.getLatitude(), coordinates.getAltitude()));
+            }
+            outerRing = new SFALinearRing(SFAPoints);
+
+            if (!polygon.getInteriorRings().isEmpty()) {
+                for (var ringList : polygon.getInteriorRings()) {
+                    SFAPoints = new ArrayList<>();
+                    for (var coordinates : ringList) {
+                        SFAPoints.add(new SFAPoint(coordinates.getLongitude(), coordinates.getLatitude(), coordinates.getAltitude()));
+                    }
+                    innerRings.add(new SFALinearRing(SFAPoints));
                 }
-                coordinates.add(polygonPart);
+                outerRing = new SFALinearRing(SFAPoints);
             }
 
-            LinearRing innerRing = new LinearRing(GeometryHelper.convertCoordinateListToPointList(coordinates.get(0)));
-            List<LinearRing> outerRing = new ArrayList<>();
+            return new SFAPolygon(outerRing, innerRings);
 
-            if(coordinates.size() > 1){
-                for(int i = 1; i < coordinates.size(); i++){
-                    outerRing.add(new LinearRing(GeometryHelper.convertCoordinateListToPointList(coordinates.get(i))));
-                }
-            }
-
-            return new com.thd.mapserver.domain.geom.Polygon(innerRing, outerRing);
         } else if (geometry instanceof GeometryCollection) {
 
-            List<com.thd.mapserver.domain.geom.Geometry> geometries = new ArrayList<>();
+            List<SFAGeometry> geometries = new ArrayList<>();
             for (var subGeometry : ((GeometryCollection) geometry).getGeometries()) {
                 geometries.add(parseGeometry(subGeometry));
             }
-            return new com.thd.mapserver.domain.geom.GeometryCollection(geometries);
+            return new SFASFAGeometryCollection(geometries);
 
         } else {
             return null;
@@ -77,10 +76,10 @@ public class Parser {
         GeoJsonObject rawObject = new ObjectMapper().readValue(rowToParse.geometry_asgeojson, GeoJsonObject.class);
 
         Feature feature = new Feature();
-        if(rawObject instanceof GeometryCollection || rawObject instanceof Point ||
-                rawObject instanceof Polygon || rawObject instanceof  MultiPolygon){
+        if (rawObject instanceof GeometryCollection || rawObject instanceof Point ||
+                rawObject instanceof Polygon || rawObject instanceof MultiPolygon) {
             feature.setGeometry(rawObject);
-        }else {
+        } else {
             return null;
         }
 
@@ -97,7 +96,7 @@ public class Parser {
 
             try {
                 Feature feature = parseFeature(element);
-                if(feature != null){
+                if (feature != null) {
                     returnCollection.add(feature);
                 }
             } catch (JsonProcessingException e) {
@@ -119,7 +118,7 @@ public class Parser {
 
             try {
                 Feature feature = parseFeature(element);
-                if(feature != null){
+                if (feature != null) {
                     featureCollection.add(feature);
                 }
             } catch (JsonProcessingException e) {
@@ -131,14 +130,14 @@ public class Parser {
 
     }
 
-    public FeatureCollection parsePoisDescJoin(PoiTypeDbDto elementsToParse){
+    public FeatureCollection parsePoisDescJoin(PoiTypeDbDto elementsToParse) {
         var list = new ArrayList<PoiTypeDbDto>();
         list.add(elementsToParse);
         return parsePoisDescJoin(list);
 
     }
 
-    public List<FeatureTypeDbDto> parseDbResponseFeatureType(ResultSet dbResponseToParse){
+    public List<FeatureTypeDbDto> parseDbResponseFeatureType(ResultSet dbResponseToParse) {
         List<FeatureTypeDbDto> rows = new ArrayList<>();
 
         try {
@@ -155,7 +154,7 @@ public class Parser {
         return rows;
     }
 
-    public List<PoiTypeDbDto> parseDbResponsePoiType(ResultSet dbResponseToParse){
+    public List<PoiTypeDbDto> parseDbResponsePoiType(ResultSet dbResponseToParse) {
         List<PoiTypeDbDto> rows = new ArrayList<>();
 
         try {

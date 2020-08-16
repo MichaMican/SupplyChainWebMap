@@ -6,7 +6,7 @@ CREATE TABLE public.pois
     descriptiontype text COLLATE pg_catalog."default" NOT NULL,
     id text COLLATE pg_catalog."default" NOT NULL DEFAULT uuid_generate_v4(),
     description text COLLATE pg_catalog."default" NOT NULL,
-    CONSTRAINT "primaryKey" PRIMARY KEY (geometry, descriptiontype),
+    CONSTRAINT "primaryKey" PRIMARY KEY (id, descriptiontype),
     CONSTRAINT "PoiDesc" FOREIGN KEY (descriptiontype)
         REFERENCES public.collections (typ) MATCH SIMPLE
         ON UPDATE NO ACTION

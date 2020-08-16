@@ -6,26 +6,26 @@ import java.util.Map;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 
-import com.thd.mapserver.domain.geom.Geometry;
+import com.thd.mapserver.domain.geom.SFAGeometry;
 
 public class SFAFeature {
 
 	private final String id;
-	private final Geometry geometry;
+	private final SFAGeometry SFAGeometry;
 	private final Map<String, Object> properties;
 	private final String featureType;
 
-	public SFAFeature(String id, Geometry geometry, Map<String, Object> properties) {
-		this(id, geometry, properties, "");
+	public SFAFeature(String id, SFAGeometry SFAGeometry, Map<String, Object> properties) {
+		this(id, SFAGeometry, properties, "");
 	}
 
-	public SFAFeature(String id, Geometry geometry, String featureType) {
-		this(id, geometry, Collections.emptyMap(), featureType);
+	public SFAFeature(String id, SFAGeometry SFAGeometry, String featureType) {
+		this(id, SFAGeometry, Collections.emptyMap(), featureType);
 	}
 
-	public SFAFeature(String id, Geometry geometry, Map<String, Object> properties, String featureType) {
+	public SFAFeature(String id, SFAGeometry SFAGeometry, Map<String, Object> properties, String featureType) {
 		this.id = id;
-		this.geometry = geometry;
+		this.SFAGeometry = SFAGeometry;
 		this.properties = properties;
 		this.featureType = featureType;
 	}
@@ -34,8 +34,8 @@ public class SFAFeature {
 		return this.id;
 	}
 
-	public Geometry getGeometry() {
-		return this.geometry;
+	public SFAGeometry getGeometry() {
+		return this.SFAGeometry;
 	}
 
 	public Map<String, Object> getProperties() {
@@ -57,14 +57,14 @@ public class SFAFeature {
 		}
 
 		final var otherFeature = (SFAFeature) other;
-		return id.equals(otherFeature.getId()) && geometry.equals(otherFeature.getGeometry())
+		return id.equals(otherFeature.getId()) && SFAGeometry.equals(otherFeature.getGeometry())
 				&& properties.equals(otherFeature.getProperties())
 				&& StringUtils.equals(featureType, otherFeature.getFeatureType());
 	}
 
 	@Override
 	public int hashCode() {
-		return new HashCodeBuilder(17, 31).append(id).append(geometry).append(properties).append(featureType)
+		return new HashCodeBuilder(17, 31).append(id).append(SFAGeometry).append(properties).append(featureType)
 				.toHashCode();
 	}
 

@@ -1,6 +1,6 @@
 package com.thd.mapserver.helper;
 
-import com.thd.mapserver.domain.geom.Point;
+import com.thd.mapserver.domain.geom.SFAPoint;
 import com.thd.mapserver.models.Coordinate;
 
 import java.util.ArrayList;
@@ -12,16 +12,20 @@ public final class GeometryHelper {
 	private GeometryHelper() {
 	}
 
+	public static String convertCoordinatesToWkt(SFAPoint point){
+		return convertCoordinatesToWkt(point.getCoordinate());
+	}
+
 	public static String convertCoordinatesToWkt(Coordinate coordinate) {
 		return Double.isNaN(coordinate.getZ()) ? String.format(Locale.US, "%.7f %.7f", coordinate.getX(), coordinate.getY())
 				: String.format(Locale.US, "%.7f %.7f %.7f", coordinate.getX(), coordinate.getY(), coordinate.getZ());
 	}
 
-	public static List<Point> convertCoordinateListToPointList(List<Coordinate> coordinates){
-		List<Point> returnList = new ArrayList<>();
+	public static List<SFAPoint> convertCoordinateListToPointList(List<Coordinate> coordinates){
+		List<SFAPoint> returnList = new ArrayList<>();
 
 		for (var coordinate : coordinates) {
-			returnList.add(new Point(coordinate));
+			returnList.add(new SFAPoint(coordinate));
 		}
 
 		return returnList;

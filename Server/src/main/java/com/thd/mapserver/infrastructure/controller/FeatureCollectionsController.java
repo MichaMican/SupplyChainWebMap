@@ -172,7 +172,7 @@ public class FeatureCollectionsController {
         if(!isCollectionValid(collectionId)){
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
-        var resRaw = dbConnect.getFeatureById(featureId);
+        var resRaw = dbConnect.getFeatureByIdAndType(featureId, collectionId);
         if(resRaw == null || !resRaw.typ.equals(collectionId)){
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
@@ -186,7 +186,7 @@ public class FeatureCollectionsController {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
 
-        var resRaw = dbConnect.getFeatureById(featureId);
+        var resRaw = dbConnect.getFeatureByIdAndType(featureId, collectionId);
         if(resRaw == null || !resRaw.typ.equals(collectionId)){
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }

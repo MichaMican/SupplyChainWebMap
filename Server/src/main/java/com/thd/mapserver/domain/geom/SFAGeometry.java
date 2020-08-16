@@ -2,13 +2,13 @@ package com.thd.mapserver.domain.geom;
 
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 
-public abstract class Geometry {
+public abstract class SFAGeometry {
 	protected final int srid;
 
-	public Geometry(int srid) {
+	public SFAGeometry(int srid) {
 		this.srid = srid;
 	}
-	public Geometry() {
+	public SFAGeometry() {
 		this.srid = 4326;
 	}
 
@@ -26,11 +26,11 @@ public abstract class Geometry {
 			return true;
 		}
 
-		if (!(other instanceof Geometry)) {
+		if (!(other instanceof SFAGeometry)) {
 			return false;
 		}
 
-		return srid == ((Geometry) other).srid;
+		return srid == ((SFAGeometry) other).srid;
 	}
 
 	@Override

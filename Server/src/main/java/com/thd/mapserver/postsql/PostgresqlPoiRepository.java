@@ -7,8 +7,8 @@ import java.util.*;
 import com.thd.mapserver.Settings;
 import com.thd.mapserver.Parser;
 import com.thd.mapserver.domain.SFAFeature;
-import com.thd.mapserver.domain.geom.LinearRing;
-import com.thd.mapserver.domain.geom.Polygon;
+import com.thd.mapserver.domain.geom.SFALinearRing;
+import com.thd.mapserver.domain.geom.SFAPolygon;
 import com.thd.mapserver.helper.GeometryHelper;
 import com.thd.mapserver.interfaces.PoiRepository;
 import com.thd.mapserver.models.Coordinate;
@@ -228,8 +228,8 @@ public class PostgresqlPoiRepository implements PoiRepository {
 
             pstmt.setObject(1, type);
             pstmtC.setObject(1, type);
-            pstmt.setObject(2, new Polygon(new LinearRing(GeometryHelper.convertCoordinateListToPointList(bbox))).asText());
-            pstmtC.setObject(2, new Polygon(new LinearRing(GeometryHelper.convertCoordinateListToPointList(bbox))).asText());
+            pstmt.setObject(2, new SFAPolygon(new SFALinearRing(GeometryHelper.convertCoordinateListToPointList(bbox))).asText());
+            pstmtC.setObject(2, new SFAPolygon(new SFALinearRing(GeometryHelper.convertCoordinateListToPointList(bbox))).asText());
             pstmt.setObject(3, limit);
             pstmt.setObject(4, offset);
 
@@ -303,6 +303,30 @@ public class PostgresqlPoiRepository implements PoiRepository {
             var pstmt = connection.prepareStatement(sqlQuery);
 
             pstmt.setObject(1, featurenId);
+
+            var resRaw = pstmt.executeQuery();
+            var res = new Parser().parseDbResponsePoiType(resRaw);
+            if (!res.isEmpty()) {
+                return res.get(0);
+            }
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+
+        return null;
+    }
+
+    @Override
+    public PoiTypeDbDto getFeatureByIdAndType(String featurenId, String collectionId) {
+
+        final var sqlQuery = "SELECT p.id, ST_AsGeoJSON(p.geometry) as geometry_asgeojson, d.typ, p.description, d.title " +
+                "FROM pois p LEFT JOIN collections d ON p.descriptiontype = d.typ WHERE p.id = ? AND d.typ = ?;";
+
+        try (final var connection = DriverManager.getConnection(connectionString)) {
+            var pstmt = connection.prepareStatement(sqlQuery);
+
+            pstmt.setObject(1, featurenId);
+            pstmt.setObject(2, collectionId);
 
             var resRaw = pstmt.executeQuery();
             var res = new Parser().parseDbResponsePoiType(resRaw);

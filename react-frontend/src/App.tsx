@@ -9,10 +9,10 @@ import { getColorCode, colourStyles } from "./colors";
 import { isNullOrUndefined } from 'util';
 
 
-
 type OptionType = {
   value: string;
   label: string;
+  description: string;
 };
 
 type Bbox = {
@@ -81,7 +81,7 @@ class App extends React.Component<any, AppState> {
           var newSelectOptions: OptionType[] = [];
 
           response.data.collections.forEach((e: any) => {
-            newSelectOptions.push({ label: e.title, value: e.id })
+            newSelectOptions.push({ label: e.title, value: e.id, description: e.description })
           })
 
           this.setState({
@@ -306,6 +306,23 @@ class App extends React.Component<any, AppState> {
     }
   }
 
+  getCollectionsSidebar = (currentSelection: OptionType[]) => {
+    return currentSelection.map((collection: OptionType) => {
+      return (
+        <div>
+          <div>
+            <i className="material-icons" style={{ cursor: "pointer", float:"right" }} onClick={() => {
+              window.open(`https://google.com/search?q=${encodeURI(collection.label)}`)
+            }}>help_outline</i>
+            <h3 style={{ marginBottom: 2 }}>{collection.label}</h3>
+          </div>
+          <div>{collection.description}</div>
+        </div>
+
+      )
+    })
+  }
+
   render() {
     return (
       <div>
@@ -328,7 +345,18 @@ class App extends React.Component<any, AppState> {
             </div>
           }
         </div>
-        <div id="map" />
+        <div id="map" style={this.state.currentlySelected.length > 0 ? { width: "calc(100% - 350px)" } : {}} />
+        {this.state.currentlySelected.length > 0 &&
+          (
+            <div className="sidebar">
+              <h1>Collections</h1>
+              <hr />
+              <div style={{ textAlign: "left", padding: 10 }}>
+                {this.getCollectionsSidebar(this.state.currentlySelected)}
+              </div>
+            </div>
+          )
+        }
       </div>
     );
   }

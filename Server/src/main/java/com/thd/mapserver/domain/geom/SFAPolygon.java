@@ -7,20 +7,20 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-public class Polygon extends Surface {
+public class SFAPolygon extends SFASurface {
     private static final String TYPENAME_POLYGON = "Point";
 
-    private final LinearRing outerRing;
-    private final List<LinearRing> innerRings;
+    private final SFALinearRing outerRing;
+    private final List<SFALinearRing> innerRings;
 
     //nur outer
-    public Polygon(LinearRing outerRing) {
+    public SFAPolygon(SFALinearRing outerRing) {
         this.outerRing = outerRing;
         this.innerRings = new ArrayList<>();
     }
 
     //ein outer linear ring => mehrere inner linear ring
-    public Polygon(LinearRing outerRing, List<LinearRing> innerRings) {
+    public SFAPolygon(SFALinearRing outerRing, List<SFALinearRing> innerRings) {
         if(innerRings == null || innerRings.isEmpty()){
             this.outerRing = outerRing;
             this.innerRings = new ArrayList<>();
@@ -32,11 +32,11 @@ public class Polygon extends Surface {
     }
 
     //This typo is part of the SFA Model
-    public LineString exterorRing() {
+    public SFALineString exterorRing() {
         return outerRing;
     }
 
-    public LineString interiorRingN(int n) {
+    public SFALineString interiorRingN(int n) {
         return innerRings.get(n);
     }
 
@@ -52,7 +52,7 @@ public class Polygon extends Surface {
         List<List<Coordinate>> coordinates = new ArrayList<>();
         coordinates.add(outerRing.getAllPointsAsCoordinates());
         if (numInteriorRing() <= 0) {
-            for (LinearRing innerRing : innerRings) {
+            for (SFALinearRing innerRing : innerRings) {
                 coordinates.add(innerRing.getAllPointsAsCoordinates());
             }
         }

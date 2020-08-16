@@ -1,18 +1,19 @@
 package com.thd.mapserver.domain.geom;
 
+import com.thd.mapserver.helper.GeometryHelper;
 import com.thd.mapserver.models.Coordinate;
 
-import java.security.InvalidParameterException;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
-public class LineString extends Curve {
+public class SFALineString extends SFACurve {
 
     private static final String TYPENAME_LINESTRING = "LineString";
 
-    private List<Point> points;
+    private List<SFAPoint> points;
 
-    public LineString(List<Point> points) {
+    public SFALineString(List<SFAPoint> points) {
         this.points = points;
     }
 
@@ -20,13 +21,27 @@ public class LineString extends Curve {
         return points.size();
     }
 
-    public Point pointN(int n) {
+    public SFAPoint pointN(int n) {
         return points.get(n);
     }
 
     @Override
     public String asText() {
-        return null;
+        StringBuilder sb = new StringBuilder("LINESTRING(");
+
+        Iterator<SFAPoint> pointIter = points.iterator();
+
+        while (pointIter.hasNext()){
+            var point = pointIter.next();
+            sb.append(GeometryHelper.convertCoordinatesToWkt(point));
+
+            if(pointIter.hasNext()){
+                sb.append(",");
+            }
+        }
+
+        sb.append(")");
+        return sb.toString();
     }
 
     @Override
@@ -40,20 +55,20 @@ public class LineString extends Curve {
     }
 
     @Override
-    public Point startPoint() {
+    public SFAPoint startPoint() {
         return pointN(0);
     }
 
     @Override
-    public Point endPoint() {
+    public SFAPoint endPoint() {
         return pointN(numPoints() - 1);
     }
 
     public List<Coordinate> getAllPointsAsCoordinates() {
         List<Coordinate> returnCoordinate = new ArrayList<>();
 
-        for (Point point : points) {
-            returnCoordinate.add(point.getCoordinate());
+        for (SFAPoint SFAPoint : points) {
+            returnCoordinate.add(SFAPoint.getCoordinate());
         }
 
         return returnCoordinate;

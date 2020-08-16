@@ -1,42 +1,4092 @@
 {
-  "type": "FeatureCollection",
-  "features": [
-    {
-      "type": "Feature",
-	  "id": "feature1",
-      "properties": {
-        "type": "indium",
-        "description": "Herstellung von Touchscreens für Smartphones in Kanada."
-      },
-      "geometry":  {
-         "type": "GeometryCollection",
-         "geometries": [{
-             "type": "Point",
-             "coordinates": [  -113.203125,
-          			58.99531118795094]
-         }, {
-             "type": "Polygon",
-             "coordinates": [[[-113.20466995239258,58.99581962326816],[-113.20466995239258,58.99458168068663],[-113.20158004760742,58.9946480001675],[-113.20153713226318,58.99590804603525],[-113.20466995239258,58.99581962326816]]]
-         }]
+	"type": "FeatureCollection",
+	"name": "lieferkette_standorte",
+	"crs": {
+		"type": "name",
+		"properties": {
+			"name": "urn:ogc:def:crs:OGC:1.3:CRS84"
 		}
-    },
-	{
-      "type": "Feature",
-	  "id": "feature2",
-      "properties": {
-        "type": "gold",
-        "description": "Herstellung der Kontakte der SIM-Karte in Australien."
-      },
-      "geometry":  {
-         "type": "GeometryCollection",
-         "geometries": [{
-             "type": "Point",
-             "coordinates": [133.9453125, -26.74561038219901]
-         }, {
-             "type": "Polygon",
-             "coordinates": [[[133.94528836011887,-26.745593615457185],[133.94528735429049,-26.745628645968548],[133.9453550800681,-26.745628945374595],[133.94535675644875,-26.7455900225836],[133.94528836011887,-26.745593615457185]]]
-         }]
+	},
+	"features": [
+		{
+			"type": "Feature",
+			"properties": {
+				"type": "PhoneAssembly",
+				"description": "Arima Communications Corp.: Phone Assembly - Fairphone 3"
+			},
+			"geometry": {
+				"type": "GeometryCollection",
+				"geometries": [
+					{
+						"type": "Point",
+						"coordinates": [
+							121.48531030000004,
+							24.996217800000068,
+							0
+						]
+					},
+					{
+						"type": "Polygon",
+						"coordinates": [
+							[
+								[
+									121.48032112329507,
+									24.987288853767183
+								],
+								[
+									121.48893195062121,
+									24.987288853767183
+								],
+								[
+									121.48893195062121,
+									24.999451536146246
+								],
+								[
+									121.48032112329507,
+									24.999451536146246
+								],
+								[
+									121.48032112329507,
+									24.987288853767183
+								]
+							]
+						]
+					}
+				]
+			},
+			"id": "1"
+		},
+		{
+			"type": "Feature",
+			"properties": {
+				"type": "Semiconductors",
+				"description": "Qualcomm: Semiconductors - Integrated Circuits, Discretes & LEDs"
+			},
+			"geometry": {
+				"type": "GeometryCollection",
+				"geometries": [
+					{
+						"type": "Point",
+						"coordinates": [
+							-117.1957617,
+							32.896191600000066,
+							0
+						]
+					},
+					{
+						"type": "Polygon",
+						"coordinates": [
+							[
+								[
+									-117.2034384392348,
+									32.888782259835246
+								],
+								[
+									-117.1885182522586,
+									32.888782259835246
+								],
+								[
+									-117.1885182522586,
+									32.90435347661799
+								],
+								[
+									-117.2034384392348,
+									32.90435347661799
+								],
+								[
+									-117.2034384392348,
+									32.888782259835246
+								]
+							]
+						]
+					}
+				]
+			},
+			"id": "2"
+		},
+		{
+			"type": "Feature",
+			"properties": {
+				"type": "Semiconductors",
+				"description": "Infineon Technologies: Semiconductors - Integrated Circuits, Discretes & LEDs"
+			},
+			"geometry": {
+				"type": "GeometryCollection",
+				"geometries": [
+					{
+						"type": "Point",
+						"coordinates": [
+							11.640373800000077,
+							48.08028150000007,
+							0
+						]
+					},
+					{
+						"type": "Polygon",
+						"coordinates": [
+							[
+								[
+									11.63799700298475,
+									48.06939895284972
+								],
+								[
+									11.646990032529475,
+									48.06939895284972
+								],
+								[
+									11.646990032529475,
+									48.08902070978032
+								],
+								[
+									11.63799700298475,
+									48.08902070978032
+								],
+								[
+									11.63799700298475,
+									48.06939895284972
+								]
+							]
+						]
+					}
+				]
+			},
+			"id": "3"
+		},
+		{
+			"type": "Feature",
+			"properties": {
+				"type": "Semiconductors",
+				"description": "Kinetic Technologies: Semiconductors - Integrated Circuits, Discretes & LEDs"
+			},
+			"geometry": {
+				"type": "GeometryCollection",
+				"geometries": [
+					{
+						"type": "Point",
+						"coordinates": [
+							121.63211210000009,
+							31.201337,
+							0
+						]
+					},
+					{
+						"type": "Polygon",
+						"coordinates": [
+							[
+								[
+									121.62788796423561,
+									31.19439846282067
+								],
+								[
+									121.63749720504933,
+									31.19439846282067
+								],
+								[
+									121.63749720504933,
+									31.203427495529027
+								],
+								[
+									121.62788796423561,
+									31.203427495529027
+								],
+								[
+									121.62788796423561,
+									31.19439846282067
+								]
+							]
+						]
+					}
+				]
+			},
+			"id": "4"
+		},
+		{
+			"type": "Feature",
+			"properties": {
+				"type": "Semiconductors",
+				"description": "NXP Semiconductors: Semiconductors - Integrated Circuits, Discretes & LEDs"
+			},
+			"geometry": {
+				"type": "GeometryCollection",
+				"geometries": [
+					{
+						"type": "Point",
+						"coordinates": [
+							5.460419700000045,
+							51.40883670000005,
+							0
+						]
+					},
+					{
+						"type": "Polygon",
+						"coordinates": [
+							[
+								[
+									5.456954922374444,
+									51.400563236250015
+								],
+								[
+									5.4711728264858595,
+									51.400563236250015
+								],
+								[
+									5.4711728264858595,
+									51.4131582392688
+								],
+								[
+									5.456954922374444,
+									51.4131582392688
+								],
+								[
+									5.456954922374444,
+									51.400563236250015
+								]
+							]
+						]
+					}
+				]
+			},
+			"id": "5"
+		},
+		{
+			"type": "Feature",
+			"properties": {
+				"type": "Semiconductors",
+				"description": "Prisemi Electronics: Semiconductors - Integrated Circuits, Discretes & LEDs"
+			},
+			"geometry": {
+				"type": "GeometryCollection",
+				"geometries": [
+					{
+						"type": "Point",
+						"coordinates": [
+							121.5166018000001,
+							31.329240500000026,
+							0
+						]
+					},
+					{
+						"type": "Polygon",
+						"coordinates": [
+							[
+								[
+									121.50652233619789,
+									31.320667437237756
+								],
+								[
+									121.51891628391878,
+									31.320667437237756
+								],
+								[
+									121.51891628391878,
+									31.336683642018023
+								],
+								[
+									121.50652233619789,
+									31.336683642018023
+								],
+								[
+									121.50652233619789,
+									31.320667437237756
+								]
+							]
+						]
+					}
+				]
+			},
+			"id": "6"
+		},
+		{
+			"type": "Feature",
+			"properties": {
+				"type": "Semiconductors",
+				"description": "Will Semiconductor: Semiconductors - Integrated Circuits, Discretes & LEDs"
+			},
+			"geometry": {
+				"type": "GeometryCollection",
+				"geometries": [
+					{
+						"type": "Point",
+						"coordinates": [
+							121.63211210000009,
+							31.201337,
+							0
+						]
+					},
+					{
+						"type": "Polygon",
+						"coordinates": [
+							[
+								[
+									121.62111359788982,
+									31.20030499545438
+								],
+								[
+									121.63397126986162,
+									31.20030499545438
+								],
+								[
+									121.63397126986162,
+									31.204396331096664
+								],
+								[
+									121.62111359788982,
+									31.204396331096664
+								],
+								[
+									121.62111359788982,
+									31.20030499545438
+								]
+							]
+						]
+					}
+				]
+			},
+			"id": "7"
+		},
+		{
+			"type": "Feature",
+			"properties": {
+				"type": "Semiconductors",
+				"description": "Texas Instruments: Semiconductors - Integrated Circuits, Discretes & LEDs"
+			},
+			"geometry": {
+				"type": "GeometryCollection",
+				"geometries": [
+					{
+						"type": "Point",
+						"coordinates": [
+							-96.75214549999998,
+							32.91325310000008,
+							0
+						]
+					},
+					{
+						"type": "Polygon",
+						"coordinates": [
+							[
+								[
+									-96.76310783209179,
+									32.907360228960435
+								],
+								[
+									-96.74659960637699,
+									32.907360228960435
+								],
+								[
+									-96.74659960637699,
+									32.921636862244654
+								],
+								[
+									-96.76310783209179,
+									32.921636862244654
+								],
+								[
+									-96.76310783209179,
+									32.907360228960435
+								]
+							]
+						]
+					}
+				]
+			},
+			"id": "8"
+		},
+		{
+			"type": "Feature",
+			"properties": {
+				"type": "Electromechanical",
+				"description": "Memsensing: Electromechanical, MEMS"
+			},
+			"geometry": {
+				"type": "GeometryCollection",
+				"geometries": [
+					{
+						"type": "Point",
+						"coordinates": [
+							120.770586,
+							31.319614,
+							0
+						]
+					},
+					{
+						"type": "Polygon",
+						"coordinates": [
+							[
+								[
+									120.7688227626968,
+									31.30947753507164
+								],
+								[
+									120.77700406273567,
+									31.30947753507164
+								],
+								[
+									120.77700406273567,
+									31.327505001254547
+								],
+								[
+									120.7688227626968,
+									31.327505001254547
+								],
+								[
+									120.7688227626968,
+									31.30947753507164
+								]
+							]
+						]
+					}
+				]
+			},
+			"id": "9"
+		},
+		{
+			"type": "Feature",
+			"properties": {
+				"type": "Connectors",
+				"description": "Hirose: Connectors, Clips, Spring Contacts, Cables"
+			},
+			"geometry": {
+				"type": "GeometryCollection",
+				"geometries": [
+					{
+						"type": "Point",
+						"coordinates": [
+							139.729997,
+							35.62006830000007,
+							0
+						]
+					},
+					{
+						"type": "Polygon",
+						"coordinates": [
+							[
+								[
+									139.72514622959213,
+									35.617824638594705
+								],
+								[
+									139.73886189451343,
+									35.617824638594705
+								],
+								[
+									139.73886189451343,
+									35.625684445643834
+								],
+								[
+									139.72514622959213,
+									35.625684445643834
+								],
+								[
+									139.72514622959213,
+									35.617824638594705
+								]
+							]
+						]
+					}
+				]
+			},
+			"id": "10"
+		},
+		{
+			"type": "Feature",
+			"properties": {
+				"type": "Connectors",
+				"description": "Murata: Connectors, Clips, Spring Contacts, Cables"
+			},
+			"geometry": {
+				"type": "GeometryCollection",
+				"geometries": [
+					{
+						"type": "Point",
+						"coordinates": [
+							135.70185350000008,
+							34.92375490000006,
+							0
+						]
+					},
+					{
+						"type": "Polygon",
+						"coordinates": [
+							[
+								[
+									135.69367869097988,
+									34.919014353751855
+								],
+								[
+									135.7116062096668,
+									34.919014353751855
+								],
+								[
+									135.7116062096668,
+									34.93072327538813
+								],
+								[
+									135.69367869097988,
+									34.93072327538813
+								],
+								[
+									135.69367869097988,
+									34.919014353751855
+								]
+							]
+						]
+					}
+				]
+			},
+			"id": "11"
+		},
+		{
+			"type": "Feature",
+			"properties": {
+				"type": "Display",
+				"description": "Corning: Display, Touch Screen"
+			},
+			"geometry": {
+				"type": "GeometryCollection",
+				"geometries": [
+					{
+						"type": "Point",
+						"coordinates": [
+							-77.05590679999995,
+							42.14531240000008,
+							0
+						]
+					},
+					{
+						"type": "Polygon",
+						"coordinates": [
+							[
+								[
+									-77.06207522840504,
+									42.1418810345868
+								],
+								[
+									-77.04969366899397,
+									42.1418810345868
+								],
+								[
+									-77.04969366899397,
+									42.15005298949087
+								],
+								[
+									-77.06207522840504,
+									42.15005298949087
+								],
+								[
+									-77.06207522840504,
+									42.1418810345868
+								]
+							]
+						]
+					}
+				]
+			},
+			"id": "12"
+		},
+		{
+			"type": "Feature",
+			"properties": {
+				"type": "Accessories",
+				"description": "Jetvox: Accessories"
+			},
+			"geometry": {
+				"type": "GeometryCollection",
+				"geometries": [
+					{
+						"type": "Point",
+						"coordinates": [
+							121.29696740000009,
+							24.993409900000074,
+							0
+						]
+					},
+					{
+						"type": "Polygon",
+						"coordinates": [
+							[
+								[
+									121.28938024698773,
+									24.98929314603881
+								],
+								[
+									121.29879904327849,
+									24.98929314603881
+								],
+								[
+									121.29879904327849,
+									25.000245699946998
+								],
+								[
+									121.28938024698773,
+									25.000245699946998
+								],
+								[
+									121.28938024698773,
+									24.98929314603881
+								]
+							]
+						]
+					}
+				]
+			},
+			"id": "13"
+		},
+		{
+			"type": "Feature",
+			"properties": {
+				"type": "Connectors",
+				"description": "Kunzhon Electronics: Connectors, Clips, Spring Contacts, Cables"
+			},
+			"geometry": {
+				"type": "GeometryCollection",
+				"geometries": [
+					{
+						"type": "Point",
+						"coordinates": [
+							113.75005970000007,
+							23.036676200000045,
+							0
+						]
+					},
+					{
+						"type": "Polygon",
+						"coordinates": [
+							[
+								[
+									113.74168586009964,
+									23.029530901868565
+								],
+								[
+									113.75523110161329,
+									23.029530901868565
+								],
+								[
+									113.75523110161329,
+									23.042500217942468
+								],
+								[
+									113.74168586009964,
+									23.042500217942468
+								],
+								[
+									113.74168586009964,
+									23.029530901868565
+								]
+							]
+						]
+					}
+				]
+			},
+			"id": "14"
+		},
+		{
+			"type": "Feature",
+			"properties": {
+				"type": "Connectors",
+				"description": "CviLux Corporation: Connectors, Clips, Spring Contacts, Cables"
+			},
+			"geometry": {
+				"type": "GeometryCollection",
+				"geometries": [
+					{
+						"type": "Point",
+						"coordinates": [
+							121.33085,
+							24.96147,
+							0
+						]
+					},
+					{
+						"type": "Polygon",
+						"coordinates": [
+							[
+								[
+									121.3281062419908,
+									24.95434329483851
+								],
+								[
+									121.34078725315457,
+									24.95434329483851
+								],
+								[
+									121.34078725315457,
+									24.964621831756542
+								],
+								[
+									121.3281062419908,
+									24.964621831756542
+								],
+								[
+									121.3281062419908,
+									24.95434329483851
+								]
+							]
+						]
+					}
+				]
+			},
+			"id": "15"
+		},
+		{
+			"type": "Feature",
+			"properties": {
+				"type": "Connectors",
+				"description": "Assem Tech: Connectors, Clips, Spring Contacts, Cables"
+			},
+			"geometry": {
+				"type": "GeometryCollection",
+				"geometries": [
+					{
+						"type": "Point",
+						"coordinates": [
+							121.43850510000004,
+							24.965449900000067,
+							0
+						]
+					},
+					{
+						"type": "Polygon",
+						"coordinates": [
+							[
+								[
+									121.43542498980675,
+									24.9639444096288
+								],
+								[
+									121.44333371418516,
+									24.9639444096288
+								],
+								[
+									121.44333371418516,
+									24.969104781687058
+								],
+								[
+									121.43542498980675,
+									24.969104781687058
+								],
+								[
+									121.43542498980675,
+									24.9639444096288
+								]
+							]
+						]
+					}
+				]
+			},
+			"id": "16"
+		},
+		{
+			"type": "Feature",
+			"properties": {
+				"type": "Connectors",
+				"description": "Molex: Connectors, Clips, Spring Contacts, Cables"
+			},
+			"geometry": {
+				"type": "GeometryCollection",
+				"geometries": [
+					{
+						"type": "Point",
+						"coordinates": [
+							120.96919180000009,
+							31.36218130000003,
+							0
+						]
+					},
+					{
+						"type": "Polygon",
+						"coordinates": [
+							[
+								[
+									120.96776280417724,
+									31.35219589290023
+								],
+								[
+									120.97771313986205,
+									31.35219589290023
+								],
+								[
+									120.97771313986205,
+									31.367411835378483
+								],
+								[
+									120.96776280417724,
+									31.367411835378483
+								],
+								[
+									120.96776280417724,
+									31.35219589290023
+								]
+							]
+						]
+					}
+				]
+			},
+			"id": "17"
+		},
+		{
+			"type": "Feature",
+			"properties": {
+				"type": "PhoneAssembly",
+				"description": "Arima Communications Corp.: Phone Assembly - Fairphone 3"
+			},
+			"geometry": {
+				"type": "GeometryCollection",
+				"geometries": [
+					{
+						"type": "Point",
+						"coordinates": [
+							120.6395136000001,
+							31.17214430000007,
+							0
+						]
+					},
+					{
+						"type": "Polygon",
+						"coordinates": [
+							[
+								[
+									120.63293959042112,
+									31.164990724224598
+								],
+								[
+									120.64354252848254,
+									31.164990724224598
+								],
+								[
+									120.64354252848254,
+									31.178475515078414
+								],
+								[
+									120.63293959042112,
+									31.178475515078414
+								],
+								[
+									120.63293959042112,
+									31.164990724224598
+								]
+							]
+						]
+					}
+				]
+			},
+			"id": "18"
+		},
+		{
+			"type": "Feature",
+			"properties": {
+				"type": "Semiconductors",
+				"description": "Asahi Kasei: Semiconductors - Integrated Circuits, Discretes & LEDs"
+			},
+			"geometry": {
+				"type": "GeometryCollection",
+				"geometries": [
+					{
+						"type": "Point",
+						"coordinates": [
+							121.01251150000007,
+							24.770444,
+							0
+						]
+					},
+					{
+						"type": "Polygon",
+						"coordinates": [
+							[
+								[
+									121.00586382837974,
+									24.76848190354585
+								],
+								[
+									121.0157309810999,
+									24.76848190354585
+								],
+								[
+									121.0157309810999,
+									24.77978795165516
+								],
+								[
+									121.00586382837974,
+									24.77978795165516
+								],
+								[
+									121.00586382837974,
+									24.76848190354585
+								]
+							]
+						]
+					}
+				]
+			},
+			"id": "19"
+		},
+		{
+			"type": "Feature",
+			"properties": {
+				"type": "Semiconductors",
+				"description": "Awinic Technology: Semiconductors - Integrated Circuits, Discretes & LEDs"
+			},
+			"geometry": {
+				"type": "GeometryCollection",
+				"geometries": [
+					{
+						"type": "Point",
+						"coordinates": [
+							121.01251150000007,
+							24.770444,
+							0
+						]
+					},
+					{
+						"type": "Polygon",
+						"coordinates": [
+							[
+								[
+									121.00445580094816,
+									24.76696155551104
+								],
+								[
+									121.0181422885537,
+									24.76696155551104
+								],
+								[
+									121.0181422885537,
+									24.772617546719555
+								],
+								[
+									121.00445580094816,
+									24.772617546719555
+								],
+								[
+									121.00445580094816,
+									24.76696155551104
+								]
+							]
+						]
+					}
+				]
+			},
+			"id": "20"
+		},
+		{
+			"type": "Feature",
+			"properties": {
+				"type": "Semiconductors",
+				"description": "Diodes: Semiconductors - Integrated Circuits, Discretes & LEDs"
+			},
+			"geometry": {
+				"type": "GeometryCollection",
+				"geometries": [
+					{
+						"type": "Point",
+						"coordinates": [
+							121.202522,
+							30.99588,
+							0
+						]
+					},
+					{
+						"type": "Polygon",
+						"coordinates": [
+							[
+								[
+									121.200671341,
+									30.990607937935998
+								],
+								[
+									121.20389203331764,
+									30.990607937935998
+								],
+								[
+									121.20389203331764,
+									31.00296283281145
+								],
+								[
+									121.200671341,
+									31.00296283281145
+								],
+								[
+									121.200671341,
+									30.990607937935998
+								]
+							]
+						]
+					}
+				]
+			},
+			"id": "21"
+		},
+		{
+			"type": "Feature",
+			"properties": {
+				"type": "Semiconductors",
+				"description": "Wuxi ETEK Microelectronics: Semiconductors - Integrated Circuits, Discretes & LEDs"
+			},
+			"geometry": {
+				"type": "GeometryCollection",
+				"geometries": [
+					{
+						"type": "Point",
+						"coordinates": [
+							120.16781720000006,
+							31.606169600000044,
+							0
+						]
+					},
+					{
+						"type": "Polygon",
+						"coordinates": [
+							[
+								[
+									120.1624092864545,
+									31.603310003307293
+								],
+								[
+									120.17606164734974,
+									31.603310003307293
+								],
+								[
+									120.17606164734974,
+									31.614710540455594
+								],
+								[
+									120.1624092864545,
+									31.614710540455594
+								],
+								[
+									120.1624092864545,
+									31.603310003307293
+								]
+							]
+						]
+					}
+				]
+			},
+			"id": "22"
+		},
+		{
+			"type": "Feature",
+			"properties": {
+				"type": "Semiconductors",
+				"description": "InvenSense: Semiconductors - Integrated Circuits, Discretes & LEDs"
+			},
+			"geometry": {
+				"type": "GeometryCollection",
+				"geometries": [
+					{
+						"type": "Point",
+						"coordinates": [
+							121.01251150000007,
+							24.770444,
+							0
+						]
+					},
+					{
+						"type": "Polygon",
+						"coordinates": [
+							[
+								[
+									121.01149962857927,
+									24.763894863230465
+								],
+								[
+									121.01811109266708,
+									24.763894863230465
+								],
+								[
+									121.01811109266708,
+									24.776217989326927
+								],
+								[
+									121.01149962857927,
+									24.776217989326927
+								],
+								[
+									121.01149962857927,
+									24.763894863230465
+								]
+							]
+						]
+					}
+				]
+			},
+			"id": "23"
+		},
+		{
+			"type": "Feature",
+			"properties": {
+				"type": "Semiconductors",
+				"description": "Ricoh Electronics: Semiconductors - Integrated Circuits, Discretes & LEDs"
+			},
+			"geometry": {
+				"type": "GeometryCollection",
+				"geometries": [
+					{
+						"type": "Point",
+						"coordinates": [
+							135.4990994000001,
+							34.69143580000008,
+							0
+						]
+					},
+					{
+						"type": "Polygon",
+						"coordinates": [
+							[
+								[
+									135.49002742220043,
+									34.689814530377916
+								],
+								[
+									135.50456526215441,
+									34.689814530377916
+								],
+								[
+									135.50456526215441,
+									34.69343185726456
+								],
+								[
+									135.49002742220043,
+									34.69343185726456
+								],
+								[
+									135.49002742220043,
+									34.689814530377916
+								]
+							]
+						]
+					}
+				]
+			},
+			"id": "24"
+		},
+		{
+			"type": "Feature",
+			"properties": {
+				"type": "Semiconductors",
+				"description": "Amotech: Semiconductors - Integrated Circuits, Discretes & LEDs"
+			},
+			"geometry": {
+				"type": "GeometryCollection",
+				"geometries": [
+					{
+						"type": "Point",
+						"coordinates": [
+							126.700839,
+							37.387291,
+							0
+						]
+					},
+					{
+						"type": "Polygon",
+						"coordinates": [
+							[
+								[
+									126.6975731230904,
+									37.3795887157416
+								],
+								[
+									126.7024858802742,
+									37.3795887157416
+								],
+								[
+									126.7024858802742,
+									37.38960685789242
+								],
+								[
+									126.6975731230904,
+									37.38960685789242
+								],
+								[
+									126.6975731230904,
+									37.3795887157416
+								]
+							]
+						]
+					}
+				]
+			},
+			"id": "25"
+		},
+		{
+			"type": "Feature",
+			"properties": {
+				"type": "Semiconductors",
+				"description": "EMINENT: Semiconductors - Integrated Circuits, Discretes & LEDs"
+			},
+			"geometry": {
+				"type": "GeometryCollection",
+				"geometries": [
+					{
+						"type": "Point",
+						"coordinates": [
+							121.01251150000007,
+							24.770444,
+							0
+						]
+					},
+					{
+						"type": "Polygon",
+						"coordinates": [
+							[
+								[
+									121.00893225508861,
+									24.763896881898443
+								],
+								[
+									121.01618228939996,
+									24.763896881898443
+								],
+								[
+									121.01618228939996,
+									24.780980005548464
+								],
+								[
+									121.00893225508861,
+									24.780980005548464
+								],
+								[
+									121.00893225508861,
+									24.763896881898443
+								]
+							]
+						]
+					}
+				]
+			},
+			"id": "26"
+		},
+		{
+			"type": "Feature",
+			"properties": {
+				"type": "Semiconductors",
+				"description": "EVERLIGHT: Semiconductors - Integrated Circuits, Discretes & LEDs"
+			},
+			"geometry": {
+				"type": "GeometryCollection",
+				"geometries": [
+					{
+						"type": "Point",
+						"coordinates": [
+							120.68576610000002,
+							24.40713930000004,
+							0
+						]
+					},
+					{
+						"type": "Polygon",
+						"coordinates": [
+							[
+								[
+									120.68193799911685,
+									24.40144478957958
+								],
+								[
+									120.6891137434328,
+									24.40144478957958
+								],
+								[
+									120.6891137434328,
+									24.411718047658397
+								],
+								[
+									120.68193799911685,
+									24.411718047658397
+								],
+								[
+									120.68193799911685,
+									24.40144478957958
+								]
+							]
+						]
+					}
+				]
+			},
+			"id": "27"
+		},
+		{
+			"type": "Feature",
+			"properties": {
+				"type": "Semiconductors",
+				"description": "Lision: Semiconductors - Integrated Circuits, Discretes & LEDs"
+			},
+			"geometry": {
+				"type": "GeometryCollection",
+				"geometries": [
+					{
+						"type": "Point",
+						"coordinates": [
+							121.20539630000007,
+							24.97215140000003,
+							0
+						]
+					},
+					{
+						"type": "Polygon",
+						"coordinates": [
+							[
+								[
+									121.19507760906194,
+									24.96449751162885
+								],
+								[
+									121.21453258265907,
+									24.96449751162885
+								],
+								[
+									121.21453258265907,
+									24.9735690633837
+								],
+								[
+									121.19507760906194,
+									24.9735690633837
+								],
+								[
+									121.19507760906194,
+									24.96449751162885
+								]
+							]
+						]
+					}
+				]
+			},
+			"id": "28"
+		},
+		{
+			"type": "Feature",
+			"properties": {
+				"type": "Semiconductors",
+				"description": "Qorvo: Semiconductors - Integrated Circuits, Discretes & LEDs"
+			},
+			"geometry": {
+				"type": "GeometryCollection",
+				"geometries": [
+					{
+						"type": "Point",
+						"coordinates": [
+							116.504115,
+							39.800583,
+							0
+						]
+					},
+					{
+						"type": "Polygon",
+						"coordinates": [
+							[
+								[
+									116.5009235030481,
+									39.797856802853154
+								],
+								[
+									116.50810375730794,
+									39.797856802853154
+								],
+								[
+									116.50810375730794,
+									39.80863844332125
+								],
+								[
+									116.5009235030481,
+									39.80863844332125
+								],
+								[
+									116.5009235030481,
+									39.797856802853154
+								]
+							]
+						]
+					}
+				]
+			},
+			"id": "29"
+		},
+		{
+			"type": "Feature",
+			"properties": {
+				"type": "Semiconductors",
+				"description": "Samsung: Semiconductors - Integrated Circuits, Discretes & LEDs"
+			},
+			"geometry": {
+				"type": "GeometryCollection",
+				"geometries": [
+					{
+						"type": "Point",
+						"coordinates": [
+							126.975801,
+							37.295932,
+							0
+						]
+					},
+					{
+						"type": "Polygon",
+						"coordinates": [
+							[
+								[
+									126.96510152780954,
+									37.2933005917916
+								],
+								[
+									126.98301459384905,
+									37.2933005917916
+								],
+								[
+									126.98301459384905,
+									37.30028171176028
+								],
+								[
+									126.96510152780954,
+									37.30028171176028
+								],
+								[
+									126.96510152780954,
+									37.2933005917916
+								]
+							]
+						]
+					}
+				]
+			},
+			"id": "30"
+		},
+		{
+			"type": "Feature",
+			"properties": {
+				"type": "Passives",
+				"description": "Chilisin: Passives"
+			},
+			"geometry": {
+				"type": "GeometryCollection",
+				"geometries": [
+					{
+						"type": "Point",
+						"coordinates": [
+							121.04145,
+							24.91491110000004,
+							0
+						]
+					},
+					{
+						"type": "Polygon",
+						"coordinates": [
+							[
+								[
+									121.0348102629253,
+									24.908700320985208
+								],
+								[
+									121.04956566881823,
+									24.908700320985208
+								],
+								[
+									121.04956566881823,
+									24.91616259489401
+								],
+								[
+									121.0348102629253,
+									24.91616259489401
+								],
+								[
+									121.0348102629253,
+									24.908700320985208
+								]
+							]
+						]
+					}
+				]
+			},
+			"id": "31"
+		},
+		{
+			"type": "Feature",
+			"properties": {
+				"type": "Passives",
+				"description": "Moda-Innochips: Passives"
+			},
+			"geometry": {
+				"type": "GeometryCollection",
+				"geometries": [
+					{
+						"type": "Point",
+						"coordinates": [
+							126.738377,
+							37.314989,
+							0
+						]
+					},
+					{
+						"type": "Polygon",
+						"coordinates": [
+							[
+								[
+									126.72929058149353,
+									37.308225464076806
+								],
+								[
+									126.74010579589222,
+									37.308225464076806
+								],
+								[
+									126.74010579589222,
+									37.32110580127993
+								],
+								[
+									126.72929058149353,
+									37.32110580127993
+								],
+								[
+									126.72929058149353,
+									37.308225464076806
+								]
+							]
+						]
+					}
+				]
+			},
+			"id": "32"
+		},
+		{
+			"type": "Feature",
+			"properties": {
+				"type": "Passives",
+				"description": "Ralec Electronic: Passives"
+			},
+			"geometry": {
+				"type": "GeometryCollection",
+				"geometries": [
+					{
+						"type": "Point",
+						"coordinates": [
+							120.97349770000005,
+							31.365594800000054,
+							0
+						]
+					},
+					{
+						"type": "Polygon",
+						"coordinates": [
+							[
+								[
+									120.97186257758935,
+									31.362746858253058
+								],
+								[
+									120.97942241844484,
+									31.362746858253058
+								],
+								[
+									120.97942241844484,
+									31.37620825035251
+								],
+								[
+									120.97186257758935,
+									31.37620825035251
+								],
+								[
+									120.97186257758935,
+									31.362746858253058
+								]
+							]
+						]
+					}
+				]
+			},
+			"id": "33"
+		},
+		{
+			"type": "Feature",
+			"properties": {
+				"type": "Passives",
+				"description": "Shenzhen Sunlord: Passives"
+			},
+			"geometry": {
+				"type": "GeometryCollection",
+				"geometries": [
+					{
+						"type": "Point",
+						"coordinates": [
+							114.098278,
+							22.69335,
+							0
+						]
+					},
+					{
+						"type": "Polygon",
+						"coordinates": [
+							[
+								[
+									114.08759901810093,
+									22.691523174998864
+								],
+								[
+									114.10655579787348,
+									22.691523174998864
+								],
+								[
+									114.10655579787348,
+									22.704242580891705
+								],
+								[
+									114.08759901810093,
+									22.704242580891705
+								],
+								[
+									114.08759901810093,
+									22.691523174998864
+								]
+							]
+						]
+					}
+				]
+			},
+			"id": "34"
+		},
+		{
+			"type": "Feature",
+			"properties": {
+				"type": "Passives",
+				"description": "TA-I: Passives"
+			},
+			"geometry": {
+				"type": "GeometryCollection",
+				"geometries": [
+					{
+						"type": "Point",
+						"coordinates": [
+							120.63949,
+							31.172267,
+							0
+						]
+					},
+					{
+						"type": "Polygon",
+						"coordinates": [
+							[
+								[
+									120.63644158094029,
+									31.16742947216681
+								],
+								[
+									120.64421829322347,
+									31.16742947216681
+								],
+								[
+									120.64421829322347,
+									31.174363382296484
+								],
+								[
+									120.63644158094029,
+									31.174363382296484
+								],
+								[
+									120.63644158094029,
+									31.16742947216681
+								]
+							]
+						]
+					}
+				]
+			},
+			"id": "35"
+		},
+		{
+			"type": "Feature",
+			"properties": {
+				"type": "Passives",
+				"description": "Harmony Electronics: Passives"
+			},
+			"geometry": {
+				"type": "GeometryCollection",
+				"geometries": [
+					{
+						"type": "Point",
+						"coordinates": [
+							120.28908500000011,
+							22.604822,
+							0
+						]
+					},
+					{
+						"type": "Polygon",
+						"coordinates": [
+							[
+								[
+									120.27978921649131,
+									22.595021762630147
+								],
+								[
+									120.29011533305444,
+									22.595021762630147
+								],
+								[
+									120.29011533305444,
+									22.612992460625197
+								],
+								[
+									120.27978921649131,
+									22.612992460625197
+								],
+								[
+									120.27978921649131,
+									22.595021762630147
+								]
+							]
+						]
+					}
+				]
+			},
+			"id": "36"
+		},
+		{
+			"type": "Feature",
+			"properties": {
+				"type": "Passives",
+				"description": "INPAQ Technology: Passives"
+			},
+			"geometry": {
+				"type": "GeometryCollection",
+				"geometries": [
+					{
+						"type": "Point",
+						"coordinates": [
+							120.56801940000003,
+							31.42374330000007,
+							0
+						]
+					},
+					{
+						"type": "Polygon",
+						"coordinates": [
+							[
+								[
+									120.56180552995623,
+									31.42168826063746
+								],
+								[
+									120.5699748022833,
+									31.42168826063746
+								],
+								[
+									120.5699748022833,
+									31.434075518084388
+								],
+								[
+									120.56180552995623,
+									31.434075518084388
+								],
+								[
+									120.56180552995623,
+									31.42168826063746
+								]
+							]
+						]
+					}
+				]
+			},
+			"id": "37"
+		},
+		{
+			"type": "Feature",
+			"properties": {
+				"type": "Passives",
+				"description": "Taiyo Yuden: Passives"
+			},
+			"geometry": {
+				"type": "GeometryCollection",
+				"geometries": [
+					{
+						"type": "Point",
+						"coordinates": [
+							113.81865710000011,
+							23.100585900000056,
+							0
+						]
+					},
+					{
+						"type": "Polygon",
+						"coordinates": [
+							[
+								[
+									113.8076993083938,
+									23.091599762298447
+								],
+								[
+									113.82309110048779,
+									23.091599762298447
+								],
+								[
+									113.82309110048779,
+									23.107826816272507
+								],
+								[
+									113.8076993083938,
+									23.107826816272507
+								],
+								[
+									113.8076993083938,
+									23.091599762298447
+								]
+							]
+						]
+					}
+				]
+			},
+			"id": "38"
+		},
+		{
+			"type": "Feature",
+			"properties": {
+				"type": "Passives",
+				"description": "TDK Corporation [EPCOS]: Passives"
+			},
+			"geometry": {
+				"type": "GeometryCollection",
+				"geometries": [
+					{
+						"type": "Point",
+						"coordinates": [
+							118.10595990000002,
+							24.47099220000007,
+							0
+						]
+					},
+					{
+						"type": "Polygon",
+						"coordinates": [
+							[
+								[
+									118.10449806322612,
+									24.465205804054392
+								],
+								[
+									118.10988818468455,
+									24.465205804054392
+								],
+								[
+									118.10988818468455,
+									24.47705395362473
+								],
+								[
+									118.10449806322612,
+									24.47705395362473
+								],
+								[
+									118.10449806322612,
+									24.465205804054392
+								]
+							]
+						]
+					}
+				]
+			},
+			"id": "39"
+		},
+		{
+			"type": "Feature",
+			"properties": {
+				"type": "Passives",
+				"description": "Walsin Technology: Passives"
+			},
+			"geometry": {
+				"type": "GeometryCollection",
+				"geometries": [
+					{
+						"type": "Point",
+						"coordinates": [
+							121.15880960000004,
+							24.925304100000062,
+							0
+						]
+					},
+					{
+						"type": "Polygon",
+						"coordinates": [
+							[
+								[
+									121.15412226762959,
+									24.917631931676073
+								],
+								[
+									121.1618628295119,
+									24.917631931676073
+								],
+								[
+									121.1618628295119,
+									24.933251810735364
+								],
+								[
+									121.15412226762959,
+									24.933251810735364
+								],
+								[
+									121.15412226762959,
+									24.917631931676073
+								]
+							]
+						]
+					}
+				]
+			},
+			"id": "40"
+		},
+		{
+			"type": "Feature",
+			"properties": {
+				"type": "Passives",
+				"description": "Yageo Corporation: Passives"
+			},
+			"geometry": {
+				"type": "GeometryCollection",
+				"geometries": [
+					{
+						"type": "Point",
+						"coordinates": [
+							120.56691010000009,
+							31.298631900000032,
+							0
+						]
+					},
+					{
+						"type": "Polygon",
+						"coordinates": [
+							[
+								[
+									120.55769446953995,
+									31.295145938848805
+								],
+								[
+									120.57041387497605,
+									31.295145938848805
+								],
+								[
+									120.57041387497605,
+									31.30444137377462
+								],
+								[
+									120.55769446953995,
+									31.30444137377462
+								],
+								[
+									120.55769446953995,
+									31.295145938848805
+								]
+							]
+						]
+					}
+				]
+			},
+			"id": "41"
+		},
+		{
+			"type": "Feature",
+			"properties": {
+				"type": "Passives",
+				"description": "VYYONG (EYang): Passives"
+			},
+			"geometry": {
+				"type": "GeometryCollection",
+				"geometries": [
+					{
+						"type": "Point",
+						"coordinates": [
+							111.57159270000005,
+							22.759540300000026,
+							0
+						]
+					},
+					{
+						"type": "Polygon",
+						"coordinates": [
+							[
+								[
+									111.56532395130921,
+									22.756499933126076
+								],
+								[
+									111.5754500369794,
+									22.756499933126076
+								],
+								[
+									111.5754500369794,
+									22.765391562574973
+								],
+								[
+									111.56532395130921,
+									22.765391562574973
+								],
+								[
+									111.56532395130921,
+									22.756499933126076
+								]
+							]
+						]
+					}
+				]
+			},
+			"id": "42"
+		},
+		{
+			"type": "Feature",
+			"properties": {
+				"type": "Electromechanical",
+				"description": "Jiangsu Yu Cheng: Electromechanical, MEMS"
+			},
+			"geometry": {
+				"type": "GeometryCollection",
+				"geometries": [
+					{
+						"type": "Point",
+						"coordinates": [
+							119.794952,
+							31.874492,
+							0
+						]
+					},
+					{
+						"type": "Polygon",
+						"coordinates": [
+							[
+								[
+									119.79279655661986,
+									31.872860707604946
+								],
+								[
+									119.79881032794647,
+									31.872860707604946
+								],
+								[
+									119.79881032794647,
+									31.87879772969115
+								],
+								[
+									119.79279655661986,
+									31.87879772969115
+								],
+								[
+									119.79279655661986,
+									31.872860707604946
+								]
+							]
+						]
+					}
+				]
+			},
+			"id": "43"
+		},
+		{
+			"type": "Feature",
+			"properties": {
+				"type": "Electromechanical",
+				"description": "Baolong Electronics: Electromechanical, MEMS"
+			},
+			"geometry": {
+				"type": "GeometryCollection",
+				"geometries": [
+					{
+						"type": "Point",
+						"coordinates": [
+							120.957218,
+							28.119156,
+							0
+						]
+					},
+					{
+						"type": "Polygon",
+						"coordinates": [
+							[
+								[
+									120.9465314919216,
+									28.117348756749923
+								],
+								[
+									120.96187168455117,
+									28.117348756749923
+								],
+								[
+									120.96187168455117,
+									28.12720473083771
+								],
+								[
+									120.9465314919216,
+									28.12720473083771
+								],
+								[
+									120.9465314919216,
+									28.117348756749923
+								]
+							]
+						]
+					}
+				]
+			},
+			"id": "44"
+		},
+		{
+			"type": "Feature",
+			"properties": {
+				"type": "Accessories",
+				"description": "Mconomy: Accessories"
+			},
+			"geometry": {
+				"type": "GeometryCollection",
+				"geometries": [
+					{
+						"type": "Point",
+						"coordinates": [
+							113.61818,
+							22.919615,
+							0
+						]
+					},
+					{
+						"type": "Polygon",
+						"coordinates": [
+							[
+								[
+									113.61350921969512,
+									22.91055000977016
+								],
+								[
+									113.62452636510223,
+									22.91055000977016
+								],
+								[
+									113.62452636510223,
+									22.9248460072993
+								],
+								[
+									113.61350921969512,
+									22.9248460072993
+								],
+								[
+									113.61350921969512,
+									22.91055000977016
+								]
+							]
+						]
+					}
+				]
+			},
+			"id": "45"
+		},
+		{
+			"type": "Feature",
+			"properties": {
+				"type": "Passives",
+				"description": "KDS: Passives"
+			},
+			"geometry": {
+				"type": "GeometryCollection",
+				"geometries": [
+					{
+						"type": "Point",
+						"coordinates": [
+							120.28908500000011,
+							22.604822,
+							0
+						]
+					},
+					{
+						"type": "Polygon",
+						"coordinates": [
+							[
+								[
+									120.28104867726917,
+									22.598664177198817
+								],
+								[
+									120.29059323836209,
+									22.598664177198817
+								],
+								[
+									120.29059323836209,
+									22.61314799401154
+								],
+								[
+									120.28104867726917,
+									22.61314799401154
+								],
+								[
+									120.28104867726917,
+									22.598664177198817
+								]
+							]
+						]
+					}
+				]
+			},
+			"id": "46"
+		},
+		{
+			"type": "Feature",
+			"properties": {
+				"type": "Accessories",
+				"description": "SKECH: Accessories"
+			},
+			"geometry": {
+				"type": "GeometryCollection",
+				"geometries": [
+					{
+						"type": "Point",
+						"coordinates": [
+							113.864087,
+							22.574752,
+							0
+						]
+					},
+					{
+						"type": "Polygon",
+						"coordinates": [
+							[
+								[
+									113.85603853020426,
+									22.56541226848128
+								],
+								[
+									113.86695129298815,
+									22.56541226848128
+								],
+								[
+									113.86695129298815,
+									22.57831856734016
+								],
+								[
+									113.85603853020426,
+									22.57831856734016
+								],
+								[
+									113.85603853020426,
+									22.56541226848128
+								]
+							]
+						]
+					}
+				]
+			},
+			"id": "47"
+		},
+		{
+			"type": "Feature",
+			"properties": {
+				"type": "Connectors",
+				"description": "Molex: Connectors, Clips, Spring Contacts, Cables"
+			},
+			"geometry": {
+				"type": "GeometryCollection",
+				"geometries": [
+					{
+						"type": "Point",
+						"coordinates": [
+							120.96919180000009,
+							31.36218130000003,
+							0
+						]
+					},
+					{
+						"type": "Polygon",
+						"coordinates": [
+							[
+								[
+									120.95859188353167,
+									31.35891532982183
+								],
+								[
+									120.97928579289207,
+									31.35891532982183
+								],
+								[
+									120.97928579289207,
+									31.36463685134661
+								],
+								[
+									120.95859188353167,
+									31.36463685134661
+								],
+								[
+									120.95859188353167,
+									31.35891532982183
+								]
+							]
+						]
+					}
+				]
+			},
+			"id": "48"
+		},
+		{
+			"type": "Feature",
+			"properties": {
+				"type": "Electromechanical",
+				"description": "Tianjia: Electromechanical, MEMS"
+			},
+			"geometry": {
+				"type": "GeometryCollection",
+				"geometries": [
+					{
+						"type": "Point",
+						"coordinates": [
+							121.026958,
+							28.182051,
+							0
+						]
+					},
+					{
+						"type": "Polygon",
+						"coordinates": [
+							[
+								[
+									121.02427978922898,
+									28.171809163276095
+								],
+								[
+									121.03650078816294,
+									28.171809163276095
+								],
+								[
+									121.03650078816294,
+									28.187294334953286
+								],
+								[
+									121.02427978922898,
+									28.187294334953286
+								],
+								[
+									121.02427978922898,
+									28.171809163276095
+								]
+							]
+						]
+					}
+				]
+			},
+			"id": "49"
+		},
+		{
+			"type": "Feature",
+			"properties": {
+				"type": "Connectors",
+				"description": "JustConnector Kushan: Connectors, Clips, Spring Contacts, Cables"
+			},
+			"geometry": {
+				"type": "GeometryCollection",
+				"geometries": [
+					{
+						"type": "Point",
+						"coordinates": [
+							120.96919180000009,
+							31.36218130000003,
+							0
+						]
+					},
+					{
+						"type": "Polygon",
+						"coordinates": [
+							[
+								[
+									120.96689858831351,
+									31.359176981171526
+								],
+								[
+									120.97302360994067,
+									31.359176981171526
+								],
+								[
+									120.97302360994067,
+									31.371292861185662
+								],
+								[
+									120.96689858831351,
+									31.371292861185662
+								],
+								[
+									120.96689858831351,
+									31.359176981171526
+								]
+							]
+						]
+					}
+				]
+			},
+			"id": "50"
+		},
+		{
+			"type": "Feature",
+			"properties": {
+				"type": "Connectors",
+				"description": "Goldenconn Electronics: Connectors, Clips, Spring Contacts, Cables"
+			},
+			"geometry": {
+				"type": "GeometryCollection",
+				"geometries": [
+					{
+						"type": "Point",
+						"coordinates": [
+							120.6395136000001,
+							31.17214430000007,
+							0
+						]
+					},
+					{
+						"type": "Polygon",
+						"coordinates": [
+							[
+								[
+									120.63453090837413,
+									31.170070806409687
+								],
+								[
+									120.64059665369275,
+									31.170070806409687
+								],
+								[
+									120.64059665369275,
+									31.1779135780351
+								],
+								[
+									120.63453090837413,
+									31.1779135780351
+								],
+								[
+									120.63453090837413,
+									31.170070806409687
+								]
+							]
+						]
+					}
+				]
+			},
+			"id": "51"
+		},
+		{
+			"type": "Feature",
+			"properties": {
+				"type": "Connectors",
+				"description": "Electric Connector Technology (ECT): Connectors, Clips, Spring Contacts, Cables"
+			},
+			"geometry": {
+				"type": "GeometryCollection",
+				"geometries": [
+					{
+						"type": "Point",
+						"coordinates": [
+							113.905323,
+							22.800071,
+							0
+						]
+					},
+					{
+						"type": "Polygon",
+						"coordinates": [
+							[
+								[
+									113.9012750923952,
+									22.791388150902243
+								],
+								[
+									113.91039944019904,
+									22.791388150902243
+								],
+								[
+									113.91039944019904,
+									22.806385570837524
+								],
+								[
+									113.9012750923952,
+									22.806385570837524
+								],
+								[
+									113.9012750923952,
+									22.791388150902243
+								]
+							]
+						]
+					}
+				]
+			},
+			"id": "52"
+		},
+		{
+			"type": "Feature",
+			"properties": {
+				"type": "Connectors",
+				"description": "Speed Tech: Connectors, Clips, Spring Contacts, Cables"
+			},
+			"geometry": {
+				"type": "GeometryCollection",
+				"geometries": [
+					{
+						"type": "Point",
+						"coordinates": [
+							121.30097980000005,
+							24.993628100000024,
+							0
+						]
+					},
+					{
+						"type": "Polygon",
+						"coordinates": [
+							[
+								[
+									121.29749983685033,
+									24.988306584617696
+								],
+								[
+									121.30599502066026,
+									24.988306584617696
+								],
+								[
+									121.30599502066026,
+									24.99550893639234
+								],
+								[
+									121.29749983685033,
+									24.99550893639234
+								],
+								[
+									121.29749983685033,
+									24.988306584617696
+								]
+							]
+						]
+					}
+				]
+			},
+			"id": "53"
+		},
+		{
+			"type": "Feature",
+			"properties": {
+				"type": "Connectors",
+				"description": "Yuliang Electronics: Connectors, Clips, Spring Contacts, Cables"
+			},
+			"geometry": {
+				"type": "GeometryCollection",
+				"geometries": [
+					{
+						"type": "Point",
+						"coordinates": [
+							120.96919180000009,
+							31.36218130000003,
+							0
+						]
+					},
+					{
+						"type": "Polygon",
+						"coordinates": [
+							[
+								[
+									120.96664530939874,
+									31.359298423836883
+								],
+								[
+									120.9738996801232,
+									31.359298423836883
+								],
+								[
+									120.9738996801232,
+									31.367077073950004
+								],
+								[
+									120.96664530939874,
+									31.367077073950004
+								],
+								[
+									120.96664530939874,
+									31.359298423836883
+								]
+							]
+						]
+					}
+				]
+			},
+			"id": "54"
+		},
+		{
+			"type": "Feature",
+			"properties": {
+				"type": "Display",
+				"description": "DJN Optronics Technology: Display, Touch Screen"
+			},
+			"geometry": {
+				"type": "GeometryCollection",
+				"geometries": [
+					{
+						"type": "Point",
+						"coordinates": [
+							114.05667,
+							22.50217,
+							0
+						]
+					},
+					{
+						"type": "Polygon",
+						"coordinates": [
+							[
+								[
+									114.04859714770767,
+									22.49573660465476
+								],
+								[
+									114.06675856611062,
+									22.49573660465476
+								],
+								[
+									114.06675856611062,
+									22.50804670317011
+								],
+								[
+									114.04859714770767,
+									22.50804670317011
+								],
+								[
+									114.04859714770767,
+									22.49573660465476
+								]
+							]
+						]
+					}
+				]
+			},
+			"id": "55"
+		},
+		{
+			"type": "Feature",
+			"properties": {
+				"type": "Display",
+				"description": "Dolfa Technology: Display, Touch Screen"
+			},
+			"geometry": {
+				"type": "GeometryCollection",
+				"geometries": [
+					{
+						"type": "Point",
+						"coordinates": [
+							113.75005970000007,
+							23.036676200000045,
+							0
+						]
+					},
+					{
+						"type": "Polygon",
+						"coordinates": [
+							[
+								[
+									113.74301336661861,
+									23.02947287702687
+								],
+								[
+									113.7598020096402,
+									23.02947287702687
+								],
+								[
+									113.7598020096402,
+									23.041535748735505
+								],
+								[
+									113.74301336661861,
+									23.041535748735505
+								],
+								[
+									113.74301336661861,
+									23.02947287702687
+								]
+							]
+						]
+					}
+				]
+			},
+			"id": "56"
+		},
+		{
+			"type": "Feature",
+			"properties": {
+				"type": "Cameras",
+				"description": "O-Film: Cameras"
+			},
+			"geometry": {
+				"type": "GeometryCollection",
+				"geometries": [
+					{
+						"type": "Point",
+						"coordinates": [
+							114.05667,
+							22.50217,
+							0
+						]
+					},
+					{
+						"type": "Polygon",
+						"coordinates": [
+							[
+								[
+									114.05077005861315,
+									22.49660906161796
+								],
+								[
+									114.0636570881632,
+									22.49660906161796
+								],
+								[
+									114.0636570881632,
+									22.51000044822585
+								],
+								[
+									114.05077005861315,
+									22.51000044822585
+								],
+								[
+									114.05077005861315,
+									22.49660906161796
+								]
+							]
+						]
+					}
+				]
+			},
+			"id": "57"
+		},
+		{
+			"type": "Feature",
+			"properties": {
+				"type": "Cameras",
+				"description": "Holitech Technology: Cameras"
+			},
+			"geometry": {
+				"type": "GeometryCollection",
+				"geometries": [
+					{
+						"type": "Point",
+						"coordinates": [
+							114.9096383000001,
+							26.801933400000053,
+							0
+						]
+					},
+					{
+						"type": "Polygon",
+						"coordinates": [
+							[
+								[
+									114.89865351851869,
+									26.794553093582536
+								],
+								[
+									114.91094543362202,
+									26.794553093582536
+								],
+								[
+									114.91094543362202,
+									26.812807317514046
+								],
+								[
+									114.89865351851869,
+									26.812807317514046
+								],
+								[
+									114.89865351851869,
+									26.794553093582536
+								]
+							]
+						]
+					}
+				]
+			},
+			"id": "58"
+		},
+		{
+			"type": "Feature",
+			"properties": {
+				"type": "PrintedCircuitBoard",
+				"description": "Gold Circuit Electronics: Printed Circuit Board"
+			},
+			"geometry": {
+				"type": "GeometryCollection",
+				"geometries": [
+					{
+						"type": "Point",
+						"coordinates": [
+							120.755341,
+							31.663743,
+							0
+						]
+					},
+					{
+						"type": "Polygon",
+						"coordinates": [
+							[
+								[
+									120.75059568415688,
+									31.657864456534824
+								],
+								[
+									120.75815172122127,
+									31.657864456534824
+								],
+								[
+									120.75815172122127,
+									31.671569546175814
+								],
+								[
+									120.75059568415688,
+									31.671569546175814
+								],
+								[
+									120.75059568415688,
+									31.657864456534824
+								]
+							]
+						]
+					}
+				]
+			},
+			"id": "59"
+		},
+		{
+			"type": "Feature",
+			"properties": {
+				"type": "PrintedCircuitBoard",
+				"description": "Jiangsu-SUDA Special Chemical: Printed Circuit Board"
+			},
+			"geometry": {
+				"type": "GeometryCollection",
+				"geometries": [
+					{
+						"type": "Point",
+						"coordinates": [
+							120.59252310000011,
+							31.30535750000007,
+							0
+						]
+					},
+					{
+						"type": "Polygon",
+						"coordinates": [
+							[
+								[
+									120.58183973600606,
+									31.29505860235756
+								],
+								[
+									120.5988831699496,
+									31.29505860235756
+								],
+								[
+									120.5988831699496,
+									31.314438615083162
+								],
+								[
+									120.58183973600606,
+									31.314438615083162
+								],
+								[
+									120.58183973600606,
+									31.29505860235756
+								]
+							]
+						]
+					}
+				]
+			},
+			"id": "60"
+		},
+		{
+			"type": "Feature",
+			"properties": {
+				"type": "PrintedCircuitBoard",
+				"description": "Huaxi Copper Products: Printed Circuit Board"
+			},
+			"geometry": {
+				"type": "GeometryCollection",
+				"geometries": [
+					{
+						"type": "Point",
+						"coordinates": [
+							119.70465800000011,
+							31.496813,
+							0
+						]
+					},
+					{
+						"type": "Polygon",
+						"coordinates": [
+							[
+								[
+									119.69432131904009,
+									31.486531413831212
+								],
+								[
+									119.70969974494525,
+									31.486531413831212
+								],
+								[
+									119.70969974494525,
+									31.504835178439237
+								],
+								[
+									119.69432131904009,
+									31.504835178439237
+								],
+								[
+									119.69432131904009,
+									31.486531413831212
+								]
+							]
+						]
+					}
+				]
+			},
+			"id": "61"
+		},
+		{
+			"type": "Feature",
+			"properties": {
+				"type": "PrintedCircuitBoard",
+				"description": "Zhangjiagang United Copper: Printed Circuit Board"
+			},
+			"geometry": {
+				"type": "GeometryCollection",
+				"geometries": [
+					{
+						"type": "Point",
+						"coordinates": [
+							120.676273,
+							31.968979,
+							0
+						]
+					},
+					{
+						"type": "Polygon",
+						"coordinates": [
+							[
+								[
+									120.6706449083835,
+									31.958941617234817
+								],
+								[
+									120.67932673125941,
+									31.958941617234817
+								],
+								[
+									120.67932673125941,
+									31.97658227491706
+								],
+								[
+									120.6706449083835,
+									31.97658227491706
+								],
+								[
+									120.6706449083835,
+									31.958941617234817
+								]
+							]
+						]
+					}
+				]
+			},
+			"id": "62"
+		},
+		{
+			"type": "Feature",
+			"properties": {
+				"type": "FlexiblePrintedCircuits",
+				"description": "Zhuhai All-Winner FPC: Flexible Printed Circuits"
+			},
+			"geometry": {
+				"type": "GeometryCollection",
+				"geometries": [
+					{
+						"type": "Point",
+						"coordinates": [
+							113.75005970000007,
+							23.036676200000045,
+							0
+						]
+					},
+					{
+						"type": "Polygon",
+						"coordinates": [
+							[
+								[
+									113.74091079937097,
+									23.025707485851093
+								],
+								[
+									113.75835181042183,
+									23.025707485851093
+								],
+								[
+									113.75835181042183,
+									23.044900477246
+								],
+								[
+									113.74091079937097,
+									23.044900477246
+								],
+								[
+									113.74091079937097,
+									23.025707485851093
+								]
+							]
+						]
+					}
+				]
+			},
+			"id": "63"
+		},
+		{
+			"type": "Feature",
+			"properties": {
+				"type": "SolderingPaste",
+				"description": "AIM Solder: Soldering Paste"
+			},
+			"geometry": {
+				"type": "GeometryCollection",
+				"geometries": [
+					{
+						"type": "Point",
+						"coordinates": [
+							119.91243020000002,
+							31.008084100000076,
+							0
+						]
+					},
+					{
+						"type": "Polygon",
+						"coordinates": [
+							[
+								[
+									119.90562231317347,
+									31.006662898829685
+								],
+								[
+									119.91843058280335,
+									31.006662898829685
+								],
+								[
+									119.91843058280335,
+									31.017654221907172
+								],
+								[
+									119.90562231317347,
+									31.017654221907172
+								],
+								[
+									119.90562231317347,
+									31.006662898829685
+								]
+							]
+						]
+					}
+				]
+			},
+			"id": "64"
+		},
+		{
+			"type": "Feature",
+			"properties": {
+				"type": "Battery",
+				"description": "Fuji Electronics: Battery"
+			},
+			"geometry": {
+				"type": "GeometryCollection",
+				"geometries": [
+					{
+						"type": "Point",
+						"coordinates": [
+							114.05667,
+							22.50217,
+							0
+						]
+					},
+					{
+						"type": "Polygon",
+						"coordinates": [
+							[
+								[
+									114.04813855010937,
+									22.49789581260764
+								],
+								[
+									114.0672704228613,
+									22.49789581260764
+								],
+								[
+									114.0672704228613,
+									22.505906034244852
+								],
+								[
+									114.04813855010937,
+									22.505906034244852
+								],
+								[
+									114.04813855010937,
+									22.49789581260764
+								]
+							]
+						]
+					}
+				]
+			},
+			"id": "65"
+		},
+		{
+			"type": "Feature",
+			"properties": {
+				"type": "Plastics",
+				"description": "Creator Solutions: Plastics"
+			},
+			"geometry": {
+				"type": "GeometryCollection",
+				"geometries": [
+					{
+						"type": "Point",
+						"coordinates": [
+							120.64687320000007,
+							31.323631300000045,
+							0
+						]
+					},
+					{
+						"type": "Polygon",
+						"coordinates": [
+							[
+								[
+									120.63661795363309,
+									31.313750361365074
+								],
+								[
+									120.65411869932944,
+									31.313750361365074
+								],
+								[
+									120.65411869932944,
+									31.33088592515588
+								],
+								[
+									120.63661795363309,
+									31.33088592515588
+								],
+								[
+									120.63661795363309,
+									31.313750361365074
+								]
+							]
+						]
+					}
+				]
+			},
+			"id": "66"
+		},
+		{
+			"type": "Feature",
+			"properties": {
+				"type": "Plastics",
+				"description": "Lotte Advanced Materials: Plastics"
+			},
+			"geometry": {
+				"type": "GeometryCollection",
+				"geometries": [
+					{
+						"type": "Point",
+						"coordinates": [
+							127.6708403,
+							34.91871030000004,
+							0
+						]
+					},
+					{
+						"type": "Polygon",
+						"coordinates": [
+							[
+								[
+									127.66119118695872,
+									34.91360447924907
+								],
+								[
+									127.67279334926894,
+									34.91360447924907
+								],
+								[
+									127.67279334926894,
+									34.92947259969686
+								],
+								[
+									127.66119118695872,
+									34.92947259969686
+								],
+								[
+									127.66119118695872,
+									34.91360447924907
+								]
+							]
+						]
+					}
+				]
+			},
+			"id": "67"
+		},
+		{
+			"type": "Feature",
+			"properties": {
+				"type": "Shields",
+				"description": "H.N.M: Shields, Metal Parts, Screws"
+			},
+			"geometry": {
+				"type": "GeometryCollection",
+				"geometries": [
+					{
+						"type": "Point",
+						"coordinates": [
+							120.59252310000011,
+							31.30535750000007,
+							0
+						]
+					},
+					{
+						"type": "Polygon",
+						"coordinates": [
+							[
+								[
+									120.58299106437042,
+									31.297221907798505
+								],
+								[
+									120.59636775925813,
+									31.297221907798505
+								],
+								[
+									120.59636775925813,
+									31.30712077792353
+								],
+								[
+									120.58299106437042,
+									31.30712077792353
+								],
+								[
+									120.58299106437042,
+									31.297221907798505
+								]
+							]
+						]
+					}
+				]
+			},
+			"id": "68"
+		},
+		{
+			"type": "Feature",
+			"properties": {
+				"type": "Shields",
+				"description": "Chuangjuren Electronics: Shields, Metal Parts, Screws"
+			},
+			"geometry": {
+				"type": "GeometryCollection",
+				"geometries": [
+					{
+						"type": "Point",
+						"coordinates": [
+							120.6395136000001,
+							31.17214430000007,
+							0
+						]
+					},
+					{
+						"type": "Polygon",
+						"coordinates": [
+							[
+								[
+									120.63642510876244,
+									31.170910135837467
+								],
+								[
+									120.64235135082012,
+									31.170910135837467
+								],
+								[
+									120.64235135082012,
+									31.182316554503902
+								],
+								[
+									120.63642510876244,
+									31.182316554503902
+								],
+								[
+									120.63642510876244,
+									31.170910135837467
+								]
+							]
+						]
+					}
+				]
+			},
+			"id": "69"
+		},
+		{
+			"type": "Feature",
+			"properties": {
+				"type": "Shields",
+				"description": "Heryang technology: Shields, Metal Parts, Screws"
+			},
+			"geometry": {
+				"type": "GeometryCollection",
+				"geometries": [
+					{
+						"type": "Point",
+						"coordinates": [
+							120.74530170000003,
+							31.652180900000076,
+							0
+						]
+					},
+					{
+						"type": "Polygon",
+						"coordinates": [
+							[
+								[
+									120.74248073528297,
+									31.64505382582301
+								],
+								[
+									120.7524930969192,
+									31.64505382582301
+								],
+								[
+									120.7524930969192,
+									31.655082916634573
+								],
+								[
+									120.74248073528297,
+									31.655082916634573
+								],
+								[
+									120.74248073528297,
+									31.64505382582301
+								]
+							]
+						]
+					}
+				]
+			},
+			"id": "70"
+		},
+		{
+			"type": "Feature",
+			"properties": {
+				"type": "Packaging",
+				"description": "HSIN YI DE (KUN SHAN): Packaging , Labels, Adhesive"
+			},
+			"geometry": {
+				"type": "GeometryCollection",
+				"geometries": [
+					{
+						"type": "Point",
+						"coordinates": [
+							120.977738,
+							31.383608,
+							0
+						]
+					},
+					{
+						"type": "Polygon",
+						"coordinates": [
+							[
+								[
+									120.96772809241716,
+									31.375939596271014
+								],
+								[
+									120.98538319178704,
+									31.375939596271014
+								],
+								[
+									120.98538319178704,
+									31.38839288585497
+								],
+								[
+									120.96772809241716,
+									31.38839288585497
+								],
+								[
+									120.96772809241716,
+									31.375939596271014
+								]
+							]
+						]
+					}
+				]
+			},
+			"id": "71"
+		},
+		{
+			"type": "Feature",
+			"properties": {
+				"type": "Packaging",
+				"description": "Kunshan Yilin Printing: Packaging , Labels, Adhesive"
+			},
+			"geometry": {
+				"type": "GeometryCollection",
+				"geometries": [
+					{
+						"type": "Point",
+						"coordinates": [
+							121.00624550000009,
+							31.410902200000066,
+							0
+						]
+					},
+					{
+						"type": "Polygon",
+						"coordinates": [
+							[
+								[
+									120.99582553159308,
+									31.406082001299975
+								],
+								[
+									121.00897706945392,
+									31.406082001299975
+								],
+								[
+									121.00897706945392,
+									31.413072451744064
+								],
+								[
+									120.99582553159308,
+									31.413072451744064
+								],
+								[
+									120.99582553159308,
+									31.406082001299975
+								]
+							]
+						]
+					}
+				]
+			},
+			"id": "72"
+		},
+		{
+			"type": "Feature",
+			"properties": {
+				"type": "Packaging",
+				"description": "RUN HAO: Packaging , Labels, Adhesive"
+			},
+			"geometry": {
+				"type": "GeometryCollection",
+				"geometries": [
+					{
+						"type": "Point",
+						"coordinates": [
+							120.489117,
+							31.240218,
+							0
+						]
+					},
+					{
+						"type": "Polygon",
+						"coordinates": [
+							[
+								[
+									120.48260489031831,
+									31.23626366853454
+								],
+								[
+									120.49289326574824,
+									31.23626366853454
+								],
+								[
+									120.49289326574824,
+									31.24184008058021
+								],
+								[
+									120.48260489031831,
+									31.24184008058021
+								],
+								[
+									120.48260489031831,
+									31.23626366853454
+								]
+							]
+						]
+					}
+				]
+			},
+			"id": "73"
+		},
+		{
+			"type": "Feature",
+			"properties": {
+				"type": "Packaging",
+				"description": "ChangHong: Packaging , Labels, Adhesive"
+			},
+			"geometry": {
+				"type": "GeometryCollection",
+				"geometries": [
+					{
+						"type": "Point",
+						"coordinates": [
+							121.193842,
+							31.591692,
+							0
+						]
+					},
+					{
+						"type": "Polygon",
+						"coordinates": [
+							[
+								[
+									121.19230669989936,
+									31.585991558071196
+								],
+								[
+									121.1998134351196,
+									31.585991558071196
+								],
+								[
+									121.1998134351196,
+									31.595409620444055
+								],
+								[
+									121.19230669989936,
+									31.595409620444055
+								],
+								[
+									121.19230669989936,
+									31.585991558071196
+								]
+							]
+						]
+					}
+				]
+			},
+			"id": "74"
+		},
+		{
+			"type": "Feature",
+			"properties": {
+				"type": "Packaging",
+				"description": "Suzhou Hualong Adhesive: Packaging , Labels, Adhesive"
+			},
+			"geometry": {
+				"type": "GeometryCollection",
+				"geometries": [
+					{
+						"type": "Point",
+						"coordinates": [
+							120.6213457,
+							31.256160200000068,
+							0
+						]
+					},
+					{
+						"type": "Polygon",
+						"coordinates": [
+							[
+								[
+									120.61942514658179,
+									31.24544390062481
+								],
+								[
+									120.62291641790887,
+									31.24544390062481
+								],
+								[
+									120.62291641790887,
+									31.261011558391047
+								],
+								[
+									120.61942514658179,
+									31.261011558391047
+								],
+								[
+									120.61942514658179,
+									31.24544390062481
+								]
+							]
+						]
+					}
+				]
+			},
+			"id": "75"
+		},
+		{
+			"type": "Feature",
+			"properties": {
+				"type": "Accessories",
+				"description": "ABP: Accessories"
+			},
+			"geometry": {
+				"type": "GeometryCollection",
+				"geometries": [
+					{
+						"type": "Point",
+						"coordinates": [
+							113.823106,
+							22.670944,
+							0
+						]
+					},
+					{
+						"type": "Polygon",
+						"coordinates": [
+							[
+								[
+									113.81369001521172,
+									22.66502138972115
+								],
+								[
+									113.82801820903637,
+									22.66502138972115
+								],
+								[
+									113.82801820903637,
+									22.677934973131222
+								],
+								[
+									113.81369001521172,
+									22.677934973131222
+								],
+								[
+									113.81369001521172,
+									22.66502138972115
+								]
+							]
+						]
+					}
+				]
+			},
+			"id": "76"
+		},
+		{
+			"type": "Feature",
+			"properties": {
+				"type": "Accessories",
+				"description": "Interconnect Products [Freeport]: Accessories"
+			},
+			"geometry": {
+				"type": "GeometryCollection",
+				"geometries": [
+					{
+						"type": "Point",
+						"coordinates": [
+							113.75005970000007,
+							23.036676200000045,
+							0
+						]
+					},
+					{
+						"type": "Polygon",
+						"coordinates": [
+							[
+								[
+									113.74087322952073,
+									23.026762597557624
+								],
+								[
+									113.75337921243607,
+									23.026762597557624
+								],
+								[
+									113.75337921243607,
+									23.045070734806377
+								],
+								[
+									113.74087322952073,
+									23.045070734806377
+								],
+								[
+									113.74087322952073,
+									23.026762597557624
+								]
+							]
+						]
+					}
+				]
+			},
+			"id": "77"
+		},
+		{
+			"type": "Feature",
+			"properties": {
+				"type": "Gold",
+				"description": "Valcambi SA: Gold refining"
+			},
+			"geometry": {
+				"type": "GeometryCollection",
+				"geometries": [
+					{
+						"type": "Point",
+						"coordinates": [
+							9.009471100000042,
+							45.841782,
+							0
+						]
+					},
+					{
+						"type": "Polygon",
+						"coordinates": [
+							[
+								[
+									9.001364486838295,
+									45.83976090201532
+								],
+								[
+									9.013175690461015,
+									45.83976090201532
+								],
+								[
+									9.013175690461015,
+									45.844878435328496
+								],
+								[
+									9.001364486838295,
+									45.844878435328496
+								],
+								[
+									9.001364486838295,
+									45.83976090201532
+								]
+							]
+						]
+					}
+				]
+			},
+			"id": "78"
+		},
+		{
+			"type": "Feature",
+			"properties": {
+				"type": "Tin",
+				"description": "Malaysia Smelting Company Berhad (MSC): Tin powder"
+			},
+			"geometry": {
+				"type": "GeometryCollection",
+				"geometries": [
+					{
+						"type": "Point",
+						"coordinates": [
+							100.36522890000003,
+							5.397947600000066,
+							0
+						]
+					},
+					{
+						"type": "Polygon",
+						"coordinates": [
+							[
+								[
+									100.3607708219059,
+									5.38895442207225
+								],
+								[
+									100.36856351104284,
+									5.38895442207225
+								],
+								[
+									100.36856351104284,
+									5.39914680938884
+								],
+								[
+									100.3607708219059,
+									5.39914680938884
+								],
+								[
+									100.3607708219059,
+									5.38895442207225
+								]
+							]
+						]
+					}
+				]
+			},
+			"id": "79"
+		},
+		{
+			"type": "Feature",
+			"properties": {
+				"type": "Tungsten",
+				"description": "Wolfram Bergbau and Hutten: Tungsten refining"
+			},
+			"geometry": {
+				"type": "GeometryCollection",
+				"geometries": [
+					{
+						"type": "Point",
+						"coordinates": [
+							15.256587300000035,
+							46.763864900000044,
+							0
+						]
+					},
+					{
+						"type": "Polygon",
+						"coordinates": [
+							[
+								[
+									15.247727050756843,
+									46.76262361349667
+								],
+								[
+									15.261122263826776,
+									46.76262361349667
+								],
+								[
+									15.261122263826776,
+									46.76776835798265
+								],
+								[
+									15.247727050756843,
+									46.76776835798265
+								],
+								[
+									15.247727050756843,
+									46.76262361349667
+								]
+							]
+						]
+					}
+				]
+			},
+			"id": "80"
+		},
+		{
+			"type": "Feature",
+			"properties": {
+				"type": "PhoneAssembly",
+				"description": "Fairphone B.V.: Phone Assembly - Fairphone 3"
+			},
+			"geometry": {
+				"type": "GeometryCollection",
+				"geometries": [
+					{
+						"type": "Point",
+						"coordinates": [
+							4.920369942035014,
+							52.377132849028,
+							0
+						]
+					},
+					{
+						"type": "Polygon",
+						"coordinates": [
+							[
+								[
+									4.913675892440122,
+									52.369506336302535
+								],
+								[
+									4.927787613012217,
+									52.369506336302535
+								],
+								[
+									4.927787613012217,
+									52.38317086791151
+								],
+								[
+									4.913675892440122,
+									52.38317086791151
+								],
+								[
+									4.913675892440122,
+									52.369506336302535
+								]
+							]
+						]
+					}
+				]
+			},
+			"id": "0"
+		},
+		{
+			"type": "Feature",
+			"properties": {
+				"type": "Gold",
+				"description": "Faitrade Certified Gold Mine: Gold Ore"
+			},
+			"geometry": {
+				"type": "GeometryCollection",
+				"geometries": [
+					{
+						"type": "Point",
+						"coordinates": [
+							-75.01025820283863,
+							-9.191889533268697,
+							0
+						]
+					},
+					{
+						"type": "Polygon",
+						"coordinates": [
+							[
+								[
+									-75.02121451007437,
+									-9.194571253683293
+								],
+								[
+									-75.00792562660126,
+									-9.194571253683293
+								],
+								[
+									-75.00792562660126,
+									-9.186899970954723
+								],
+								[
+									-75.02121451007437,
+									-9.186899970954723
+								],
+								[
+									-75.02121451007437,
+									-9.194571253683293
+								]
+							]
+						]
+					}
+				]
+			},
+			"id": "0"
+		},
+		{
+			"type": "Feature",
+			"properties": {
+				"type": "Tungsten",
+				"description": "New Bugarama Mining (NBM): Tungsten Ore"
+			},
+			"geometry": {
+				"type": "GeometryCollection",
+				"geometries": [
+					{
+						"type": "Point",
+						"coordinates": [
+							29.63254357616809,
+							-1.503380859574197,
+							0
+						]
+					},
+					{
+						"type": "Polygon",
+						"coordinates": [
+							[
+								[
+									29.62685925047006,
+									-1.5053551642932528
+								],
+								[
+									29.63915512802258,
+									-1.5053551642932528
+								],
+								[
+									29.63915512802258,
+									-1.500883464903393
+								],
+								[
+									29.62685925047006,
+									-1.500883464903393
+								],
+								[
+									29.62685925047006,
+									-1.5053551642932528
+								]
+							]
+						]
+					}
+				]
+			},
+			"id": "0"
+		},
+		{
+			"type": "Feature",
+			"properties": {
+				"type": "Tin",
+				"description": "Tin Mine: Tin ore"
+			},
+			"geometry": {
+				"type": "GeometryCollection",
+				"geometries": [
+					{
+						"type": "Point",
+						"coordinates": [
+							28.90575743093074,
+							-2.096398814747671,
+							0
+						]
+					},
+					{
+						"type": "Polygon",
+						"coordinates": [
+							[
+								[
+									28.902042209378376,
+									-2.097643655604202
+								],
+								[
+									28.911202057733583,
+									-2.097643655604202
+								],
+								[
+									28.911202057733583,
+									-2.0952658374328172
+								],
+								[
+									28.902042209378376,
+									-2.0952658374328172
+								],
+								[
+									28.902042209378376,
+									-2.097643655604202
+								]
+							]
+						]
+					}
+				]
+			},
+			"id": "0"
+		},
+		{
+			"type": "Feature",
+			"properties": {
+				"type": "Tantalum",
+				"description": "Tantalum Mine: Tantalum Ore"
+			},
+			"geometry": {
+				"type": "GeometryCollection",
+				"geometries": [
+					{
+						"type": "Point",
+						"coordinates": [
+							28.891747417024344,
+							-1.786617916794753,
+							0
+						]
+					},
+					{
+						"type": "Polygon",
+						"coordinates": [
+							[
+								[
+									28.881715274165458,
+									-1.796863450779576
+								],
+								[
+									28.894055943024867,
+									-1.796863450779576
+								],
+								[
+									28.894055943024867,
+									-1.7820183713515114
+								],
+								[
+									28.881715274165458,
+									-1.7820183713515114
+								],
+								[
+									28.881715274165458,
+									-1.796863450779576
+								]
+							]
+						]
+					}
+				]
+			},
+			"id": "0"
 		}
-    }
-  ]
+	]
 }

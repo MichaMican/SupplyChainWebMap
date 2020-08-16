@@ -28,4 +28,5 @@ public interface PoiRepository {
     List<FeatureTypeDbDto> getAllCollections();
     FeatureTypeDbDto getCollection(String collectionId);
     PoiTypeDbDto getFeatureById(String featurenId);
+    public PoiTypeDbDto getFeatureByIdAndType(String featurenId, String collectionId);
 }

@@ -2,6 +2,7 @@ package com.thd.mapserver.infrastructure.controller;
 
 import com.thd.mapserver.Parser;
 import com.thd.mapserver.domain.SFAFeature;
+import com.thd.mapserver.domain.geom.SFAGeometry;
 import com.thd.mapserver.models.featureTypeDto.FeatureTypeDto;
 import com.thd.mapserver.postsql.PostgresqlPoiRepository;
 import org.geojson.*;
@@ -36,7 +37,7 @@ public class ImportController {
             List<Feature> features = ((FeatureCollection) geoJsonObject).getFeatures();
             for (var feature : features) {
 
-                com.thd.mapserver.domain.geom.Geometry parsedGeom = new Parser().parseGeometry(feature.getGeometry());
+                SFAGeometry parsedGeom = new Parser().parseGeometry(feature.getGeometry());
 
                 if (parsedGeom != null) {
                     SFAFeature newSFAFeature = new SFAFeature(
