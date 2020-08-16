@@ -294,7 +294,7 @@ public class PostgresqlPoiRepository implements PoiRepository {
     }
 
     @Override
-    public PoiTypeDbDto getFeatureById(String featurenId) {
+    public PoiTypeDbDto getFeatureById(String featureId) {
 
         final var sqlQuery = "SELECT p.id, ST_AsGeoJSON(p.geometry) as geometry_asgeojson, d.typ, p.description, d.title " +
                 "FROM pois p LEFT JOIN collections d ON p.descriptiontype = d.typ WHERE p.id = ?;";
@@ -302,7 +302,7 @@ public class PostgresqlPoiRepository implements PoiRepository {
         try (final var connection = DriverManager.getConnection(connectionString)) {
             var pstmt = connection.prepareStatement(sqlQuery);
 
-            pstmt.setObject(1, featurenId);
+            pstmt.setObject(1, featureId);
 
             var resRaw = pstmt.executeQuery();
             var res = new Parser().parseDbResponsePoiType(resRaw);
@@ -317,7 +317,7 @@ public class PostgresqlPoiRepository implements PoiRepository {
     }
 
     @Override
-    public PoiTypeDbDto getFeatureByIdAndType(String featurenId, String collectionId) {
+    public PoiTypeDbDto getFeatureByIdAndType(String featureId, String collectionId) {
 
         final var sqlQuery = "SELECT p.id, ST_AsGeoJSON(p.geometry) as geometry_asgeojson, d.typ, p.description, d.title " +
                 "FROM pois p LEFT JOIN collections d ON p.descriptiontype = d.typ WHERE p.id = ? AND d.typ = ?;";
@@ -325,7 +325,7 @@ public class PostgresqlPoiRepository implements PoiRepository {
         try (final var connection = DriverManager.getConnection(connectionString)) {
             var pstmt = connection.prepareStatement(sqlQuery);
 
-            pstmt.setObject(1, featurenId);
+            pstmt.setObject(1, featureId);
             pstmt.setObject(2, collectionId);
 
             var resRaw = pstmt.executeQuery();

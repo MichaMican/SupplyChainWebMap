@@ -8,8 +8,5 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 @Configuration
 @EnableWebMvc
 public class MapServerConfiguration implements WebMvcConfigurer {
-	@Value("${mapserver.connection-string}")
-	private String connectionString;
-
 	//Code for setting up the Repositories, Services, ...
 }

@@ -27,6 +27,6 @@ public interface PoiRepository {
     DbLimitResponse getByBboxAndType(List<Coordinate> bbox, String type);
     List<FeatureTypeDbDto> getAllCollections();
     FeatureTypeDbDto getCollection(String collectionId);
-    PoiTypeDbDto getFeatureById(String featurenId);
-    public PoiTypeDbDto getFeatureByIdAndType(String featurenId, String collectionId);
+    PoiTypeDbDto getFeatureById(String featureId);
+    PoiTypeDbDto getFeatureByIdAndType(String featureId, String collectionId);
 }

@@ -1,7 +1,6 @@
 package com.thd.mapserver.infrastructure.controller;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import com.thd.mapserver.postsql.PostgresqlPoiRepository;
 import org.springframework.stereotype.Controller;
@@ -32,9 +31,9 @@ public class LandingPageController {
 	}
 	
 	public static class FeatureCollection {
-		private String name;
-		private String description;
-		private String href;
+		private final String name;
+		private final String description;
+		private final String href;
 
 		public FeatureCollection(String name, String description, String href) {
 			this.name = name;
