@@ -309,7 +309,7 @@ class App extends React.Component<any, AppState> {
             <i className="material-icons" style={{ cursor: "pointer", float: "right" }} onClick={() => {
               window.open(`https://google.com/search?q=${encodeURI(collection.label)}`)
             }}>help_outline</i>
-            <h3 style={{ marginBottom: 2 }}>{collection.label}</h3>
+            <h3 style={{ marginBottom: 2, color: getColorCode(collection.value) }}>{collection.label}</h3>
           </div>
           <div>{collection.description}</div>
         </div>
