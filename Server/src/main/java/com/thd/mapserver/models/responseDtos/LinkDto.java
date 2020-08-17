@@ -2,7 +2,6 @@ package com.thd.mapserver.models.responseDtos;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 
-import javax.annotation.Nullable;
 import javax.validation.constraints.NotNull;
 
 public class LinkDto {

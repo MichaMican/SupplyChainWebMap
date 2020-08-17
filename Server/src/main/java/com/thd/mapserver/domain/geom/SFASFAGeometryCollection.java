@@ -3,11 +3,11 @@ package com.thd.mapserver.domain.geom;
 import java.util.Iterator;
 import java.util.List;
 
-public class GeometryCollection extends Geometry {
+public class SFASFAGeometryCollection extends SFAGeometry {
     private static final String TYPENAME_GEOMETRY_COLLECTION = "GeometryCollection";
-    List<Geometry> geometries;
+    List<SFAGeometry> geometries;
 
-    public GeometryCollection(List<Geometry> geometries) {
+    public SFASFAGeometryCollection(List<SFAGeometry> geometries) {
         super(4326);
         this.geometries = geometries;
     }
@@ -28,10 +28,10 @@ public class GeometryCollection extends Geometry {
     public String asText() {
         StringBuilder sb = new StringBuilder("GEOMETRYCOLLECTION(");
 
-        Iterator<Geometry> geomIter = geometries.iterator();
+        Iterator<SFAGeometry> geomIter = geometries.iterator();
         while(geomIter.hasNext()){
-            Geometry geometry = geomIter.next();
-            sb.append(geometry.asText());
+            SFAGeometry SFAGeometry = geomIter.next();
+            sb.append(SFAGeometry.asText());
             if(geomIter.hasNext()){
                 sb.append(",");
             }

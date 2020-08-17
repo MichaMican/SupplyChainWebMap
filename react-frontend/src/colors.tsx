@@ -4,19 +4,50 @@ interface HashTable<T> {
     [key: string]: T;
 }
 
+
 export const getColorCode = (id: string): string => {
     
     switch(id){
-        case "gold":
-            return "#FFC300" //yellow
-        case "indium":
-            return "#ABB2B9" //grey
-        case "lithium":
-            return "#2ECC71" //green
-        case "zinn":
-            return "#E74C3C" //red
+        case "PhoneAssembly":
+            return "#C0392B"
+        case "Semiconductors":
+            return "#E74C3C"
+        case "Electromechanical":
+            return "#9B59B6"
+        case "Connectors":
+            return "#8E44AD"
+        case "Display":
+            return "#2980B9"
+        case "Accessories":
+            return "#3498DB"
+        case "Passives":
+            return "#1ABC9C"
+        case "Cameras":
+            return "#16A085"
+        case "PrintedCircuitBoard":
+            return "#27AE60"
+        case "FlexiblePrintedCircuits":
+            return "#2ECC71"
+        case "SolderingPaste":
+            return "#F1C40F"
+        case "Battery":
+            return "#F39C12"
+        case "Plastics":
+            return "#E67E22"
+        case "Shields":
+            return "#D35400"
+        case "Packaging":
+            return "#641E16"
+        case "Gold":
+            return "#7D6608"
+        case "Tin":
+            return "#4D5656"
+        case "Tungsten":
+            return "#4D5656"
+        case "Tantalum":
+            return "#154360"
         default:
-            return "#FDFEFE" //white
+            return "#000000" //black
     }
 }
 

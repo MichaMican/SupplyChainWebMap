@@ -7,54 +7,55 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-public class Polygon extends Surface {
+public class SFAPolygon extends SFASurface {
     private static final String TYPENAME_POLYGON = "Point";
 
-    private final List<List<Coordinate>> coordinates;
+    private final SFALinearRing outerRing;
+    private final List<SFALinearRing> innerRings;
 
-    public Polygon(List<List<Coordinate>> coordinates) {
-        super(4326);
-        this.coordinates = coordinates;
+    //nur outer
+    public SFAPolygon(SFALinearRing outerRing) {
+        this.outerRing = outerRing;
+        this.innerRings = new ArrayList<>();
     }
 
-    public Polygon(List<Coordinate> outerCoordinates, List<Coordinate> innerCoordinates) {
-        super(4326);
-        var list = new ArrayList<List<Coordinate>>();
-        //TODO Throw exception when outer coordinates are empty
-        if(outerCoordinates != null && !outerCoordinates.isEmpty()){
-            list.add(outerCoordinates);
-        }
-        if(innerCoordinates != null && !innerCoordinates.isEmpty()){
-            list.add(innerCoordinates);
+    //ein outer linear ring => mehrere inner linear ring
+    public SFAPolygon(SFALinearRing outerRing, List<SFALinearRing> innerRings) {
+        if(innerRings == null || innerRings.isEmpty()){
+            this.outerRing = outerRing;
+            this.innerRings = new ArrayList<>();
+        }else{
+            this.outerRing = outerRing;
+            this.innerRings = innerRings;
         }
 
-        this.coordinates = list;
     }
 
-    public List<List<Coordinate>> getCoordinates() {
-        return coordinates;
+    //This typo is part of the SFA Model
+    public SFALineString exterorRing() {
+        return outerRing;
     }
 
-    @Override
-    public String toString() {
-        StringBuilder sb = new StringBuilder("[\n");
-        for (List<Coordinate> polCors : coordinates) {
-            sb.append("[\n");
-            for (Coordinate cor : polCors) {
-                sb.append(String.format("[%s(%s)],\n", TYPENAME_POLYGON.toUpperCase(), GeometryHelper.convertCoordinatesToWkt(cor)));
-            }
-            sb.append("]\n");
-        }
-        sb.append("]");
+    public SFALineString interiorRingN(int n) {
+        return innerRings.get(n);
+    }
 
-
-        return sb.toString();
+    public int numInteriorRing() {
+        return innerRings.size();
     }
 
     @Override
     public String asText() {
         StringBuilder sb;
         sb = new StringBuilder("POLYGON(");
+
+        List<List<Coordinate>> coordinates = new ArrayList<>();
+        coordinates.add(outerRing.getAllPointsAsCoordinates());
+        if (numInteriorRing() <= 0) {
+            for (SFALinearRing innerRing : innerRings) {
+                coordinates.add(innerRing.getAllPointsAsCoordinates());
+            }
+        }
 
         Iterator<List<Coordinate>> polCorsIter = coordinates.iterator();
         while (polCorsIter.hasNext()) {

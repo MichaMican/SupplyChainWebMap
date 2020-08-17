@@ -1,11 +1,5 @@
 package com.thd.mapserver.models.DbModels;
 
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.UUID;
-
 public class PoiTypeDbDto {
     public String id;
     public String geometry_asgeojson;
@@ -21,22 +15,5 @@ public class PoiTypeDbDto {
         this.title = title;
     }
 
-    public static List<PoiTypeDbDto> parseDbResponse(ResultSet dbResponseToParse){
-        List<PoiTypeDbDto> rows = new ArrayList<>();
 
-        try {
-            while (dbResponseToParse.next()) {
-                rows.add(new PoiTypeDbDto(dbResponseToParse.getString("id"),
-                        dbResponseToParse.getString("geometry_asgeojson"),
-                        dbResponseToParse.getString("typ"),
-                        dbResponseToParse.getString("description"),
-                        dbResponseToParse.getString("title"))
-                );
-            }
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
-        }
-
-        return rows;
-    }
 }
