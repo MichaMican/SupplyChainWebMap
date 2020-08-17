@@ -96,17 +96,47 @@ class App extends React.Component<any, AppState> {
       });
   }
 
+  private triggerPointPopUp = (e: any) => {
+    var coordinates = e.features[0].geometry.coordinates.slice();
+    var description = e.features[0].properties.description;
+    var title = e.features[0].properties.title;
+    // Ensure that if the map is zoomed out such that multiple
+    // copies of the feature are visible, the popup appears
+    // over the copy being pointed to.
+    if (Array.isArray(coordinates[0])) {
+      coordinates = null
+    }
 
+    if (coordinates) {
+      while (Math.abs(e.lngLat.lng - coordinates[0]) > 180) {
+        coordinates[0] += e.lngLat.lng > coordinates[0] ? 360 : -360;
+      }
+
+      if (this.state.map) {
+        new mapboxgl.Popup()
+          .setLngLat(coordinates)
+          .setHTML(`<div><b>${title}</b><br>${description}</div>`)
+          .addTo(this.state.map);
+      } else {
+        console.error("Popup couldn't be shown because the map dissapeared")
+      }
+    }
+  }
+
+  private changeMouseStylePointer = () => {
+    (this.state.map as mapboxgl.Map).getCanvas().style.cursor = 'pointer';
+  }
+
+  private changeMouseStyleNone = () => {
+    (this.state.map as mapboxgl.Map).getCanvas().style.cursor = '';
+  }
 
   handleChange = (selectedOptions: ValueType<OptionType>): void => {
-
     if (selectedOptions) {
       let options = selectedOptions as OptionType[];
-
       this.setState({
         currentlySelected: options
       })
-
       options.forEach((option: OptionType) => {
         if (this.state.map) {
           if (!this.state.map.getSource(option.value)) {
@@ -119,7 +149,6 @@ class App extends React.Component<any, AppState> {
 
             axios.get(url).then((response) => {
               if (response.status >= 200 && response.status < 300) {
-                //Unfortunately because this is a callback function to axios i have to make this check again
                 const geoJsonSource: GeoJSONSourceRaw = {
                   "type": "geojson",
                   "data": response.data
@@ -152,45 +181,9 @@ class App extends React.Component<any, AppState> {
                   },
                 });
 
-                this.state.map?.on('click', `${option.value}-Points`, (e: any) => {
-                  var coordinates = e.features[0].geometry.coordinates.slice();
-                  var description = e.features[0].properties.description;
-                  var title = e.features[0].properties.title;
-                  // Ensure that if the map is zoomed out such that multiple
-                  // copies of the feature are visible, the popup appears
-                  // over the copy being pointed to.
-                  if (Array.isArray(coordinates[0])) {
-                    coordinates = null
-                  }
-
-                  if (coordinates) {
-                    while (Math.abs(e.lngLat.lng - coordinates[0]) > 180) {
-                      coordinates[0] += e.lngLat.lng > coordinates[0] ? 360 : -360;
-                    }
-
-                    if (this.state.map) {
-                      new mapboxgl.Popup()
-                        .setLngLat(coordinates)
-                        .setHTML(`<div><b>${title}</b><br>${description}</div>`)
-                        .addTo(this.state.map);
-                    } else {
-                      console.error("Popup couldn't be shown because the map dissapeared")
-                    }
-                  }
-                });
-
-                // Change the cursor to a pointer when the mouse is over the places layer.
-                this.state.map?.on('mouseenter', `${option.value}-Points`, () => {
-                  (this.state.map as mapboxgl.Map).getCanvas().style.cursor = 'pointer';
-                });
-
-                // Change it back to a pointer when it leaves.
-                this.state.map?.on('mouseleave', `${option.value}-Points`, () => {
-                  (this.state.map as mapboxgl.Map).getCanvas().style.cursor = '';
-                });
-
-
-
+                this.state.map?.on('click', `${option.value}-Points`, this.triggerPointPopUp);
+                this.state.map?.on('mouseenter', `${option.value}-Points`, this.changeMouseStylePointer);
+                this.state.map?.on('mouseleave', `${option.value}-Points`, this.changeMouseStyleNone);
               } else {
                 console.error({ status: response.status, statusText: response.statusText });
               }
@@ -262,9 +255,11 @@ class App extends React.Component<any, AppState> {
         }
         if (this.state.map?.getLayer(`${element}-Points`)) {
           this.state.map?.removeLayer(`${element}-Points`);
+          this.state.map?.off('click', `${element}-Points`, this.triggerPointPopUp);
+          this.state.map?.off('mouseenter', `${element}-Points`, this.changeMouseStylePointer);
+          this.state.map?.off('mouseleave', `${element}-Points`, this.changeMouseStyleNone);
         }
         this.state.map?.removeSource(element);
-
       }
     })
 
@@ -311,7 +306,7 @@ class App extends React.Component<any, AppState> {
       return (
         <div>
           <div>
-            <i className="material-icons" style={{ cursor: "pointer", float:"right" }} onClick={() => {
+            <i className="material-icons" style={{ cursor: "pointer", float: "right" }} onClick={() => {
               window.open(`https://google.com/search?q=${encodeURI(collection.label)}`)
             }}>help_outline</i>
             <h3 style={{ marginBottom: 2 }}>{collection.label}</h3>
