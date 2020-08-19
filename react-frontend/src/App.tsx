@@ -151,7 +151,7 @@ class App extends React.Component<any, AppState> {
               if (response.status >= 200 && response.status < 300) {
                 const geoJsonSource: GeoJSONSourceRaw = {
                   "type": "geojson",
-                  "data": response.data
+                  "data": response.data,
                 };
 
                 let mySourceIds = this.state.mySourceIds;
@@ -303,9 +303,11 @@ class App extends React.Component<any, AppState> {
   }
 
   getCollectionsSidebar = (currentSelection: OptionType[]) => {
+    let i = 0;
     return currentSelection.map((collection: OptionType) => {
+      i++;
       return (
-        <div>
+        <div key={i}>
           <div>
             <i className="material-icons" style={{ cursor: "pointer", float: "right" }} onClick={() => {
               window.open(`https://google.com/search?q=${encodeURI(collection.label)}`)
@@ -314,7 +316,6 @@ class App extends React.Component<any, AppState> {
           </div>
           <div>{collection.description}</div>
         </div>
-
       )
     })
   }
