@@ -179,6 +179,7 @@ class App extends React.Component<any, AppState> {
                     'circle-stroke-color': '#000000',
                     'circle-stroke-width': 2
                   },
+                   'filter': ['==', '$type', 'Point']
                 });
 
                 this.state.map?.on('click', `${option.value}-Points`, this.triggerPointPopUp);
