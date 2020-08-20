@@ -8,7 +8,6 @@ import axios from "axios";
 import { getColorCode, colourStyles } from "./colors";
 import { isNullOrUndefined } from 'util';
 
-
 type OptionType = {
   value: string;
   label: string;
@@ -50,9 +49,7 @@ class App extends React.Component<any, AppState> {
       currentlySelected: [],
       bbox: undefined
     }
-
   }
-
 
   componentDidMount() {
 
@@ -359,5 +356,4 @@ class App extends React.Component<any, AppState> {
   }
 
 }
-
 export default App;

@@ -32,7 +32,7 @@ public class PostgresqlPoiRepository implements PoiRepository {
         final var sqlDescriptionString = "INSERT INTO collections (typ, description, title) VALUES (?, ?, ?) " +
                 "ON CONFLICT (typ) DO NOTHING;";
         final var sqlPoiString = "INSERT INTO pois (id, geometry, descriptiontype, description) VALUES (?, ST_GeomFromText(?, 4326), ?, ?) " +
-                "ON CONFLICT (geometry, descriptiontype) DO NOTHING;";
+                "ON CONFLICT (id, descriptiontype) DO NOTHING;";
         if (!poi.isEmpty()) {
             try (final var connection = DriverManager.getConnection(connectionString)) {
                 for (SFAFeature feature : poi) {
